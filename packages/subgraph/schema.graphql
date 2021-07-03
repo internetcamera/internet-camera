@@ -1,0 +1,64 @@
+type Film @entity {
+  id: ID!
+  filmAddress: Bytes!
+  creator: Wallet!
+  name: String!
+  symbol: String!
+  totalSupply: BigInt!
+  startTime: BigInt!
+  expireTime: BigInt!
+  factoryModel: String
+  photos: [Photo!]! @derivedFrom(field: "film")
+  wallets: [WalletFilm!]! @derivedFrom(field: "film")
+  tokenURI: String!
+  createdAt: BigInt!
+}
+
+type Photo @entity {
+  id: ID!
+  tokenId: BigInt!
+  creator: Wallet!
+  owner: Wallet!
+  name: String!
+  description: String!
+  image: String!
+  film: Film!
+  width: BigInt!
+  height: BigInt!
+  filmIndex: BigInt!
+  tokenURI: String!
+  createdAt: BigInt!
+}
+
+type Wallet @entity {
+  id: ID!
+  address: Bytes!
+  films: [WalletFilm!]! @derivedFrom(field: "wallet")
+  photosCreated: [Photo!]! @derivedFrom(field: "creator")
+  photosOwned: [Photo!]! @derivedFrom(field: "owner")
+  createdAt: BigInt!
+}
+
+type WalletFilm @entity {
+  id: ID!
+  wallet: Wallet!
+  film: Film!
+  amount: BigInt!
+}
+
+enum TransferType {
+  FILM
+  PHOTO
+}
+
+type TransferEvent @entity {
+  id: ID!
+  type: TransferType!
+  photo: Photo
+  film: Film
+  amount: BigInt
+  from: Wallet!
+  to: Wallet!
+  txHash: Bytes!
+  createdAt: BigInt!
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@internetcamera/ipfs-node",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "PORT=3001 nodemon index.js",
+    "start": "forever start index.js",
+    "stop": "forever stop 0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express-fileupload": "^1.2.1",
+    "ipfs": "^0.54.4",
+    "ipfs-http-client": "^50.1.2",
+    "polka": "^0.5.2"
+  },
+  "devDependencies": {
+    "forever": "^4.0.1",
+    "nodemon": "^2.0.7"
+  }
+}

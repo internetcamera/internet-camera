@@ -1,0 +1,3 @@
+ipfs.internet.camera
+
+reverse_proxy localhost:3000

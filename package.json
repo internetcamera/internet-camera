@@ -1,0 +1,13 @@
+{
+  "name": "internet-camera",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "chain": "cd packages/contracts && yarn chain",
+    "website": "cd packages/website && yarn dev",
+    "ipfs-node": "cd packages/ipfs-node && yarn dev"
+  }
+}
