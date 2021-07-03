@@ -24,7 +24,7 @@ const Upload = () => {
   const submit = async () => {
     if (!file || !provider || !filmHoldings?.length) return;
     const camera = new InternetCamera({
-      provider: provider.getSigner(),
+      provider: provider.getSigner() as any,
       chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID) as number,
       ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL as string,
       graphURL: process.env.NEXT_PUBLIC_GRAPH_URL as string

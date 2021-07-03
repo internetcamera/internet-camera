@@ -29,7 +29,7 @@ const Film = ({ filmAddress }: { filmAddress: string }) => {
       const ClaimableFilm = (await import('@internetcamera/sdk')).ClaimableFilm;
       const claimableFilm = new ClaimableFilm(
         film.filmAddress,
-        provider.getSigner(),
+        provider.getSigner() as any,
         CHAIN_ID
       );
       const tx = await claimableFilm.claimFilm();

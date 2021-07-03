@@ -25,7 +25,7 @@ const FilmFactory = () => {
   const deployPersonalFilm = async () => {
     if (!provider || !account) return;
     const factory = new InternetCameraFilmFactory({
-      provider: provider.getSigner(),
+      provider: provider.getSigner() as any,
       chainID: CHAIN_ID,
       ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL as string
     });
@@ -49,7 +49,7 @@ const FilmFactory = () => {
   const deployClaimableFilm = async () => {
     if (!provider || !account) return;
     const factory = new InternetCameraFilmFactory({
-      provider: provider.getSigner(),
+      provider: provider.getSigner() as any,
       chainID: CHAIN_ID,
       ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL as string
     });
