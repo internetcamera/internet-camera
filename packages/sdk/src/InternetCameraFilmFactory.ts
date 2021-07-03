@@ -1,19 +1,23 @@
 import { Signer } from '@ethersproject/abstract-signer';
 import { BigNumberish } from '@ethersproject/bignumber';
-import { JsonRpcProvider, Provider } from '@ethersproject/providers';
+import {
+  JsonRpcProvider,
+  JsonRpcSigner,
+  Provider
+} from '@ethersproject/providers';
 import { InternetCameraFilmFactory__factory } from '@internetcamera/contracts';
 import { ContractTransaction } from 'ethers';
 import InternetCameraAddresses from './utils/addresses';
 
 export class InternetCameraFilmFactory {
   private ipfsURL?: string;
-  private provider?: Provider | Signer | JsonRpcProvider;
+  private provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
   private chainID?: number;
 
   constructor(
     config: {
       ipfsURL?: string;
-      provider?: Provider | Signer | JsonRpcProvider;
+      provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
       chainID?: number;
     } = {}
   ) {

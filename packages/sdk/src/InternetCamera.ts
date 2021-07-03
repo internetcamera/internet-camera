@@ -1,5 +1,9 @@
 import { Signer } from '@ethersproject/abstract-signer';
-import { JsonRpcProvider, Provider } from '@ethersproject/providers';
+import {
+  JsonRpcProvider,
+  JsonRpcSigner,
+  Provider
+} from '@ethersproject/providers';
 import { gql, request as gqlRequest } from 'graphql-request';
 import { InternetCamera__factory } from '@internetcamera/contracts';
 import { Film, Photo } from './types';
@@ -10,14 +14,14 @@ import { ContractTransaction } from 'ethers';
 export class InternetCameraGraph {
   private graphURL?: string;
   private ipfsURL?: string;
-  private provider?: Provider | Signer | JsonRpcProvider;
+  private provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
   private chainID?: number;
 
   constructor(
     config: {
       graphURL?: string;
       ipfsURL?: string;
-      provider?: Provider | Signer | JsonRpcProvider;
+      provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
       chainID?: number;
     } = {}
   ) {

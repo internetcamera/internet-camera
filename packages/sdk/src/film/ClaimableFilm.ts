@@ -1,5 +1,9 @@
 import { Signer } from '@ethersproject/abstract-signer';
-import { Provider } from '@ethersproject/providers';
+import {
+  JsonRpcProvider,
+  JsonRpcSigner,
+  Provider
+} from '@ethersproject/providers';
 import { ContractTransaction } from 'ethers';
 import {
   ClaimableFilm__factory,
@@ -12,7 +16,7 @@ export class ClaimableFilm {
 
   constructor(
     filmAddress: string,
-    providerOrSigner: Provider | Signer,
+    providerOrSigner: Provider | Signer | JsonRpcProvider | JsonRpcSigner,
     chainId: number
   ) {
     this.contract = ClaimableFilm__factory.connect(
