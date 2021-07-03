@@ -1,3 +1,11 @@
-ipfs.internet.camera
+(cors) {
+  @origin{args.0} header Origin {args.0}
+  header @origin{args.0} Access-Control-Allow-Origin "{args.0}"
+}
 
-reverse_proxy localhost:3000
+ipfs.internet.camera {
+  reverse_proxy localhost:3000
+  header Access-Control-Allow-Methods "POST, GET, OPTIONS"
+  header Access-Control-Allow-Headers "*"
+  import cors https://ipfs.internet.camera
+}
