@@ -33,7 +33,7 @@ const Upload = () => {
       file,
       filmHoldings[selectedFilmIndex].film.filmAddress
     );
-    const receipt = await tx.wait(1);
+    await tx.wait(1);
     setTimeout(
       () =>
         Router.push(

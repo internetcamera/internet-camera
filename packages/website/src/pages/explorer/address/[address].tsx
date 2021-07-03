@@ -24,7 +24,6 @@ const Wallet = ({ address }: { address: string }) => {
     address,
     process.env.NEXT_PUBLIC_GRAPH_URL as string
   );
-
   return (
     <div className="wallet">
       <div className="header">

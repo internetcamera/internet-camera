@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import Dialog from '@app/components/Dialog';
 import { InternetCameraFilmFactory } from '@internetcamera/sdk';
 import { parseUnits } from 'ethers/lib/utils';
-import Router from 'next/dist/client/router';
+import Router from 'next/router';
 
 const CHAIN_ID = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
 

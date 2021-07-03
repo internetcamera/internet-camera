@@ -10,12 +10,10 @@ const useWalletPhotosForAddress = (
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));
 
-  const { data: photos, error } = useSWR<
-    {
-      photosCreated: Photo[];
-      photosOwned: Photo[];
-    }[]
-  >(
+  const { data: photos, error } = useSWR<{
+    photosCreated: Photo[];
+    photosOwned: Photo[];
+  }>(
     [address, 'icdk-react-use-wallet-photos-for-address'],
     address => camera.current.getWalletPhotosForAddress(address),
     { revalidateOnMount: true, ...swrOptions }
