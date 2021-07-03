@@ -4,7 +4,7 @@ import { ContractTransaction } from 'ethers';
 import {
   ClaimableFilm__factory,
   ClaimableFilm as ClaimableFilmTypechain
-} from '@internetcamera/contracts/dist/typechain';
+} from '@internetcamera/contracts';
 import { BigNumber } from '@ethersproject/bignumber';
 
 export class ClaimableFilm {

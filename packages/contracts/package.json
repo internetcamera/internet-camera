@@ -1,8 +1,8 @@
 {
   "name": "@internetcamera/contracts",
-  "version": "0.0.1",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "0.0.2",
+  "main": "dist/typechain/index.js",
+  "types": "dist/typechain/index.d.ts",
   "files": [
     "dist/**/*",
     ".dist/*"

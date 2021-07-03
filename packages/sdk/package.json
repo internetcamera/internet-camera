@@ -1,11 +1,12 @@
 {
   "name": "@internetcamera/sdk",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "rm -rf dist/ && yarn tsc"
+    "build": "rm -rf dist/ && yarn tsc",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@ethersproject/abstract-signer": "^5.4.0",
@@ -14,7 +15,7 @@
     "@ethersproject/providers": "^5.4.0",
     "@ethersproject/transactions": "^5.4.0",
     "@ethersproject/units": "^5.4.0",
-    "@internetcamera/contracts": "0.0.1",
+    "@internetcamera/contracts": "^0.0.2",
     "@textile/hub": "^6.1.2",
     "exifreader": "^3.16.0",
     "graphql-request": "^3.4.0",

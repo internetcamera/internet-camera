@@ -1,7 +1,7 @@
 import { Signer } from '@ethersproject/abstract-signer';
 import { Provider } from '@ethersproject/providers';
 import { gql, request as gqlRequest } from 'graphql-request';
-import { InternetCamera__factory } from '@internetcamera/contracts/dist/typechain';
+import { InternetCamera__factory } from '@internetcamera/contracts';
 import { Film, Photo } from './types';
 import InternetCameraAddresses from './utils/addresses';
 import ExifReader from 'exifreader';

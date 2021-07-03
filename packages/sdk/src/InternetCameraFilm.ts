@@ -1,10 +1,7 @@
 import { Signer } from '@ethersproject/abstract-signer';
 import { Provider } from '@ethersproject/providers';
-import {
-  BasicFilm,
-  BasicFilm__factory
-} from '@internetcamera/contracts/dist/typechain';
-
+import { BasicFilm__factory } from '@internetcamera/contracts';
+import { BasicFilm } from '@internetcamera/contracts';
 import { BigNumber } from '@ethersproject/bignumber';
 
 export class InternetCameraFilm {

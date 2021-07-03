@@ -1,7 +1,7 @@
 import { Signer } from '@ethersproject/abstract-signer';
 import { BigNumberish } from '@ethersproject/bignumber';
 import { Provider } from '@ethersproject/providers';
-import { InternetCameraFilmFactory__factory } from '@internetcamera/contracts/dist/typechain';
+import { InternetCameraFilmFactory__factory } from '@internetcamera/contracts';
 import { ContractTransaction } from 'ethers';
 import InternetCameraAddresses from './utils/addresses';
 
