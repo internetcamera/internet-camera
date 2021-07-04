@@ -233,7 +233,7 @@ helperAttributes.biconomyForwarderAbi = [
 ];
 
 helperAttributes.biconomyForwarderDomainData = {
-  name: 'Biconomy Forwarder',
+  name: 'Internet Camera',
   version: '1'
 };
 
