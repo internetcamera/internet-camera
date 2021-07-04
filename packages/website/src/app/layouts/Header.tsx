@@ -4,10 +4,27 @@ import { useRouter } from 'next/dist/client/router';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Link from 'next/link';
 import React from 'react';
+import { useWalletFilmForAddress } from '@internetcamera/sdk/dist/react';
+import { BigNumber } from 'ethers';
+import { formatEther } from 'ethers/lib/utils';
 
 const Header = () => {
   const { route } = useRouter();
   const { account, connect } = useWallet();
+  const { filmHoldings } = useWalletFilmForAddress(
+    account || '0x0000000000000000000000000000000000000000',
+    process.env.NEXT_PUBLIC_GRAPH_URL
+  );
+  const totalHoldings = parseFloat(
+    formatEther(
+      filmHoldings
+        ?.map(h => h.amount)
+        .reduce(
+          (a, b) => BigNumber.from(a).add(BigNumber.from(b)),
+          BigNumber.from(0)
+        ) || 0
+    )
+  );
   return (
     <header>
       <Link href="/">
@@ -37,13 +54,9 @@ const Header = () => {
           </a>
         </Link>
 
-        <Link href="/developers">
-          <a
-            className={`link ${
-              route.startsWith('/developers') ? 'active' : ''
-            }`}
-          >
-            Developers
+        <Link href="/docs">
+          <a className={`link ${route.startsWith('/docs') ? 'active' : ''}`}>
+            Docs
           </a>
         </Link>
 
@@ -57,7 +70,7 @@ const Header = () => {
       <div className="account">
         {!account ? (
           <button
-            className="wallet"
+            className="connect"
             onClick={() =>
               connect({
                 cacheProvider: true,
@@ -75,9 +88,15 @@ const Header = () => {
             Connect Wallet
           </button>
         ) : (
-          <Link href={`/explorer/address/${account}`}>
-            <a className="wallet">{account.slice(0, 8)}</a>
-          </Link>
+          <>
+            <Link href="/settings">
+              <a className="settings micro">Settings</a>
+            </Link>
+            <div className="holdings micro">{totalHoldings} FILM</div>
+            <Link href={`/explorer/address/${account}`}>
+              <a className="wallet">{account.slice(0, 8)}</a>
+            </Link>
+          </>
         )}
       </div>
 
@@ -107,10 +126,15 @@ const Header = () => {
         }
         .internet-camera {
           width: 36px;
-          margin-right: 114px;
+          margin-right: 224px;
           text-decoration: none !important;
         }
-        .wallet {
+        .settings {
+          font-size: 10px;
+          padding: 5px 20px;
+          color: #ccc;
+        }
+        .connect {
           text-align: center;
           outline: none;
           border: none;
@@ -128,10 +152,32 @@ const Header = () => {
           overflow: hidden;
           white-space: nowrap;
         }
+        .holdings {
+          padding: 7.5px 10px;
+          background-color: rgba(0, 0, 0, 0.1);
+          border-radius: 5px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          font-size: 11px;
+          border: 1px solid rgba(0, 0, 0, 0.4);
+          border-right: none;
+          color: #ccc;
+        }
+        .wallet {
+          padding: 5px 10px;
+          border: 1px solid rgba(0, 0, 0, 0.4);
+          border-left: none;
+          background-color: rgba(0, 0, 0, 0.4);
+          border-radius: 5px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          font-size: 14px;
+        }
         .account {
-          width: 130px;
+          width: 260px;
           display: flex;
           justify-content: flex-end;
+          align-items: center;
         }
         .link:hover {
         }
