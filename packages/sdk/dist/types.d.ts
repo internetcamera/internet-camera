@@ -1,0 +1,55 @@
+export declare type Film = {
+    id: string;
+    filmAddress: string;
+    creator: Wallet;
+    name: string;
+    symbol: string;
+    totalSupply: string;
+    startTime: number;
+    expireTime: number;
+    photos: Photo[];
+    wallets: WalletFilm[];
+    tokenURI: string;
+    factoryModel?: string;
+    createdAt: number;
+};
+export declare type Photo = {
+    id: string;
+    tokenId: string;
+    creator: Wallet;
+    owner: Wallet;
+    name: string;
+    description: string;
+    image: string;
+    tokenURI: string;
+    width: number;
+    height: number;
+    film: Film;
+    filmIndex: number;
+    createdAt: number;
+};
+export declare type TransferEvent = {
+    id: string;
+    type: 'FILM' | 'PHOTO';
+    photo?: Photo;
+    film?: Film;
+    amount?: string;
+    from: Wallet;
+    to: Wallet;
+    txHash: string;
+    createdAt: number;
+};
+export declare type Wallet = {
+    id: string;
+    address: string;
+    films: Film[];
+    photosCreated: Photo[];
+    photosOwned: Photo[];
+    createdAt: number;
+};
+export declare type WalletFilm = {
+    id: string;
+    wallet: Wallet;
+    film: Film;
+    amount: string;
+};
