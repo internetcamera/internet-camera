@@ -5,7 +5,7 @@ import { Photo } from '../types';
 
 const useWalletPhotosForAddress = (
   address: string,
-  graphURL: string,
+  graphURL?: string,
   swrOptions?: Partial<SWRConfiguration>
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));

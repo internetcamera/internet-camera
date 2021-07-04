@@ -1,9 +1,4 @@
-import { Signer } from '@ethersproject/abstract-signer';
-import {
-  JsonRpcProvider,
-  JsonRpcSigner,
-  Provider
-} from '@ethersproject/providers';
+import { Web3Provider } from '@ethersproject/providers';
 import { ContractTransaction } from '@ethersproject/contracts';
 import {
   ClaimableFilm__factory,
@@ -14,14 +9,8 @@ import { BigNumber } from '@ethersproject/bignumber';
 export class ClaimableFilm {
   contract: ClaimableFilmTypechain;
 
-  constructor(
-    filmAddress: string,
-    providerOrSigner: Provider | Signer | JsonRpcProvider | JsonRpcSigner
-  ) {
-    this.contract = ClaimableFilm__factory.connect(
-      filmAddress,
-      providerOrSigner
-    );
+  constructor(filmAddress: string, provider: Web3Provider) {
+    this.contract = ClaimableFilm__factory.connect(filmAddress, provider);
   }
 
   // ClaimableFilm Write APIs

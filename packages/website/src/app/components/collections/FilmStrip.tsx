@@ -1,8 +1,14 @@
 import React from 'react';
-import { Film } from '@internetcamera/sdk/dist/types';
+import { InternetCameraTypes } from '@internetcamera/sdk';
 import Link from 'next/link';
 
-const FilmStrip = ({ film, filterOut }: { film: Film; filterOut?: string }) => {
+const FilmStrip = ({
+  film,
+  filterOut
+}: {
+  film: InternetCameraTypes.Film;
+  filterOut?: string;
+}) => {
   return (
     <div className="filmstrip">
       <Link href={`/explorer/film/${film.filmAddress}`}>

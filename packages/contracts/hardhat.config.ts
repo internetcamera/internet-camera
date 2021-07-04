@@ -1,8 +1,8 @@
 import { HardhatUserConfig } from 'hardhat/config';
+import '@typechain/hardhat';
 import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-ethers';
 import '@nomiclabs/hardhat-etherscan';
-import 'hardhat-typechain';
 import 'hardhat-deploy';
 
 // You have to export an object to set up your config
@@ -35,6 +35,10 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: require('dotenv').config({ path: '.env.80001' }).parsed
       .ETHERSCAN_KEY
+  },
+  typechain: {
+    outDir: 'typechain/',
+    target: 'ethers-v5'
   }
 };
 

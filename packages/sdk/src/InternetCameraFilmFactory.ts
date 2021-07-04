@@ -1,10 +1,5 @@
-import { Signer } from '@ethersproject/abstract-signer';
 import { BigNumberish } from '@ethersproject/bignumber';
-import {
-  JsonRpcProvider,
-  JsonRpcSigner,
-  Provider
-} from '@ethersproject/providers';
+import { Web3Provider } from '@ethersproject/providers';
 import { InternetCameraFilmFactory__factory } from '@internetcamera/contracts';
 import { ContractTransaction } from '@ethersproject/contracts';
 import InternetCameraAddresses from './utils/addresses';
@@ -12,12 +7,12 @@ import InternetCameraAddresses from './utils/addresses';
 export class InternetCameraFilmFactory {
   private ipfsURL: string = 'https://ipfs.internet.camera';
   private chainID: number = 80001;
-  private provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
+  private provider?: Web3Provider;
 
   constructor(
     config: {
       ipfsURL?: string;
-      provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
+      provider?: Web3Provider;
       chainID?: number;
     } = {}
   ) {
@@ -31,7 +26,7 @@ export class InternetCameraFilmFactory {
     if (!this.chainID) throw new Error('Missing chain ID.');
     return InternetCameraFilmFactory__factory.connect(
       InternetCameraAddresses[this.chainID].filmFactory,
-      this.provider
+      this.provider.getSigner()
     );
   }
 

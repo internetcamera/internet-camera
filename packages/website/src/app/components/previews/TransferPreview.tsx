@@ -1,8 +1,11 @@
 import React from 'react';
-import { TransferEvent } from '@internetcamera/sdk/dist/types';
+import {
+  InternetCameraTypes,
+  InternetCameraAddresses
+} from '@internetcamera/sdk';
 import { formatEther } from 'ethers/lib/utils';
 import dayjs from 'dayjs';
-import { InternetCameraAddresses } from '@internetcamera/sdk/dist';
+
 import Spacer from '../Spacer';
 
 const CHAIN_ID = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
@@ -10,7 +13,7 @@ const CHAIN_ID = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
 const TransferPreview = ({
   transferEvent
 }: {
-  transferEvent: TransferEvent;
+  transferEvent: InternetCameraTypes.TransferEvent;
 }) => {
   console.log({ transferEvent });
   return (

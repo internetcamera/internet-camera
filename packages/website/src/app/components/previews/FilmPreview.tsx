@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
+import { InternetCameraTypes } from '@internetcamera/sdk';
 import { useFilm } from '@internetcamera/sdk/dist/react';
-import { Film } from '@internetcamera/sdk/dist/types';
+
 import { formatEther } from 'ethers/lib/utils';
 
 const FilmPreview = ({
@@ -9,7 +10,7 @@ const FilmPreview = ({
   initialData
 }: {
   filmAddress: string;
-  initialData?: Film;
+  initialData?: InternetCameraTypes.Film;
 }) => {
   const { film, error } = useFilm(
     filmAddress,

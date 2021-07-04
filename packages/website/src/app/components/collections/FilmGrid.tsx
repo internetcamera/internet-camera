@@ -1,9 +1,9 @@
 import React from 'react';
 import Masonry from 'react-masonry-css';
-import { Film } from '@internetcamera/sdk/dist/types';
+import { InternetCameraTypes } from '@internetcamera/sdk';
 import FilmPreview from '@app/components/previews/FilmPreview';
 
-const FilmGrid = ({ films }: { films: Film[] }) => {
+const FilmGrid = ({ films }: { films: InternetCameraTypes.Film[] }) => {
   return (
     <div className="film-grid">
       <Masonry breakpointCols={3} className="grid" columnClassName="column">

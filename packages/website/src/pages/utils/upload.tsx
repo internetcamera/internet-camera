@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { InternetCamera } from '@internetcamera/sdk';
 import { useWallet } from '@gimmixfactory/use-wallet';
-import { useWalletFilmForAddress } from '@internetcamera/sdk/dist/react';
 import Dialog from '@app/components/Dialog';
 import { formatEther } from 'ethers/lib/utils';
 import Router from 'next/router';
+import { useWalletFilmForAddress } from '@internetcamera/sdk/dist/react';
 
 const Upload = () => {
   const [file, setFile] = useState<File>();
@@ -17,14 +17,13 @@ const Upload = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   const { account, provider, connect } = useWallet();
   const { filmHoldings } = useWalletFilmForAddress(
-    account || '0x0000000000000000000000000000000000000000',
-    process.env.NEXT_PUBLIC_GRAPH_URL as string
+    account || '0x0000000000000000000000000000000000000000'
   );
   const [selectedFilmIndex, setSelectedFilmIndex] = useState<number>(0);
   const submit = async () => {
     if (!file || !provider || !filmHoldings?.length) return;
     const camera = new InternetCamera({
-      provider: provider.getSigner() as any,
+      provider,
       chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID) as number,
       ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL as string,
       graphURL: process.env.NEXT_PUBLIC_GRAPH_URL as string
@@ -41,6 +40,29 @@ const Upload = () => {
         ),
       1500
     );
+  };
+  const submitGasless = async () => {
+    if (!file || !provider || !filmHoldings?.length || !account) return;
+    const camera = new InternetCamera({
+      provider,
+      chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID) as number,
+      ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL as string,
+      graphURL: process.env.NEXT_PUBLIC_GRAPH_URL as string
+    });
+    const tx = await camera.postPhotoGasless(
+      file,
+      filmHoldings[selectedFilmIndex].film.filmAddress,
+      account
+    );
+    console.log(tx);
+    // await tx.wait(1);
+    // setTimeout(
+    //   () =>
+    //     Router.push(
+    //       `/explorer/film/${filmHoldings[selectedFilmIndex].film.filmAddress}`
+    //     ),
+    //   1500
+    // );
   };
   return (
     <div className="upload">
@@ -83,7 +105,8 @@ const Upload = () => {
                     </div>
                   ))}
                 </div>
-                <button onClick={submit}>Submit</button>
+                <button onClick={submit}>Post</button>
+                <button onClick={submitGasless}>Post (Gasless)</button>
               </>
             )}
           </>

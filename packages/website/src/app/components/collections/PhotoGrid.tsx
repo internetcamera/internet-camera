@@ -1,9 +1,9 @@
 import React from 'react';
 import Masonry from 'react-masonry-css';
-import { Photo } from '@internetcamera/sdk/dist/types';
+import { InternetCameraTypes } from '@internetcamera/sdk';
 import PhotoPreview from '@app/components/previews/PhotoPreview';
 
-const PhotoGrid = ({ photos }: { photos: Photo[] }) => {
+const PhotoGrid = ({ photos }: { photos: InternetCameraTypes.Photo[] }) => {
   return (
     <div className="photo-grid">
       <Masonry breakpointCols={4} className="grid" columnClassName="column">

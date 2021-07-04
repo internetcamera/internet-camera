@@ -5,7 +5,7 @@ import { Film } from '../types';
 
 const useFilm = (
   filmAddress: string,
-  graphURL: string,
+  graphURL?: string,
   swrOptions?: Partial<SWRConfiguration>
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));

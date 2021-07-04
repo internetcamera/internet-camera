@@ -4,7 +4,7 @@ import InternetCamera from '../InternetCamera';
 
 const useWalletFilmForAddress = (
   address: string,
-  graphURL: string,
+  graphURL?: string,
   swrOptions?: Partial<SWRConfiguration>
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));

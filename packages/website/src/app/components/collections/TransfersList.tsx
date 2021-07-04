@@ -1,11 +1,11 @@
 import React from 'react';
-import { TransferEvent } from '@internetcamera/sdk/dist/types';
+import { InternetCameraTypes } from '@internetcamera/sdk';
 import TransferPreview from '../previews/TransferPreview';
 
 const TransfersList = ({
   transferEvents
 }: {
-  transferEvents: TransferEvent[];
+  transferEvents: InternetCameraTypes.TransferEvent[];
 }) => {
   return (
     <div className="transfers-list">

@@ -1,28 +1,28 @@
-import { Signer } from '@ethersproject/abstract-signer';
-import {
-  JsonRpcProvider,
-  JsonRpcSigner,
-  Provider
-} from '@ethersproject/providers';
+import { Web3Provider } from '@ethersproject/providers';
 import { gql, request as gqlRequest } from 'graphql-request';
 import { InternetCamera__factory } from '@internetcamera/contracts';
 import { Film, Photo } from './types';
 import InternetCameraAddresses from './utils/addresses';
 import ExifReader from 'exifreader';
-import { ContractTransaction } from '@ethersproject/contracts';
+import { ContractTransaction, Contract } from '@ethersproject/contracts';
+import {
+  getBiconomyForwarderConfig,
+  getDataToSignForEIP712,
+  getDomainSeperator
+} from './utils/Biconomy';
 
 export class InternetCameraGraph {
   private graphURL: string =
     'https://api.thegraph.com/subgraphs/name/shahruz/ic-mumbai-one';
   private ipfsURL: string = 'https://ipfs.internet.camera';
   private chainID: number = 80001;
-  private provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
+  private provider?: Web3Provider;
 
   constructor(
     config: {
       graphURL?: string;
       ipfsURL?: string;
-      provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
+      provider?: Web3Provider;
       chainID?: number;
     } = {}
   ) {
@@ -37,7 +37,7 @@ export class InternetCameraGraph {
     if (!this.chainID) throw new Error('Missing chain ID.');
     return InternetCamera__factory.connect(
       InternetCameraAddresses[this.chainID].camera,
-      this.provider
+      this.provider.getSigner()
     );
   }
 
@@ -90,6 +90,106 @@ export class InternetCameraGraph {
     ).then(res => res.json());
 
     return await this.getContract().postPhoto(filmAddress, metadataHash);
+  }
+
+  public async postPhotoGasless(
+    file: File,
+    filmAddress: string,
+    account: string
+  ) {
+    if (!this.provider) throw new Error('Missing provider.');
+    // Upload file to IPFS
+    const body = new FormData();
+    body.append('files', file);
+    const { hash: imageHash }: { hash: string } = await fetch(
+      `${this.ipfsURL}/upload`,
+      {
+        method: 'POST',
+        body
+      }
+    ).then(res => res.json());
+
+    // Build metadata and upload
+    const film = await this.getFilm(filmAddress);
+    const index = film.photos.length + 1;
+    const tags = await ExifReader.load(await file.arrayBuffer());
+
+    const metadata = {
+      name: `${film.symbol} #${index}`,
+      description: ``,
+      width: tags['Image Width']?.value || 0,
+      height: tags['Image Height']?.value || 0,
+      image: `ipfs://${imageHash}`
+    };
+
+    const { hash: metadataHash }: { hash: string } = await fetch(
+      `${this.ipfsURL}/uploadJSON`,
+      {
+        method: 'POST',
+        body: JSON.stringify(metadata),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    ).then(res => res.json());
+
+    const camera = this.getContract();
+    const { data } = await camera.populateTransaction['postPhoto'](
+      filmAddress,
+      metadataHash
+    );
+    const gasLimit = await camera.estimateGas['postPhoto'](
+      filmAddress,
+      metadataHash,
+      { from: account }
+    );
+    const gasLimitNum = Number(gasLimit.toNumber().toString());
+    const forwarder = await getBiconomyForwarderConfig(this.chainID);
+    const forwarderContract = new Contract(
+      forwarder.address,
+      forwarder.abi,
+      this.provider
+    );
+    const batchNonce = await forwarderContract.getNonce(account, 0);
+    const request = {
+      from: account,
+      to: InternetCameraAddresses[this.chainID].camera,
+      txGas: gasLimitNum,
+      token: '0x0000000000000000000000000000000000000000',
+      tokenGasPrice: '0',
+      batchId: 0,
+      batchNonce: parseInt(batchNonce),
+      deadline: Math.floor(Date.now() / 1000 + 3600),
+      data
+    };
+    const dataToSign = await getDataToSignForEIP712(request, this.chainID);
+    const domainSeparator = await getDomainSeperator(this.chainID);
+    const signature = await this.provider.send('eth_signTypedData_v3', [
+      account,
+      JSON.stringify(dataToSign)
+    ]);
+
+    const response = await fetch(
+      'https://api.biconomy.io/api/v2/meta-tx/native',
+      {
+        method: 'post',
+        headers: {
+          'x-api-key': 'EesIBgdMk.cf1fcc95-d14e-418b-a8ba-e573dbcfeff0',
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          signatureType: 'EIP712_SIGN',
+          from: request.from,
+          apiId: '5e51a6ba-9a74-4b60-8f7f-9b2da706c4f3',
+          to: request.to,
+          params: [request, domainSeparator, signature]
+        })
+      }
+    )
+      .then(res => res.json())
+      .catch(err => console.log(err));
+    console.log(response);
+    return response;
   }
 
   public async getPhoto(tokenId: string): Promise<Photo> {

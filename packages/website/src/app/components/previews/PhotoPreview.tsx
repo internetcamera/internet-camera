@@ -1,8 +1,9 @@
 import React from 'react';
+import { InternetCameraTypes } from '@internetcamera/sdk';
 import { usePhoto } from '@internetcamera/sdk/dist/react';
 import Link from 'next/link';
 import dayjs from 'dayjs';
-import { Photo } from '@internetcamera/sdk/dist/types';
+
 import AddressAvatar from '../AddressAvatar';
 
 const PhotoPreview = ({
@@ -10,7 +11,7 @@ const PhotoPreview = ({
   initialData
 }: {
   tokenId: string;
-  initialData?: Photo;
+  initialData?: InternetCameraTypes.Photo;
 }) => {
   const { photo, error } = usePhoto(
     tokenId,

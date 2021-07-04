@@ -6,5 +6,9 @@
     "chain": "cd packages/contracts && yarn chain",
     "website": "cd packages/website && yarn dev",
     "ipfs-node": "cd packages/ipfs-node && yarn dev"
+  },
+  "dependencies": {
+    "@ethersproject/strings": "^5.4.0",
+    "@walletconnect/web3-provider": "^1.4.1"
   }
 }

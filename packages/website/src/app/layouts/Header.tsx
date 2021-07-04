@@ -1,6 +1,7 @@
 import Camera from '@app/components/graphics/Camera';
 import { useWallet } from '@gimmixfactory/use-wallet';
 import { useRouter } from 'next/dist/client/router';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 import Link from 'next/link';
 import React from 'react';
 
@@ -55,7 +56,22 @@ const Header = () => {
 
       <div className="account">
         {!account ? (
-          <button className="wallet" onClick={() => connect({})}>
+          <button
+            className="wallet"
+            onClick={() =>
+              connect({
+                cacheProvider: true,
+                providerOptions: {
+                  walletconnect: {
+                    package: WalletConnectProvider,
+                    options: {
+                      infuraId: process.env.NEXT_PUBLIC_INFURA_ID as string
+                    }
+                  }
+                }
+              })
+            }
+          >
             Connect Wallet
           </button>
         ) : (

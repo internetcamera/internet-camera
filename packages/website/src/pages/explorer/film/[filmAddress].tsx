@@ -5,8 +5,6 @@ import PhotoGrid from '@app/components/collections/PhotoGrid';
 import { useWallet } from '@gimmixfactory/use-wallet';
 import { useState } from 'react';
 
-const CHAIN_ID = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
-
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const { filmAddress }: { filmAddress?: string } = ctx.query;
   if (!filmAddress)
@@ -29,8 +27,7 @@ const Film = ({ filmAddress }: { filmAddress: string }) => {
       const ClaimableFilm = (await import('@internetcamera/sdk')).ClaimableFilm;
       const claimableFilm = new ClaimableFilm(
         film.filmAddress,
-        provider.getSigner() as any,
-        CHAIN_ID
+        provider as any
       );
       const tx = await claimableFilm.claimFilm();
       const receipt = await tx.wait(1);

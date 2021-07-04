@@ -44,6 +44,7 @@ const Apps: FunctionComponent = () => {
           justify-content: center;
           align-items: flex-start;
           gap: 50px;
+          padding-bottom: 100px;
         }
       `}</style>
     </div>

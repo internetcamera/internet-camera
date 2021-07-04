@@ -6,7 +6,7 @@ import { Photo } from '../types';
 const useRecentPhotosFromFilm = (
   limit: number,
   filmAddress: string,
-  graphURL: string,
+  graphURL?: string,
   swrOptions?: Partial<SWRConfiguration>
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));

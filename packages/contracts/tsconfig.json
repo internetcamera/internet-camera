@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "types": ["node", "jest"],
+    "types": ["node"],
     "forceConsistentCasingInFileNames": true
   },
   "include": ["./typechain", "./addresses", "./utils"]
