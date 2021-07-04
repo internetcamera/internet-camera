@@ -6,9 +6,9 @@ dataSources:
     name: InternetCamera
     network: mumbai
     source:
-      address: '0x05Aa4bBAC5D1E8839bE587251079870011dDcC41'
+      address: '0x36Be4aF57Ec3E545ba354de0E2a19e600dda2c62'
       abi: InternetCamera
-      startBlock: 15891900
+      startBlock: 15897357
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -29,7 +29,7 @@ dataSources:
         - event: FilmRegistered(indexed address,indexed address)
           handler: handleFilmRegistered
         - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
+          handler: handlePhotoTransfer
 templates:
   - name: InternetCameraFilm
     kind: ethereum/contract
@@ -49,4 +49,4 @@ templates:
           file: ./abis/InternetCameraFilm.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
+          handler: handleFilmTransfer

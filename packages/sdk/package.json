@@ -1,6 +1,6 @@
 {
   "name": "@internetcamera/sdk",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,8 +15,9 @@
     "@ethersproject/providers": "^5.4.0",
     "@ethersproject/transactions": "^5.4.0",
     "@ethersproject/units": "^5.4.0",
-    "@internetcamera/contracts": "^0.0.2",
+    "@internetcamera/contracts": "^0.0.3",
     "@textile/hub": "^6.1.2",
+    "ethers": "^5.4.1",
     "exifreader": "^3.16.0",
     "graphql-request": "^3.4.0",
     "ipfs-http-client": "^50.1.2",
