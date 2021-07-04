@@ -33,8 +33,13 @@ contract BasicFilm is
         uint256 expires_,
         address cameraAddress_,
         address creatorAddress_,
-        bool mintToContract
-    ) ERC20(name, symbol) ERC20Permit(symbol) TrustedForwarderRecipient() {
+        bool mintToContract,
+        address forwarderAddress_
+    )
+        ERC20(name, symbol)
+        ERC20Permit(symbol)
+        TrustedForwarderRecipient(forwarderAddress_)
+    {
         _starts = starts_;
         _expires = expires_;
         _tokenURI = tokenURI_;

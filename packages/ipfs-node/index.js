@@ -38,8 +38,8 @@ polka()
     const body = req.body;
     const data = await node.add(JSON.stringify(body));
     const GraphIPFS = IPFSHTTPClient.create(
-      'https://api.thegraph.com/ipfs/api/v0'
-      // 'http://localhost:5001/api/v0'
+      // 'https://api.thegraph.com/ipfs/api/v0'
+      'http://localhost:5001/api/v0'
     );
     await GraphIPFS.add(JSON.stringify(body));
     return res.json({ hash: data.path });

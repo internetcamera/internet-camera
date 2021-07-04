@@ -4,11 +4,10 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TrustedForwarderRecipient is Ownable {
-    address _trustedForwarder;
+    address internal _trustedForwarder;
 
-    constructor() {
-        if (block.chainid == 80001)
-            _trustedForwarder = 0x9399BB24DBB5C4b782C70c2969F58716Ebbd6a3b;
+    constructor(address forwarderAddress_) {
+        _trustedForwarder = forwarderAddress_;
     }
 
     // ERC2771Context

@@ -15,7 +15,9 @@ contract InternetCameraFilmFactory is TrustedForwarderRecipient {
     address private _cameraAddress;
 
     // Deployment
-    constructor(address cameraAddress_) TrustedForwarderRecipient() {
+    constructor(address cameraAddress_, address forwarderAddress_)
+        TrustedForwarderRecipient(forwarderAddress_)
+    {
         _cameraAddress = cameraAddress_;
     }
 
@@ -38,7 +40,8 @@ contract InternetCameraFilmFactory is TrustedForwarderRecipient {
                 expires,
                 _cameraAddress,
                 _msgSender(),
-                false
+                false,
+                _trustedForwarder
             )
         );
         _registerFilm(filmAddress);
@@ -66,7 +69,8 @@ contract InternetCameraFilmFactory is TrustedForwarderRecipient {
                 _cameraAddress,
                 _msgSender(),
                 amountClaimablePerUser,
-                maxClaimsPerUser
+                maxClaimsPerUser,
+                _trustedForwarder
             )
         );
         _registerFilm(filmAddress);

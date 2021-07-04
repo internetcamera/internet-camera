@@ -37,6 +37,7 @@ const FilmFactory = () => {
       Math.floor(expires.getTime() / 1000)
     );
     const receipt = await tx.wait(1);
+    console.log(receipt);
     const filmAddress = receipt.logs[0].address;
     setTimeout(() => Router.push(`/explorer/film/${filmAddress}`), 1500);
   };

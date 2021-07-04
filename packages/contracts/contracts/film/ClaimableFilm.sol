@@ -20,7 +20,8 @@ contract ClaimableFilm is BasicFilm {
         address cameraAddress,
         address creatorAddress,
         uint256 amountClaimablePerUser_,
-        uint256 maxClaimsPerUser_
+        uint256 maxClaimsPerUser_,
+        address forwarderAddress_
     )
         BasicFilm(
             name,
@@ -31,7 +32,8 @@ contract ClaimableFilm is BasicFilm {
             expires,
             cameraAddress,
             creatorAddress,
-            true
+            true,
+            forwarderAddress_
         )
     {
         require(

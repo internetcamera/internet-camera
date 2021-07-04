@@ -6,7 +6,7 @@ import Dialog from '@app/components/Dialog';
 import { formatEther } from 'ethers/lib/utils';
 import Router from 'next/router';
 import { useWalletFilmForAddress } from '@internetcamera/sdk/dist/react';
-
+import { providers } from 'ethers';
 const Upload = () => {
   const [file, setFile] = useState<File>();
   const [previewURL, setPreviewURL] = useState<string>();
@@ -17,16 +17,18 @@ const Upload = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   const { account, provider, connect } = useWallet();
   const { filmHoldings } = useWalletFilmForAddress(
-    account || '0x0000000000000000000000000000000000000000'
+    account || '0x0000000000000000000000000000000000000000',
+    process.env.NEXT_PUBLIC_GRAPH_URL
   );
   const [selectedFilmIndex, setSelectedFilmIndex] = useState<number>(0);
   const submit = async () => {
     if (!file || !provider || !filmHoldings?.length) return;
     const camera = new InternetCamera({
       provider,
-      chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID) as number,
-      ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL as string,
-      graphURL: process.env.NEXT_PUBLIC_GRAPH_URL as string
+      chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+      ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL,
+      graphURL: process.env.NEXT_PUBLIC_GRAPH_URL,
+      forwarderURL: process.env.NEXT_PUBLIC_TX_URL
     });
     const tx = await camera.postPhoto(
       file,
@@ -42,27 +44,35 @@ const Upload = () => {
     );
   };
   const submitGasless = async () => {
-    if (!file || !provider || !filmHoldings?.length || !account) return;
-    const camera = new InternetCamera({
-      provider,
-      chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID) as number,
-      ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL as string,
-      graphURL: process.env.NEXT_PUBLIC_GRAPH_URL as string
-    });
-    const tx = await camera.postPhotoGasless(
-      file,
-      filmHoldings[selectedFilmIndex].film.filmAddress,
-      account
-    );
-    console.log(tx);
-    // await tx.wait(1);
-    // setTimeout(
-    //   () =>
-    //     Router.push(
-    //       `/explorer/film/${filmHoldings[selectedFilmIndex].film.filmAddress}`
-    //     ),
-    //   1500
-    // );
+    if (!file || !provider || !filmHoldings?.length || !account)
+      return console.log(filmHoldings);
+    try {
+      const camera = new InternetCamera({
+        provider,
+        jsonRpcProvider: new providers.JsonRpcProvider(
+          process.env.NEXT_PUBLIC_RPC_URL
+        ),
+        forwarderURL: process.env.NEXT_PUBLIC_TX_URL,
+        chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+        ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL,
+        graphURL: process.env.NEXT_PUBLIC_GRAPH_URL
+      });
+      const tx = await camera.postPhotoGasless(
+        file,
+        filmHoldings[selectedFilmIndex].film.filmAddress,
+        account
+      );
+      await tx.wait(1);
+      setTimeout(
+        () =>
+          Router.push(
+            `/explorer/film/${filmHoldings[selectedFilmIndex].film.filmAddress}`
+          ),
+        1500
+      );
+    } catch (err) {
+      throw err;
+    }
   };
   return (
     <div className="upload">
