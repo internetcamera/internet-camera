@@ -772,10 +772,10 @@
     "@typechain/hardhat" "^2.1.2"
     fxportal "https://github.com/fx-portal/contracts"
 
-"@internetcamera/sdk@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.14.tgz#d825fca88abf987c0696e4a16ee52764b3910b64"
-  integrity sha512-5cK9pD4avHdO6caroTU7P7HAo5/svpagliccxwQgJcM4ip4ldxK2pIoYrfmJsNIpcX5Umm/nUcCDt2NnQD6FNw==
+"@internetcamera/sdk@^0.0.15":
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.15.tgz#3e4d8e160f019e7a5947ffb850604c24c4f8c394"
+  integrity sha512-FIspx252uhGXNFgjhyCR91GsTzdWJ3Y1pZF5OhAEnV8/sM7jgbg8dlG31BFnCtOSYsD/loqMHz0RfkwZILLgzw==
   dependencies:
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
