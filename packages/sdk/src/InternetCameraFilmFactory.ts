@@ -10,9 +10,9 @@ import { ContractTransaction } from '@ethersproject/contracts';
 import InternetCameraAddresses from './utils/addresses';
 
 export class InternetCameraFilmFactory {
-  private ipfsURL?: string;
+  private ipfsURL: string = 'https://ipfs.internet.camera';
+  private chainID: number = 80001;
   private provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
-  private chainID?: number;
 
   constructor(
     config: {

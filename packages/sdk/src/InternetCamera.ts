@@ -12,10 +12,11 @@ import ExifReader from 'exifreader';
 import { ContractTransaction } from '@ethersproject/contracts';
 
 export class InternetCameraGraph {
-  private graphURL?: string;
-  private ipfsURL?: string;
+  private graphURL: string =
+    'https://api.thegraph.com/subgraphs/name/shahruz/ic-mumbai-one';
+  private ipfsURL: string = 'https://ipfs.internet.camera';
+  private chainID: number = 80001;
   private provider?: Provider | Signer | JsonRpcProvider | JsonRpcSigner;
-  private chainID?: number;
 
   constructor(
     config: {

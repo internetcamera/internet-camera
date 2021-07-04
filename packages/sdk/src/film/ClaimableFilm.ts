@@ -16,8 +16,7 @@ export class ClaimableFilm {
 
   constructor(
     filmAddress: string,
-    providerOrSigner: Provider | Signer | JsonRpcProvider | JsonRpcSigner,
-    chainId: number
+    providerOrSigner: Provider | Signer | JsonRpcProvider | JsonRpcSigner
   ) {
     this.contract = ClaimableFilm__factory.connect(
       filmAddress,
