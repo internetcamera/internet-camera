@@ -4,7 +4,7 @@ import {
   JsonRpcSigner,
   Provider
 } from '@ethersproject/providers';
-import { ContractTransaction } from 'ethers';
+import { ContractTransaction } from '@ethersproject/contracts';
 import {
   ClaimableFilm__factory,
   ClaimableFilm as ClaimableFilmTypechain

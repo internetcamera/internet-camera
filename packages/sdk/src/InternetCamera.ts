@@ -9,7 +9,7 @@ import { InternetCamera__factory } from '@internetcamera/contracts';
 import { Film, Photo } from './types';
 import InternetCameraAddresses from './utils/addresses';
 import ExifReader from 'exifreader';
-import { ContractTransaction } from 'ethers';
+import { ContractTransaction } from '@ethersproject/contracts';
 
 export class InternetCameraGraph {
   private graphURL?: string;

@@ -6,7 +6,7 @@ import {
   Provider
 } from '@ethersproject/providers';
 import { InternetCameraFilmFactory__factory } from '@internetcamera/contracts';
-import { ContractTransaction } from 'ethers';
+import { ContractTransaction } from '@ethersproject/contracts';
 import InternetCameraAddresses from './utils/addresses';
 
 export class InternetCameraFilmFactory {
