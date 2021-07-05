@@ -1,0 +1,22 @@
+{
+  "name": "tx",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next"
+  },
+  "dependencies": {
+    "@internetcamera/contracts": "^0.0.5",
+    "@internetcamera/sdk": "^0.0.16",
+    "ethers": "^5.4.1",
+    "next": "^11.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.22",
+    "@types/react": "^17.0.0",
+    "typescript": "^4.1.3"
+  }
+}

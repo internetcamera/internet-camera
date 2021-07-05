@@ -5,10 +5,12 @@ import Dialog from '@app/components/Dialog';
 import { InternetCameraFilmFactory } from '@internetcamera/sdk';
 import { parseUnits } from 'ethers/lib/utils';
 import Router from 'next/router';
-
-const CHAIN_ID = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
+import { ContractTransaction, providers } from 'ethers';
+import useSettings from '@app/features/useSettings';
 
 const FilmFactory = () => {
+  const gasless = useSettings(state => state.gasless);
+
   const [factoryModel, setFactoryModel] = useState<'personal' | 'claimable'>(
     'personal'
   );
@@ -22,49 +24,65 @@ const FilmFactory = () => {
   const { account, provider, connect } = useWallet();
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
-  const deployPersonalFilm = async () => {
+  const deploy = async () => {
     if (!provider || !account) return;
     const factory = new InternetCameraFilmFactory({
-      provider: provider,
-      chainID: CHAIN_ID,
-      ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL as string
+      provider,
+      jsonRpcProvider: new providers.JsonRpcProvider(
+        process.env.NEXT_PUBLIC_RPC_URL
+      ),
+      forwarderURL: process.env.NEXT_PUBLIC_TX_URL,
+      chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+      ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL
     });
-    const tx = await factory.deployPersonalFilm(
-      name,
-      symbol,
-      parseUnits(`${totalSupply}`, 18),
-      Math.floor(starts.getTime() / 1000),
-      Math.floor(expires.getTime() / 1000)
-    );
+    let tx: ContractTransaction | null = null;
+    if (factoryModel == 'personal') {
+      if (!gasless) {
+        tx = await factory.deployPersonalFilm(
+          name,
+          symbol,
+          parseUnits(`${totalSupply}`, 18),
+          Math.floor(starts.getTime() / 1000),
+          Math.floor(expires.getTime() / 1000)
+        );
+      } else {
+        tx = await factory.deployPersonalFilmGasless(
+          name,
+          symbol,
+          parseUnits(`${totalSupply}`, 18),
+          Math.floor(starts.getTime() / 1000),
+          Math.floor(expires.getTime() / 1000),
+          account
+        );
+      }
+    } else if (factoryModel == 'claimable') {
+      if (!gasless) {
+        tx = await factory.deployClaimableFilm(
+          name,
+          symbol,
+          parseUnits(`${totalSupply}`, 18),
+          Math.floor(starts.getTime() / 1000),
+          Math.floor(expires.getTime() / 1000),
+          parseUnits(`${amountClaimablePerUser}`, 18),
+          maxClaimsPerUser
+        );
+      } else {
+        tx = await factory.deployClaimableFilmGasless(
+          name,
+          symbol,
+          parseUnits(`${totalSupply}`, 18),
+          Math.floor(starts.getTime() / 1000),
+          Math.floor(expires.getTime() / 1000),
+          parseUnits(`${amountClaimablePerUser}`, 18),
+          maxClaimsPerUser,
+          account
+        );
+      }
+    }
+    if (!tx) throw new Error('Unhandled case.');
     const receipt = await tx.wait(1);
     const filmAddress = receipt.logs[0].address;
     setTimeout(() => Router.push(`/explorer/film/${filmAddress}`), 1500);
-  };
-
-  const deployClaimableFilm = async () => {
-    if (!provider || !account) return;
-    const factory = new InternetCameraFilmFactory({
-      provider: provider,
-      chainID: CHAIN_ID,
-      ipfsURL: process.env.NEXT_PUBLIC_IPFS_NODE_URL as string
-    });
-    const tx = await factory.deployClaimableFilm(
-      name,
-      symbol,
-      parseUnits(`${totalSupply}`, 18),
-      Math.floor(starts.getTime() / 1000),
-      Math.floor(expires.getTime() / 1000),
-      parseUnits(`${amountClaimablePerUser}`, 18),
-      maxClaimsPerUser
-    );
-    const receipt = await tx.wait(1);
-    const filmAddress = receipt.logs[0].address;
-    setTimeout(() => Router.push(`/explorer/film/${filmAddress}`), 1500);
-  };
-
-  const deploy = () => {
-    if (factoryModel == 'personal') deployPersonalFilm();
-    else if (factoryModel == 'claimable') deployClaimableFilm();
   };
 
   const disabled = !name || !symbol || totalSupply < 1 || totalSupply > 1000;

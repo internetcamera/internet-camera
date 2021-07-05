@@ -38,9 +38,9 @@ contract InternetCamera is
     );
 
     // Deployment
-    constructor()
+    constructor(address forwarderAddress_)
         ERC721("Internet Camera", "PHOTO")
-        TrustedForwarderRecipient()
+        TrustedForwarderRecipient(forwarderAddress_)
     {}
 
     // Public APIs

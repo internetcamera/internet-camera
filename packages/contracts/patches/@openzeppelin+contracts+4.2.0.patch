@@ -1,0 +1,22 @@
+diff --git a/node_modules/@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol b/node_modules/@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol
+index 2d45fa4..4431e75 100644
+--- a/node_modules/@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol
++++ b/node_modules/@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol
+@@ -52,7 +52,7 @@ abstract contract EIP712 {
+         bytes32 hashedName = keccak256(bytes(name));
+         bytes32 hashedVersion = keccak256(bytes(version));
+         bytes32 typeHash = keccak256(
+-            "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
++            "EIP712Domain(string name,string version,address verifyingContract)"
+         );
+         _HASHED_NAME = hashedName;
+         _HASHED_VERSION = hashedVersion;
+@@ -77,7 +77,7 @@ abstract contract EIP712 {
+         bytes32 nameHash,
+         bytes32 versionHash
+     ) private view returns (bytes32) {
+-        return keccak256(abi.encode(typeHash, nameHash, versionHash, block.chainid, address(this)));
++        return keccak256(abi.encode(typeHash, nameHash, versionHash, address(this)));
+     }
+ 
+     /**

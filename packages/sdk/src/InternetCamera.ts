@@ -1,33 +1,35 @@
-import { Web3Provider } from '@ethersproject/providers';
+import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { gql, request as gqlRequest } from 'graphql-request';
 import { InternetCamera__factory } from '@internetcamera/contracts';
 import { Film, Photo } from './types';
 import InternetCameraAddresses from './utils/addresses';
 import ExifReader from 'exifreader';
-import { ContractTransaction, Contract } from '@ethersproject/contracts';
-import {
-  getBiconomyForwarderConfig,
-  getDataToSignForEIP712,
-  getDomainSeperator
-} from './utils/Biconomy';
+import { ContractTransaction } from '@ethersproject/contracts';
+import { getPostPhotoSignature } from './utils/forwarder';
 
-export class InternetCameraGraph {
+export class InternetCamera {
   private graphURL: string =
     'https://api.thegraph.com/subgraphs/name/shahruz/ic-mumbai-one';
   private ipfsURL: string = 'https://ipfs.internet.camera';
+  private forwarderURL: string = 'https://tx.internet.camera/api/forward';
   private chainID: number = 80001;
   private provider?: Web3Provider;
+  private jsonRpcProvider?: JsonRpcProvider;
 
   constructor(
     config: {
       graphURL?: string;
       ipfsURL?: string;
+      forwarderURL?: string;
       provider?: Web3Provider;
+      jsonRpcProvider?: JsonRpcProvider;
       chainID?: number;
     } = {}
   ) {
     if (config.graphURL) this.graphURL = config.graphURL;
     if (config.provider) this.provider = config.provider;
+    if (config.forwarderURL) this.forwarderURL = config.forwarderURL;
+    if (config.jsonRpcProvider) this.jsonRpcProvider = config.jsonRpcProvider;
     if (config.chainID) this.chainID = config.chainID;
     if (config.ipfsURL) this.ipfsURL = config.ipfsURL;
   }
@@ -54,40 +56,7 @@ export class InternetCameraGraph {
     if (!this.chainID) throw new Error('Missing chain ID.');
     if (!this.ipfsURL) throw new Error('Missing IPFS url');
 
-    // Upload file to IPFS
-    const body = new FormData();
-    body.append('files', file);
-    const { hash: imageHash }: { hash: string } = await fetch(
-      `${this.ipfsURL}/upload`,
-      {
-        method: 'POST',
-        body
-      }
-    ).then(res => res.json());
-
-    // Build metadata and upload
-    const film = await this.getFilm(filmAddress);
-    const index = film.photos.length + 1;
-    const tags = await ExifReader.load(await file.arrayBuffer());
-
-    const metadata = {
-      name: `${film.symbol} #${index}`,
-      description: ``,
-      width: tags['Image Width']?.value || 0,
-      height: tags['Image Height']?.value || 0,
-      image: `ipfs://${imageHash}`
-    };
-
-    const { hash: metadataHash }: { hash: string } = await fetch(
-      `${this.ipfsURL}/uploadJSON`,
-      {
-        method: 'POST',
-        body: JSON.stringify(metadata),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    ).then(res => res.json());
+    const metadataHash = await this._postToIPFS(file, filmAddress);
 
     return await this.getContract().postPhoto(filmAddress, metadataHash);
   }
@@ -96,8 +65,36 @@ export class InternetCameraGraph {
     file: File,
     filmAddress: string,
     account: string
-  ) {
+  ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
+    if (!this.jsonRpcProvider) throw new Error('Missing jsonRpcProvider.');
+    if (!this.forwarderURL) throw new Error('Missing forwarderURL.');
+    const metadataHash = await this._postToIPFS(file, filmAddress);
+    const { data, signature } = await getPostPhotoSignature(
+      filmAddress,
+      metadataHash,
+      account,
+      this.getContract(),
+      this.chainID,
+      this.provider,
+      this.jsonRpcProvider
+    );
+    const response = await fetch(this.forwarderURL + '/api/forward', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        data,
+        signature
+      })
+    })
+      .then(res => res.json())
+      .catch(err => console.log(err));
+    return await this.jsonRpcProvider.getTransaction(response.hash);
+  }
+
+  private async _postToIPFS(file: File, filmAddress: string): Promise<string> {
     // Upload file to IPFS
     const body = new FormData();
     body.append('files', file);
@@ -132,64 +129,7 @@ export class InternetCameraGraph {
         }
       }
     ).then(res => res.json());
-
-    const camera = this.getContract();
-    const { data } = await camera.populateTransaction['postPhoto'](
-      filmAddress,
-      metadataHash
-    );
-    const gasLimit = await camera.estimateGas['postPhoto'](
-      filmAddress,
-      metadataHash,
-      { from: account }
-    );
-    const gasLimitNum = Number(gasLimit.toNumber().toString());
-    const forwarder = await getBiconomyForwarderConfig(this.chainID);
-    const forwarderContract = new Contract(
-      forwarder.address,
-      forwarder.abi,
-      this.provider
-    );
-    const batchNonce = await forwarderContract.getNonce(account, 0);
-    const request = {
-      from: account,
-      to: InternetCameraAddresses[this.chainID].camera,
-      txGas: gasLimitNum,
-      token: '0x0000000000000000000000000000000000000000',
-      tokenGasPrice: '0',
-      batchId: 0,
-      batchNonce: parseInt(batchNonce),
-      deadline: Math.floor(Date.now() / 1000 + 3600),
-      data
-    };
-    const dataToSign = await getDataToSignForEIP712(request, this.chainID);
-    const domainSeparator = await getDomainSeperator(this.chainID);
-    const signature = await this.provider.send('eth_signTypedData_v3', [
-      account,
-      JSON.stringify(dataToSign)
-    ]);
-
-    const response = await fetch(
-      'https://api.biconomy.io/api/v2/meta-tx/native',
-      {
-        method: 'post',
-        headers: {
-          'x-api-key': 'EesIBgdMk.cf1fcc95-d14e-418b-a8ba-e573dbcfeff0',
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          signatureType: 'EIP712_SIGN',
-          from: request.from,
-          apiId: '5e51a6ba-9a74-4b60-8f7f-9b2da706c4f3',
-          to: request.to,
-          params: [request, domainSeparator, signature]
-        })
-      }
-    )
-      .then(res => res.json())
-      .catch(err => console.log(err));
-    console.log(response);
-    return response;
+    return metadataHash;
   }
 
   public async getPhoto(tokenId: string): Promise<Photo> {
@@ -510,4 +450,4 @@ export class InternetCameraGraph {
   }
 }
 
-export default InternetCameraGraph;
+export default InternetCamera;

@@ -32,18 +32,18 @@ const Wallet = ({ address }: { address: string }) => {
         </div>
         <div className="subtitle">{address.slice(0, 6)}</div>
       </div>
+      {filmHoldings && (
+        <>
+          <h1>Film owned</h1>
+          <FilmGrid films={filmHoldings.map(holding => holding.film as any)} />
+        </>
+      )}
       {photos && (
         <>
           <h1>Photos created</h1>
           <PhotoGrid photos={photos.photosCreated as any} />
           <h1>Photos owned</h1>
           <PhotoGrid photos={photos.photosOwned as any} />
-        </>
-      )}
-      {filmHoldings && (
-        <>
-          <h1>Film owned</h1>
-          <FilmGrid films={filmHoldings.map(holding => holding.film as any)} />
         </>
       )}
       <style jsx>{`

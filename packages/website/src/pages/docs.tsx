@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 
-const Developers: FunctionComponent = () => {
+const Docs: FunctionComponent = () => {
   return (
-    <div className="developers">
+    <div className="docs-page">
       <div className="header">
         <div className="title">
           Build your own camera products for the new internet.
@@ -105,4 +105,4 @@ const Developers: FunctionComponent = () => {
   );
 };
 
-export default Developers;
+export default Docs;

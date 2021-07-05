@@ -4,6 +4,8 @@ import { formatEther } from 'ethers/lib/utils';
 import PhotoGrid from '@app/components/collections/PhotoGrid';
 import { useWallet } from '@gimmixfactory/use-wallet';
 import { useState } from 'react';
+import useSettings from '@app/features/useSettings';
+import { ContractTransaction, providers } from 'ethers';
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const { filmAddress }: { filmAddress?: string } = ctx.query;
@@ -19,22 +21,29 @@ const Film = ({ filmAddress }: { filmAddress: string }) => {
     filmAddress,
     process.env.NEXT_PUBLIC_GRAPH_URL as string
   );
-  const { provider } = useWallet();
-  const [error, setError] = useState<string>();
+  const { provider, account } = useWallet();
+  const [error, _setError] = useState<string>();
+  const gasless = useSettings(state => state.gasless);
   const claimFilm = async () => {
-    if (!provider || film?.factoryModel != 'claimable') return;
+    if (!provider || film?.factoryModel != 'claimable' || !account) return;
     try {
       const ClaimableFilm = (await import('@internetcamera/sdk')).ClaimableFilm;
-      const claimableFilm = new ClaimableFilm(
-        film.filmAddress,
-        provider as any
-      );
-      const tx = await claimableFilm.claimFilm();
+      const claimableFilm = new ClaimableFilm(film.filmAddress, {
+        provider,
+        jsonRpcProvider: new providers.JsonRpcProvider(
+          process.env.NEXT_PUBLIC_RPC_URL
+        ),
+        forwarderURL: process.env.NEXT_PUBLIC_TX_URL,
+        chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID)
+      });
+      let tx: ContractTransaction;
+      if (!gasless) tx = await claimableFilm.claimFilm();
+      else tx = await claimableFilm.claimFilmGasless(account);
       const receipt = await tx.wait(1);
       console.log({ receipt, tx });
     } catch (err) {
       console.log(err);
-      setError(err.data.message);
+      // setError(err.data.message);
     }
   };
   if (!film) return null;
