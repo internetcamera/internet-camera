@@ -190,8 +190,10 @@ export const getClaimFilmSignature = async (
   provider: Web3Provider,
   jsonRpcProvider: JsonRpcProvider
 ) => {
-  const { data } = await film.populateTransaction['claimFilm']();
-  const gasLimit = await film.estimateGas['claimFilm']({ from: account });
+  const { data } = await film.populateTransaction['claimFilm'](account);
+  const gasLimit = await film.estimateGas['claimFilm'](account, {
+    from: account
+  });
   const gasLimitNum = Number(gasLimit.toNumber().toString());
   const forwarder = TrustedForwarder__factory.connect(
     InternetCameraAddresses[chainID].forwarder,

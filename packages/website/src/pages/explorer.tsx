@@ -1,44 +1,26 @@
 import React, { useState } from 'react';
-import Marquee from 'react-fast-marquee';
-import {
-  useRecentFilms,
-  useRecentPhotos,
-  useRecentTransferEvents
-} from '@internetcamera/sdk/dist/react';
-import PhotoGrid from '@app/components/collections/PhotoGrid';
-import FilmGrid from '@app/components/collections/FilmGrid';
-import TransfersList from '@app/components/collections/TransfersList';
+import FilmExplorer from '@app/components/explorer/FilmExplorer';
+import PhotoExplorer from '@app/components/explorer/PhotoExplorer';
+import ActivityExplorer from '@app/components/explorer/ActivityExplorer';
 
 const Explorer = () => {
-  const { photos } = useRecentPhotos(
-    25,
-    process.env.NEXT_PUBLIC_GRAPH_URL as string
-  );
-  const { films } = useRecentFilms(
-    25,
-    process.env.NEXT_PUBLIC_GRAPH_URL as string
-  );
-  const { transferEvents } = useRecentTransferEvents(
-    25,
-    process.env.NEXT_PUBLIC_GRAPH_URL as string
-  );
-  const [seeOption, setSeeOption] = useState<'photos' | 'films' | 'transfers'>(
+  const [address, setAddress] = useState('');
+  const [orderDirection, setOrderDirection] = useState('desc');
+  const [seeOption, setSeeOption] = useState<'photos' | 'films' | 'activity'>(
     'photos'
   );
   return (
     <div className="explorer">
-      <div className="marquee">
-        <Marquee
-          className="micro"
-          gradientColor={[34, 36, 44]}
-          speed={50}
-        ></Marquee>
-      </div>
       <div className="main">
         <div className="sidebar">
           <div className="section">
             <div className="sidebar-header micro">Search for</div>
-            <input type="text" placeholder="Wallet / Film address or ENS..." />
+            <input
+              type="text"
+              placeholder="Wallet / Film address or ENS..."
+              value={address}
+              onChange={e => setAddress(e.target.value)}
+            />
           </div>
           <div className="section">
             <div className="sidebar-header micro">Explore</div>
@@ -59,9 +41,9 @@ const Explorer = () => {
               Film
             </div>
             <div
-              onClick={() => setSeeOption('transfers')}
+              onClick={() => setSeeOption('activity')}
               className={`sidebar-button micro ${
-                seeOption == 'transfers' ? 'sidebar-button-selected' : ''
+                seeOption == 'activity' ? 'sidebar-button-selected' : ''
               }`}
             >
               Activity
@@ -69,22 +51,35 @@ const Explorer = () => {
           </div>
           <div className="section">
             <div className="sidebar-header micro">Sort by</div>
-            <div className="sidebar-button micro sidebar-button-selected">
+            <div
+              onClick={() => setOrderDirection('desc')}
+              className={`sidebar-button micro ${
+                orderDirection == 'desc' ? 'sidebar-button-selected' : ''
+              }`}
+            >
               Newest → Oldest
             </div>
-            <div className="sidebar-button micro">Oldest → Newest</div>
+            <div
+              onClick={() => setOrderDirection('asc')}
+              className={`sidebar-button micro ${
+                orderDirection == 'asc' ? 'sidebar-button-selected' : ''
+              }`}
+            >
+              Oldest → Newest
+            </div>
           </div>
           <div className="section">
             <div className="sidebar-header micro">Filter by</div>
-            <div className="sidebar-button micro">•••</div>
-            <div className="sidebar-button micro">•••</div>
-            <div className="sidebar-button micro">•••</div>
           </div>
         </div>
-        {seeOption == 'photos' && photos && <PhotoGrid photos={photos} />}
-        {seeOption == 'films' && films && <FilmGrid films={films} />}
-        {seeOption == 'transfers' && transferEvents && (
-          <TransfersList transferEvents={transferEvents} />
+        {seeOption == 'films' && (
+          <FilmExplorer address={address} orderDirection={orderDirection} />
+        )}
+        {seeOption == 'photos' && (
+          <PhotoExplorer address={address} orderDirection={orderDirection} />
+        )}
+        {seeOption == 'activity' && (
+          <ActivityExplorer address={address} orderDirection={orderDirection} />
         )}
       </div>
       <style jsx>{`
@@ -94,18 +89,6 @@ const Explorer = () => {
           display: flex;
           flex-direction: column;
         }
-        .marquee {
-          font-size: 10px;
-          font-weight: bold;
-          text-transform: uppercase;
-          margin: 0 -30px;
-          color: #ccc;
-        }
-        .marquee :global(.overlay::before),
-        .marquee :global(.overlay::after) {
-          pointer-events: none;
-        }
-
         .main {
           flex: 1 1 auto;
           display: flex;

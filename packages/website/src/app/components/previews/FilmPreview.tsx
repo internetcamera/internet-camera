@@ -69,7 +69,7 @@ const FilmPreview = ({
           <div className="meta">
             <div className="name">{film.name}</div>
             <div className="symbol micro">
-              {film.symbol} ✸ {film.photos.length} of{' '}
+              {film.symbol} ✸ {film.used} of{' '}
               {parseFloat(formatEther(film.totalSupply)).toLocaleString()} shots
               taken
             </div>

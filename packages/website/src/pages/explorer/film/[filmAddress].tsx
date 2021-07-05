@@ -37,7 +37,7 @@ const Film = ({ filmAddress }: { filmAddress: string }) => {
         chainID: Number(process.env.NEXT_PUBLIC_CHAIN_ID)
       });
       let tx: ContractTransaction;
-      if (!gasless) tx = await claimableFilm.claimFilm();
+      if (!gasless) tx = await claimableFilm.claimFilm(account);
       else tx = await claimableFilm.claimFilmGasless(account);
       const receipt = await tx.wait(1);
       console.log({ receipt, tx });

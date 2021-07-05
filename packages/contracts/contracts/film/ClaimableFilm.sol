@@ -53,17 +53,17 @@ contract ClaimableFilm is
     }
 
     // Public APIs
-    function claimFilm() public {
+    function claimFilm(address address_) public override {
         require(
-            balanceOf(_msgSender()) < 1 * 10**decimals(),
+            balanceOf(address_) < 1 * 10**decimals(),
             "ClaimableFilm: You already have some film."
         );
         require(
-            _claimCount[_msgSender()] < _maxClaimsPerUser,
+            _claimCount[address_] < _maxClaimsPerUser,
             "ClaimableFilm: You've already claimed all the film available to you."
         );
-        _claimCount[_msgSender()]++;
-        _transfer(address(this), _msgSender(), _amountClaimablePerUser);
+        _claimCount[address_]++;
+        _transfer(address(this), address_, _amountClaimablePerUser);
     }
 
     function claimCountOf(address account) public view returns (uint256) {

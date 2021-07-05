@@ -4,6 +4,7 @@ export type Film = {
   creator: Wallet;
   name: string;
   symbol: string;
+  used: string;
   totalSupply: string;
   startTime: number;
   expireTime: number;

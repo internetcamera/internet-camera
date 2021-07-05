@@ -4,6 +4,7 @@ type Film @entity {
   creator: Wallet!
   name: String!
   symbol: String!
+  used: BigInt!
   totalSupply: BigInt!
   startTime: BigInt!
   expireTime: BigInt!

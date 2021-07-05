@@ -737,17 +737,15 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.2.0.tgz#f3933a44e365864f4dad5db94158106d511e8131"
   integrity sha512-sqKVVVOe5ivCaXDWivIJYVSaEgdQK9ul7a4Kity5Iw7u9+wBAPbX1RMSnLLmp7O4Vzj0WOWwMAJsTL00xwaNug==
 
-"@internetcamera/contracts@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.8.tgz#4b265811fe02d24415865338974c8353e9ded252"
-  integrity sha512-ZY9pPJYv4Jd4KJdTw94T6ByHahrdwu+UxVy7w027ejFKbbVde3o5X8d0JEcbAvMGs692lhJRW2/coI+18t214A==
-  dependencies:
-    "@openzeppelin/contracts-upgradeable" "^4.1.0"
+"@internetcamera/contracts@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.9.tgz#24942f7491df8c8d89f03689f55e9a16b7b746ae"
+  integrity sha512-Bk5FDXS55MQiSpneezfal4V5A7pTl7amR0qyZprRLVVshNJ2ydNFYIFTnZbgnir2EFl2AY21d5i8za/C/pc61A==
 
-"@internetcamera/sdk@^0.0.20":
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.20.tgz#88517b1e5e6fe95e85b47a40bbf23bf49878a1e4"
-  integrity sha512-cArEOQl3a8TU/uwr9+GJiPE7dWL482OmIM5rRqdGzJm8OxsZ63oKJNzAIvyHwLl6n4f299+5J+4czIcCK2+sBQ==
+"@internetcamera/sdk@^0.0.21":
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.21.tgz#858ab479c4ab6ef6daa61220a213bb0c2da9261e"
+  integrity sha512-I4P6Xad56kO1vXkV2TROu/q5KbVe1Q8daC7nBCE2JMk4rqrb1srKZq3cck5rSdw6xKSHVgxn8sw/gkKfpG49kw==
   dependencies:
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
@@ -760,7 +758,7 @@
     "@ethersproject/strings" "^5.4.0"
     "@ethersproject/transactions" "^5.4.0"
     "@ethersproject/units" "^5.4.0"
-    "@internetcamera/contracts" "^0.0.8"
+    "@internetcamera/contracts" "^0.0.9"
     eth-sig-util "^3.0.1"
     exifreader "^3.16.0"
     graphql "^15.5.1"
@@ -907,11 +905,6 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
-
-"@openzeppelin/contracts-upgradeable@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts-upgradeable/-/contracts-upgradeable-4.1.0.tgz#36a6113ceeda278ae14f740280e5388161dfd383"
-  integrity sha512-QZSvbYqNpU/x60vARhq/jghh97VWjml3NAlKfu4u1XehvpEBbHVXJyKTBSZtZY7jviG305jOczEisnN8VeOMcw==
 
 "@pedrouid/environment@^1.0.1":
   version "1.0.1"

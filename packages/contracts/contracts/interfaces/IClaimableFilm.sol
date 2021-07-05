@@ -13,4 +13,6 @@ interface IClaimableFilm {
         uint256 amountClaimablePerUser_,
         uint256 maxClaimsPerUser_
     ) external;
+
+    function claimFilm(address address_) external;
 }

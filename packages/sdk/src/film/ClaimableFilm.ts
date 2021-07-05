@@ -35,8 +35,8 @@ export class ClaimableFilm {
     );
   }
 
-  public async claimFilm(): Promise<ContractTransaction> {
-    return this.getContract().claimFilm();
+  public async claimFilm(account: string): Promise<ContractTransaction> {
+    return this.getContract().claimFilm(account);
   }
 
   public async claimFilmGasless(account: string): Promise<ContractTransaction> {

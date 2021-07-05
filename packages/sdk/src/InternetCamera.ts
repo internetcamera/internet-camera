@@ -156,6 +156,7 @@ export class InternetCamera {
             name
             symbol
             filmAddress
+            used
             totalSupply
           }
           createdAt
@@ -189,6 +190,7 @@ export class InternetCamera {
             name
             symbol
             filmAddress
+            used
             totalSupply
           }
           createdAt
@@ -225,6 +227,7 @@ export class InternetCamera {
             name
             symbol
             filmAddress
+            used
             totalSupply
           }
           createdAt
@@ -245,6 +248,7 @@ export class InternetCamera {
           }
           name
           symbol
+          used
           totalSupply
           startTime
           expireTime
@@ -291,6 +295,7 @@ export class InternetCamera {
           }
           name
           symbol
+          used
           totalSupply
           startTime
           expireTime
@@ -337,6 +342,7 @@ export class InternetCamera {
             filmAddress
             name
             symbol
+            used
             totalSupply
             photos {
               id
@@ -420,6 +426,7 @@ export class InternetCamera {
               filmAddress
               name
               symbol
+              used
               totalSupply
             }
           }
@@ -427,6 +434,7 @@ export class InternetCamera {
             filmAddress
             name
             symbol
+            used
             totalSupply
           }
           amount

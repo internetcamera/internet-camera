@@ -7,9 +7,7 @@ import {
 import { InternetCameraFilm as InternetCameraFilmTemplate } from '../generated/templates';
 import { InternetCameraFilm } from '../generated/templates/InternetCameraFilm/InternetCameraFilm';
 import { Photo, Film, TransferEvent, Wallet } from '../generated/schema';
-import { Bytes, ipfs } from '@graphprotocol/graph-ts';
-import { json } from '@graphprotocol/graph-ts';
-import { log } from '@graphprotocol/graph-ts';
+import { json, log, Bytes, BigInt, ipfs } from '@graphprotocol/graph-ts';
 
 // Internet Camera
 export function handleFilmRegistered(event: FilmRegistered): void {
@@ -36,6 +34,7 @@ export function handleFilmRegistered(event: FilmRegistered): void {
   film.creator = creatorWallet.id;
   film.name = filmContract.name();
   film.symbol = filmContract.symbol();
+  film.used = BigInt.fromI32(0);
   film.totalSupply = filmContract.totalSupply();
   film.startTime = filmContract.startTime();
   film.expireTime = filmContract.expireTime();
@@ -108,6 +107,9 @@ export function handlePhotoPosted(event: PhotoPosted): void {
   }
 
   let film = Film.load(event.params.filmAddress.toHex());
+  film.used = film.used.plus(BigInt.fromI32(1));
+  film.save();
+
   photo.film = film.id;
   photo.createdAt = event.block.timestamp;
 

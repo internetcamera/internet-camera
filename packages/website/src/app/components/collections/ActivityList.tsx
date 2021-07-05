@@ -2,7 +2,7 @@ import React from 'react';
 import { InternetCameraTypes } from '@internetcamera/sdk';
 import TransferPreview from '../previews/TransferPreview';
 
-const TransfersList = ({
+const ActivityList = ({
   transferEvents
 }: {
   transferEvents: InternetCameraTypes.TransferEvent[];
@@ -24,4 +24,4 @@ const TransfersList = ({
   );
 };
 
-export default TransfersList;
+export default ActivityList;
