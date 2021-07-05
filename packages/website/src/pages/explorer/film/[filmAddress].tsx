@@ -22,7 +22,7 @@ const Film = ({ filmAddress }: { filmAddress: string }) => {
     process.env.NEXT_PUBLIC_GRAPH_URL as string
   );
   const { provider, account } = useWallet();
-  const [error, setError] = useState<string>();
+  const [error, _setError] = useState<string>();
   const gasless = useSettings(state => state.gasless);
   const claimFilm = async () => {
     if (!provider || film?.factoryModel != 'claimable' || !account) return;
