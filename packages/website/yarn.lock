@@ -742,10 +742,10 @@
   resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.9.tgz#24942f7491df8c8d89f03689f55e9a16b7b746ae"
   integrity sha512-Bk5FDXS55MQiSpneezfal4V5A7pTl7amR0qyZprRLVVshNJ2ydNFYIFTnZbgnir2EFl2AY21d5i8za/C/pc61A==
 
-"@internetcamera/sdk@^0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.22.tgz#406fe4e443ace2d34e5e750a0c67078987ec51ad"
-  integrity sha512-ndH4eNo7zF8PQdYU0I/6udGz+iADIgxptluOuwrPztwqQREx7ETTYUvrQJSp5IUiNzHlzkJrqy2do4ON7sbk2A==
+"@internetcamera/sdk@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.23.tgz#93c784ccc5d991bd0f5c73e922369f882b9a6726"
+  integrity sha512-yfKykIC6iyUZtxfu9/NdBhAtYs76Eb42ko5u6SBeH5lXREXnUbf+v35o+Q1y8t3zZHAq1KnsFMa5yg15xRea0g==
   dependencies:
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"

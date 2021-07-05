@@ -1,10 +1,11 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
-import { TrustedForwarder__factory } from '@internetcamera/contracts';
-
-import { InternetCamera, InternetCameraFilmFactory } from '..';
-import ClaimableFilm from '../film/ClaimableFilm';
-
+import {
+  TrustedForwarder__factory,
+  InternetCamera__factory,
+  InternetCameraFilmFactory__factory,
+  ClaimableFilm__factory
+} from '@internetcamera/contracts';
 import InternetCameraAddresses from './addresses';
 
 export const getDataToSignForEIP712 = async (request: any, chainId: number) => {
@@ -39,9 +40,10 @@ export const getPostPhotoSignature = async (
   provider: Web3Provider,
   jsonRpcProvider: JsonRpcProvider
 ) => {
-  const camera = new InternetCamera({
-    provider: jsonRpcProvider as any
-  }).getContract();
+  const camera = InternetCamera__factory.connect(
+    InternetCameraAddresses[chainID].camera,
+    jsonRpcProvider
+  );
   const { data } = await camera.populateTransaction['postPhoto'](
     filmAddress,
     metadataHash
@@ -84,9 +86,10 @@ export const getDeployPersonalFilmSignature = async (
   provider: Web3Provider,
   jsonRpcProvider: JsonRpcProvider
 ) => {
-  const filmFactory = new InternetCameraFilmFactory({
-    provider: jsonRpcProvider as any
-  }).getContract();
+  const filmFactory = InternetCameraFilmFactory__factory.connect(
+    InternetCameraAddresses[chainID].filmFactory,
+    jsonRpcProvider
+  );
   const { data } = await filmFactory.populateTransaction['deployPersonalFilm'](
     name,
     symbol,
@@ -139,9 +142,10 @@ export const getDeployClaimableFilmSignature = async (
   provider: Web3Provider,
   jsonRpcProvider: JsonRpcProvider
 ) => {
-  const filmFactory = new InternetCameraFilmFactory({
-    provider: jsonRpcProvider as any
-  }).getContract();
+  const filmFactory = InternetCameraFilmFactory__factory.connect(
+    InternetCameraAddresses[chainID].filmFactory,
+    jsonRpcProvider
+  );
 
   const { data } = await filmFactory.populateTransaction['deployClaimableFilm'](
     name,
@@ -192,9 +196,7 @@ export const getClaimFilmSignature = async (
   provider: Web3Provider,
   jsonRpcProvider: JsonRpcProvider
 ) => {
-  const film = new ClaimableFilm(filmAddress, {
-    provider: jsonRpcProvider as any
-  }).getContract();
+  const film = ClaimableFilm__factory.connect(filmAddress, jsonRpcProvider);
   const { data } = await film.populateTransaction['claimFilm'](account);
   const gasLimit = await film.estimateGas['claimFilm'](account, {
     from: account
