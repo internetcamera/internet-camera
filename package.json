@@ -2,7 +2,7 @@
   "name": "internet-camera",
   "version": "0.1.0",
   "private": true,
-  "workspaces": [
+  "_workspaces": [
     "packages/*"
   ],
   "scripts": {
