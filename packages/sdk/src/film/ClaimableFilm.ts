@@ -46,7 +46,6 @@ export class ClaimableFilm {
     const { data, signature } = await getClaimFilmSignature(
       this._filmAddress,
       account,
-      this.getContract(),
       this.chainID,
       this.provider,
       this.jsonRpcProvider

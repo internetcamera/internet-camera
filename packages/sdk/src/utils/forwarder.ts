@@ -1,13 +1,9 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
-import {
-  InternetCamera,
-  TrustedForwarder__factory
-} from '@internetcamera/contracts';
-import {
-  ClaimableFilm,
-  InternetCameraFilmFactory
-} from '@internetcamera/contracts';
+import { TrustedForwarder__factory } from '@internetcamera/contracts';
+
+import { InternetCamera, InternetCameraFilmFactory } from '..';
+import ClaimableFilm from '../film/ClaimableFilm';
 
 import InternetCameraAddresses from './addresses';
 
@@ -39,11 +35,13 @@ export const getPostPhotoSignature = async (
   filmAddress: string,
   metadataHash: string,
   account: string,
-  camera: InternetCamera,
   chainID: number,
   provider: Web3Provider,
   jsonRpcProvider: JsonRpcProvider
 ) => {
+  const camera = new InternetCamera({
+    provider: jsonRpcProvider as any
+  }).getContract();
   const { data } = await camera.populateTransaction['postPhoto'](
     filmAddress,
     metadataHash
@@ -82,11 +80,13 @@ export const getDeployPersonalFilmSignature = async (
   starts: BigNumberish,
   expires: BigNumberish,
   account: string,
-  filmFactory: InternetCameraFilmFactory,
   chainID: number,
   provider: Web3Provider,
   jsonRpcProvider: JsonRpcProvider
 ) => {
+  const filmFactory = new InternetCameraFilmFactory({
+    provider: jsonRpcProvider as any
+  }).getContract();
   const { data } = await filmFactory.populateTransaction['deployPersonalFilm'](
     name,
     symbol,
@@ -135,11 +135,14 @@ export const getDeployClaimableFilmSignature = async (
   amountClaimablePerUser: BigNumberish,
   maxClaimsPerUser: BigNumberish,
   account: string,
-  filmFactory: InternetCameraFilmFactory,
   chainID: number,
   provider: Web3Provider,
   jsonRpcProvider: JsonRpcProvider
 ) => {
+  const filmFactory = new InternetCameraFilmFactory({
+    provider: jsonRpcProvider as any
+  }).getContract();
+
   const { data } = await filmFactory.populateTransaction['deployClaimableFilm'](
     name,
     symbol,
@@ -185,11 +188,13 @@ export const getDeployClaimableFilmSignature = async (
 export const getClaimFilmSignature = async (
   filmAddress: string,
   account: string,
-  film: ClaimableFilm,
   chainID: number,
   provider: Web3Provider,
   jsonRpcProvider: JsonRpcProvider
 ) => {
+  const film = new ClaimableFilm(filmAddress, {
+    provider: jsonRpcProvider as any
+  }).getContract();
   const { data } = await film.populateTransaction['claimFilm'](account);
   const gasLimit = await film.estimateGas['claimFilm'](account, {
     from: account

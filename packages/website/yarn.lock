@@ -742,10 +742,10 @@
   resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.9.tgz#24942f7491df8c8d89f03689f55e9a16b7b746ae"
   integrity sha512-Bk5FDXS55MQiSpneezfal4V5A7pTl7amR0qyZprRLVVshNJ2ydNFYIFTnZbgnir2EFl2AY21d5i8za/C/pc61A==
 
-"@internetcamera/sdk@^0.0.21":
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.21.tgz#858ab479c4ab6ef6daa61220a213bb0c2da9261e"
-  integrity sha512-I4P6Xad56kO1vXkV2TROu/q5KbVe1Q8daC7nBCE2JMk4rqrb1srKZq3cck5rSdw6xKSHVgxn8sw/gkKfpG49kw==
+"@internetcamera/sdk@^0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.22.tgz#406fe4e443ace2d34e5e750a0c67078987ec51ad"
+  integrity sha512-ndH4eNo7zF8PQdYU0I/6udGz+iADIgxptluOuwrPztwqQREx7ETTYUvrQJSp5IUiNzHlzkJrqy2do4ON7sbk2A==
   dependencies:
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
@@ -3882,15 +3882,7 @@ ethereumjs-abi@0.6.5:
     bn.js "^4.10.0"
     ethereumjs-util "^4.3.0"
 
-ethereumjs-abi@0.6.8, ethereumjs-abi@^0.6.8:
-  version "0.6.8"
-  resolved "https://registry.yarnpkg.com/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz#71bc152db099f70e62f108b7cdfca1b362c6fcae"
-  integrity sha512-Tx0r/iXI6r+lRsdvkFDlut0N08jWMnKRZ6Gkq+Nmw75lZe4e6o3EkSnkaBP5NF6+m5PTGAr9JP43N3LyeoglsA==
-  dependencies:
-    bn.js "^4.11.8"
-    ethereumjs-util "^6.0.0"
-
-"ethereumjs-abi@git+https://github.com/ethereumjs/ethereumjs-abi.git":
+ethereumjs-abi@0.6.8, ethereumjs-abi@^0.6.8, "ethereumjs-abi@git+https://github.com/ethereumjs/ethereumjs-abi.git":
   version "0.6.8"
   resolved "git+https://github.com/ethereumjs/ethereumjs-abi.git#ee3994657fa7a427238e6ba92a84d0b529bbcde0"
   dependencies:

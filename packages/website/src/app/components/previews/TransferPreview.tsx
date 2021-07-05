@@ -15,7 +15,6 @@ const TransferPreview = ({
 }: {
   transferEvent: InternetCameraTypes.TransferEvent;
 }) => {
-  console.log({ transferEvent });
   return (
     <div className="transfer-preview">
       <div className="message">

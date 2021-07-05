@@ -8,7 +8,6 @@ const useQuery = (
   swrOptions?: Partial<SWRConfiguration>
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));
-  console.log({ query, graphURL });
   const { data, error } = useSWR(
     [query, 'icdk-react-use-query'],
     query => camera.current.graphRequest(query),

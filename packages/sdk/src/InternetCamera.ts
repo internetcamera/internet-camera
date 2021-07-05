@@ -74,7 +74,6 @@ export class InternetCamera {
       filmAddress,
       metadataHash,
       account,
-      this.getContract(),
       this.chainID,
       this.provider,
       this.jsonRpcProvider

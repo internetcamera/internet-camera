@@ -99,7 +99,6 @@ export class InternetCameraFilmFactory {
       starts,
       expires,
       account,
-      this.getContract(),
       this.chainID,
       this.provider,
       this.jsonRpcProvider
@@ -185,7 +184,6 @@ export class InternetCameraFilmFactory {
       amountClaimablePerUser,
       maxClaims,
       account,
-      this.getContract(),
       this.chainID,
       this.provider,
       this.jsonRpcProvider
