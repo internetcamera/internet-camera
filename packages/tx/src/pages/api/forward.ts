@@ -24,7 +24,7 @@ const api: NextApiHandler = async (req, res) => {
       new JsonRpcProvider(process.env.RPC_URL)
     );
     const forwarder = TrustedForwarder__factory.connect(
-      InternetCameraAddresses[1337].forwarder,
+      InternetCameraAddresses[80001].forwarder,
       wallet
     );
     const tx = await forwarder.execute(data.message, signature);
