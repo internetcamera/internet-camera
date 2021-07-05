@@ -1,7 +1,5 @@
 {
   "forwarder": "0x9dC1E89c951e46819D8196e2e54f3Cbbda33E36D",
   "camera": "0xd83aba70B20b218bc9DCBc9B9D838D9dbEce3425",
-  "filmFactory": "0x698bdEedF68058CcA1387F3A1BA14674AC73c021",
-  "filmModelPersonal": "0xD5B551133af662EFbA0A757Cc9c2ebd3Cc32a9C3",
-  "filmModelClaimable": "0x27C96544973e26D8766644ddbBfefF45f6A0F5Fb"
+  "filmFactory": "0xD5B551133af662EFbA0A757Cc9c2ebd3Cc32a9C3"
 }

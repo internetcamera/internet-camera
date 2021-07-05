@@ -14,20 +14,19 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
 contract InternetCameraFilmFactory is TrustedForwarderRecipient {
     // Storage
     address private _cameraAddress;
-    mapping(string => address) private _models;
+    address private _personalFilmImplementation;
+    address private _claimableFilmImplementation;
 
     // Deployment
-    constructor(address cameraAddress_, address forwarderAddress_)
-        TrustedForwarderRecipient(forwarderAddress_)
-    {
+    constructor(
+        address cameraAddress_,
+        address personalFilmImplementation_,
+        address claimableFilmImplementation_,
+        address forwarderAddress_
+    ) TrustedForwarderRecipient(forwarderAddress_) {
         _cameraAddress = cameraAddress_;
-    }
-
-    function registerFilmModel(string calldata modelName, address filmAddress)
-        public
-        onlyOwner
-    {
-        _models[modelName] = filmAddress;
+        _personalFilmImplementation = personalFilmImplementation_;
+        _claimableFilmImplementation = claimableFilmImplementation_;
     }
 
     // Public APIs
@@ -39,8 +38,7 @@ contract InternetCameraFilmFactory is TrustedForwarderRecipient {
         uint256 starts,
         uint256 expires
     ) public returns (address) {
-        require(_models["personal"] != address(0), "No implementation set.");
-        address filmAddress = Clones.clone(_models["personal"]);
+        address filmAddress = Clones.clone(_personalFilmImplementation);
         IBasicFilm(filmAddress).initialize(
             name,
             symbol,
@@ -65,8 +63,7 @@ contract InternetCameraFilmFactory is TrustedForwarderRecipient {
         uint256 amountClaimablePerUser,
         uint256 maxClaimsPerUser
     ) public returns (address) {
-        require(_models["claimable"] != address(0), "No implementation set.");
-        address filmAddress = Clones.clone(_models["claimable"]);
+        address filmAddress = Clones.clone(_claimableFilmImplementation);
         IClaimableFilm(filmAddress).initialize(
             name,
             symbol,

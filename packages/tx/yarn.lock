@@ -398,17 +398,17 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.1.tgz#9daf5745156fd84b8e9889a2dc721f0c58e894aa"
   integrity sha512-CAEbWH7OIur6jEOzaai83jq3FmKmv4PmX1JYfs9IrYcGEVI/lyL1EXJGCj7eFVJ0bg5QR8LMxBlEtA+xKiLpFw==
 
-"@internetcamera/contracts@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.7.tgz#64f1758001d85e0b939dc3e89d2555716a5105e4"
-  integrity sha512-/yvkirRaTe/rEMCo2Q8WHfBbnEHusqUAPCUbo8Fu1NSvSNPiVXN+l3T9DO9RR1em4T0Rh7MPHN1S6VwAIEkx1A==
+"@internetcamera/contracts@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.8.tgz#4b265811fe02d24415865338974c8353e9ded252"
+  integrity sha512-ZY9pPJYv4Jd4KJdTw94T6ByHahrdwu+UxVy7w027ejFKbbVde3o5X8d0JEcbAvMGs692lhJRW2/coI+18t214A==
   dependencies:
     "@openzeppelin/contracts-upgradeable" "^4.1.0"
 
-"@internetcamera/sdk@^0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.18.tgz#3acef248d0d683b089ad5a5990046e3ea4deb95d"
-  integrity sha512-TxZL2yWRK4/kZ9kg/+HaLuiKwimRdTlN823GGHrNPW4XZCYlEk4ETTzjS1/Ck9UHeWkL5gNX41x4J6/EMQ7Y6A==
+"@internetcamera/sdk@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.19.tgz#3326b067589a2888ef358de368bd3924d53d796f"
+  integrity sha512-OIGCCnG2f4MLe64qpG4ihLQg/lD21h3NxEETUqPY12madC4s4zBybWIlBlKLO465GfSim9J0gtbY78H/blbCXg==
   dependencies:
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
@@ -421,7 +421,7 @@
     "@ethersproject/strings" "^5.4.0"
     "@ethersproject/transactions" "^5.4.0"
     "@ethersproject/units" "^5.4.0"
-    "@internetcamera/contracts" "^0.0.7"
+    "@internetcamera/contracts" "^0.0.8"
     eth-sig-util "^3.0.1"
     exifreader "^3.16.0"
     graphql "^15.5.1"

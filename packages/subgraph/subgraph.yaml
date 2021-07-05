@@ -6,9 +6,9 @@ dataSources:
     name: InternetCamera
     network: mumbai
     source:
-      address: '0xcdC9F28E8E95C9Ba089D1d0789405254AB844423'
+      address: '0xA8BF37A61F136271A33F1fC6FD8255Fb22BF0ad7'
       abi: InternetCamera
-      startBlock: 15943762
+      startBlock: 15954350
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

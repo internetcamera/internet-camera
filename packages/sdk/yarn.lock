@@ -1174,10 +1174,10 @@
     "@ethersproject/properties" "^5.4.0"
     "@ethersproject/strings" "^5.4.0"
 
-"@internetcamera/contracts@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.7.tgz#64f1758001d85e0b939dc3e89d2555716a5105e4"
-  integrity sha512-/yvkirRaTe/rEMCo2Q8WHfBbnEHusqUAPCUbo8Fu1NSvSNPiVXN+l3T9DO9RR1em4T0Rh7MPHN1S6VwAIEkx1A==
+"@internetcamera/contracts@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.8.tgz#4b265811fe02d24415865338974c8353e9ded252"
+  integrity sha512-ZY9pPJYv4Jd4KJdTw94T6ByHahrdwu+UxVy7w027ejFKbbVde3o5X8d0JEcbAvMGs692lhJRW2/coI+18t214A==
   dependencies:
     "@openzeppelin/contracts-upgradeable" "^4.1.0"
 

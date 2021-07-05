@@ -43,8 +43,6 @@ export class ClaimableFilm {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.jsonRpcProvider) throw new Error('Missing jsonRpcProvider.');
     if (!this.forwarderURL) throw new Error('Missing forwarderURL.');
-
-    console.log(this.provider, this.jsonRpcProvider);
     const { data, signature } = await getClaimFilmSignature(
       this._filmAddress,
       account,
@@ -53,7 +51,6 @@ export class ClaimableFilm {
       this.provider,
       this.jsonRpcProvider
     );
-    console.log({ data, signature });
     const response = await fetch(this.forwarderURL + '/api/forward', {
       method: 'POST',
       headers: {

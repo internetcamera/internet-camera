@@ -7,8 +7,8 @@
     "start": "next"
   },
   "dependencies": {
-    "@internetcamera/contracts": "^0.0.7",
-    "@internetcamera/sdk": "^0.0.18",
+    "@internetcamera/contracts": "^0.0.8",
+    "@internetcamera/sdk": "^0.0.19",
     "ethers": "^5.4.1",
     "next": "^11.0.0",
     "react": "^17.0.1",
