@@ -4,6 +4,8 @@ import { Wallet } from '@ethersproject/wallet';
 import {
   InternetCamera__factory,
   InternetCameraFilmFactory__factory,
+  BasicFilm__factory,
+  ClaimableFilm__factory,
   TrustedForwarder__factory
 } from '../typechain';
 
@@ -38,27 +40,58 @@ async function start() {
     await fs.writeFile(addressesPath, JSON.stringify(addressBook, null, 2));
   }
 
-  console.log('Deploying Internet Camera...');
-  const deployTxCamera = await new InternetCamera__factory(wallet).deploy(
-    addressBook.forwarder
-  );
-  console.log('Deploy TX: ', deployTxCamera.deployTransaction.hash);
-  const camera = await deployTxCamera.deployed();
-  console.log('Internet Camera deployed at ', deployTxCamera.address);
-  addressBook.camera = deployTxCamera.address;
+  if (!addressBook.camera || !addressBook.filmFactory) {
+    console.log('Deploying Internet Camera...');
+    const deployTxCamera = await new InternetCamera__factory(wallet).deploy(
+      addressBook.forwarder
+    );
+    console.log('Deploy TX: ', deployTxCamera.deployTransaction.hash);
+    const camera = await deployTxCamera.deployed();
+    console.log('Internet Camera deployed at ', deployTxCamera.address);
+    addressBook.camera = deployTxCamera.address;
+    await fs.writeFile(addressesPath, JSON.stringify(addressBook, null, 2));
 
-  console.log('Deploying Film Factory...');
-  const deployTxFilmFactory = await new InternetCameraFilmFactory__factory(
-    wallet
-  ).deploy(addressBook.camera, addressBook.forwarder);
-  console.log('Deploy TX: ', deployTxFilmFactory.deployTransaction.hash);
-  await deployTxFilmFactory.deployed();
-  console.log('FilmFactory deployed at ', deployTxFilmFactory.address);
-  addressBook.filmFactory = deployTxFilmFactory.address;
+    console.log('Deploying Film Factory...');
+    const deployTxFilmFactory = await new InternetCameraFilmFactory__factory(
+      wallet
+    ).deploy(addressBook.camera, addressBook.forwarder);
+    console.log('Deploy TX: ', deployTxFilmFactory.deployTransaction.hash);
+    const filmFactory = await deployTxFilmFactory.deployed();
+    console.log('FilmFactory deployed at ', deployTxFilmFactory.address);
+    addressBook.filmFactory = deployTxFilmFactory.address;
+    await fs.writeFile(addressesPath, JSON.stringify(addressBook, null, 2));
 
-  await camera.setFilmFactoryAddress(deployTxFilmFactory.address);
+    await camera.setFilmFactoryAddress(deployTxFilmFactory.address);
 
-  await fs.writeFile(addressesPath, JSON.stringify(addressBook, null, 2));
+    console.log('Deploying Personal Film...');
+    const deployTxFilmPersonal = await new BasicFilm__factory(wallet).deploy(
+      addressBook.forwarder
+    );
+    console.log('Deploy TX: ', deployTxFilmPersonal.deployTransaction.hash);
+    await deployTxFilmPersonal.deployed();
+    console.log('PersonalFilm deployed at ', deployTxFilmPersonal.address);
+    addressBook.filmModelPersonal = deployTxFilmPersonal.address;
+    await filmFactory.registerFilmModel(
+      'personal',
+      addressBook.filmModelPersonal
+    );
+    await fs.writeFile(addressesPath, JSON.stringify(addressBook, null, 2));
+
+    console.log('Deploying Claimable Film...');
+    const deployTxFilmClaimable = await new ClaimableFilm__factory(
+      wallet
+    ).deploy(addressBook.forwarder);
+    console.log('Deploy TX: ', deployTxFilmClaimable.deployTransaction.hash);
+    await deployTxFilmClaimable.deployed();
+    console.log('ClaimableFilm deployed at ', deployTxFilmClaimable.address);
+    addressBook.filmModelClaimable = deployTxFilmClaimable.address;
+    await filmFactory.registerFilmModel(
+      'claimable',
+      addressBook.filmModelClaimable
+    );
+    await fs.writeFile(addressesPath, JSON.stringify(addressBook, null, 2));
+  }
+
   console.log('Deployed!');
 }
 

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "../interfaces/IInternetCameraFilm.sol";
+import "../interfaces/IBasicFilm.sol";
 import "../utils/TrustedForwarderRecipient.sol";
 
 /**
@@ -11,20 +11,24 @@ import "../utils/TrustedForwarderRecipient.sol";
  */
 
 contract BasicFilm is
-    ERC20,
-    ERC20Permit,
+    ERC20Upgradeable,
     IInternetCameraFilm,
+    IBasicFilm,
     TrustedForwarderRecipient
 {
-    uint256 private _starts;
-    uint256 private _expires;
-    string private _tokenURI;
-    address private _cameraAddress;
+    uint256 internal _starts;
+    uint256 internal _expires;
+    string internal _tokenURI;
+    address internal _cameraAddress;
+
+    constructor(address forwarderAddress_)
+        TrustedForwarderRecipient(forwarderAddress_)
+    {}
 
     /**
      * @dev Initialize Film.
      */
-    constructor(
+    function initialize(
         string memory name,
         string memory symbol,
         string memory tokenURI_,
@@ -32,20 +36,14 @@ contract BasicFilm is
         uint256 starts_,
         uint256 expires_,
         address cameraAddress_,
-        address creatorAddress_,
-        bool mintToContract,
-        address forwarderAddress_
-    )
-        ERC20(name, symbol)
-        ERC20Permit(symbol)
-        TrustedForwarderRecipient(forwarderAddress_)
-    {
+        address creatorAddress_
+    ) public override initializer {
+        __ERC20_init(name, symbol);
         _starts = starts_;
         _expires = expires_;
         _tokenURI = tokenURI_;
         _cameraAddress = cameraAddress_;
-        if (mintToContract) _mint(address(this), totalSupply);
-        else _mint(creatorAddress_, totalSupply);
+        _mint(creatorAddress_, totalSupply);
     }
 
     // Standard public APIs
@@ -87,7 +85,7 @@ contract BasicFilm is
     function _msgSender()
         internal
         view
-        override(Context, TrustedForwarderRecipient)
+        override(ContextUpgradeable, TrustedForwarderRecipient)
         returns (address)
     {
         return TrustedForwarderRecipient._msgSender();
@@ -96,7 +94,7 @@ contract BasicFilm is
     function _msgData()
         internal
         view
-        override(Context, TrustedForwarderRecipient)
+        override(ContextUpgradeable, TrustedForwarderRecipient)
         returns (bytes memory ret)
     {
         return TrustedForwarderRecipient._msgData();

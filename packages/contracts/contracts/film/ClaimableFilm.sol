@@ -2,15 +2,18 @@
 pragma solidity ^0.8.0;
 
 import "./BasicFilm.sol";
+import "../interfaces/IClaimableFilm.sol";
 
-contract ClaimableFilm is BasicFilm {
+contract ClaimableFilm is BasicFilm, IClaimableFilm {
     // Storage
     uint256 private _amountClaimablePerUser;
     uint256 private _maxClaimsPerUser;
     mapping(address => uint256) private _claimCount;
 
+    constructor(address forwarderAddress_) BasicFilm(forwarderAddress_) {}
+
     // Deployment
-    constructor(
+    function initialize(
         string memory name,
         string memory symbol,
         string memory tokenURI,
@@ -18,30 +21,21 @@ contract ClaimableFilm is BasicFilm {
         uint256 starts,
         uint256 expires,
         address cameraAddress,
-        address creatorAddress,
         uint256 amountClaimablePerUser_,
-        uint256 maxClaimsPerUser_,
-        address forwarderAddress_
-    )
-        BasicFilm(
-            name,
-            symbol,
-            tokenURI,
-            totalSupply,
-            starts,
-            expires,
-            cameraAddress,
-            creatorAddress,
-            true,
-            forwarderAddress_
-        )
-    {
+        uint256 maxClaimsPerUser_
+    ) public override initializer {
         require(
             maxClaimsPerUser_ > 0,
             "ClaimableFilm: maxClaims must be greater than zero."
         );
+        __ERC20_init(name, symbol);
+        _starts = starts;
+        _expires = expires;
+        _tokenURI = tokenURI;
+        _cameraAddress = cameraAddress;
         _amountClaimablePerUser = amountClaimablePerUser_;
         _maxClaimsPerUser = maxClaimsPerUser_;
+        _mint(address(this), totalSupply);
     }
 
     // Public APIs

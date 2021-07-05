@@ -5,6 +5,7 @@ import "./film/BasicFilm.sol";
 import "./film/ClaimableFilm.sol";
 import "./interfaces/IInternetCamera.sol";
 import "./utils/TrustedForwarderRecipient.sol";
+import "@openzeppelin/contracts/proxy/Clones.sol";
 
 /**
  * @dev The Internet Camera Film Registry allows creators of Internet Camera Film to deploy film easily (and pay fees upfront).
@@ -13,12 +14,20 @@ import "./utils/TrustedForwarderRecipient.sol";
 contract InternetCameraFilmFactory is TrustedForwarderRecipient {
     // Storage
     address private _cameraAddress;
+    mapping(string => address) private _models;
 
     // Deployment
     constructor(address cameraAddress_, address forwarderAddress_)
         TrustedForwarderRecipient(forwarderAddress_)
     {
         _cameraAddress = cameraAddress_;
+    }
+
+    function registerFilmModel(string calldata modelName, address filmAddress)
+        public
+        onlyOwner
+    {
+        _models[modelName] = filmAddress;
     }
 
     // Public APIs
@@ -30,19 +39,17 @@ contract InternetCameraFilmFactory is TrustedForwarderRecipient {
         uint256 starts,
         uint256 expires
     ) public returns (address) {
-        address filmAddress = address(
-            new BasicFilm(
-                name,
-                symbol,
-                tokenURI,
-                totalSupply,
-                starts,
-                expires,
-                _cameraAddress,
-                _msgSender(),
-                false,
-                _trustedForwarder
-            )
+        require(_models["personal"] != address(0), "No implementation set.");
+        address filmAddress = Clones.clone(_models["personal"]);
+        IBasicFilm(filmAddress).initialize(
+            name,
+            symbol,
+            tokenURI,
+            totalSupply,
+            starts,
+            expires,
+            _cameraAddress,
+            _msgSender()
         );
         _registerFilm(filmAddress);
         return filmAddress;
@@ -58,20 +65,18 @@ contract InternetCameraFilmFactory is TrustedForwarderRecipient {
         uint256 amountClaimablePerUser,
         uint256 maxClaimsPerUser
     ) public returns (address) {
-        address filmAddress = address(
-            new ClaimableFilm(
-                name,
-                symbol,
-                tokenURI,
-                totalSupply,
-                starts,
-                expires,
-                _cameraAddress,
-                _msgSender(),
-                amountClaimablePerUser,
-                maxClaimsPerUser,
-                _trustedForwarder
-            )
+        require(_models["claimable"] != address(0), "No implementation set.");
+        address filmAddress = Clones.clone(_models["claimable"]);
+        IClaimableFilm(filmAddress).initialize(
+            name,
+            symbol,
+            tokenURI,
+            totalSupply,
+            starts,
+            expires,
+            _cameraAddress,
+            amountClaimablePerUser,
+            maxClaimsPerUser
         );
         _registerFilm(filmAddress);
         return filmAddress;
