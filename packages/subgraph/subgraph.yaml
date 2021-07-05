@@ -6,7 +6,7 @@ dataSources:
     name: InternetCamera
     network: mumbai
     source:
-      address: '0xA8BF37A61F136271A33F1fC6FD8255Fb22BF0ad7'
+      address: '0xd52108293b2c886491F086b6582a72291D64776b'
       abi: InternetCamera
       startBlock: 15954350
     mapping:

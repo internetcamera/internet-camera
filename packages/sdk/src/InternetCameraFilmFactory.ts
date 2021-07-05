@@ -3,7 +3,10 @@ import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { InternetCameraFilmFactory__factory } from '@internetcamera/contracts';
 import { ContractTransaction } from '@ethersproject/contracts';
 import InternetCameraAddresses from './utils/addresses';
-import { getDeployPersonalFilmSignature } from './utils/forwarder';
+import {
+  getDeployClaimableFilmSignature,
+  getDeployPersonalFilmSignature
+} from './utils/forwarder';
 
 export class InternetCameraFilmFactory {
   private ipfsURL: string = 'https://ipfs.internet.camera';
@@ -172,13 +175,15 @@ export class InternetCameraFilmFactory {
       factoryModel: 'claimable'
     };
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
-    const { signature, data } = await getDeployPersonalFilmSignature(
+    const { signature, data } = await getDeployClaimableFilmSignature(
       name,
       symbol,
       tokenURI,
       totalSupply,
       starts,
       expires,
+      amountClaimablePerUser,
+      maxClaims,
       account,
       this.getContract(),
       this.chainID,

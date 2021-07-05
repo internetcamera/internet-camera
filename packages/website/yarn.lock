@@ -744,10 +744,10 @@
   dependencies:
     "@openzeppelin/contracts-upgradeable" "^4.1.0"
 
-"@internetcamera/sdk@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.19.tgz#3326b067589a2888ef358de368bd3924d53d796f"
-  integrity sha512-OIGCCnG2f4MLe64qpG4ihLQg/lD21h3NxEETUqPY12madC4s4zBybWIlBlKLO465GfSim9J0gtbY78H/blbCXg==
+"@internetcamera/sdk@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.20.tgz#88517b1e5e6fe95e85b47a40bbf23bf49878a1e4"
+  integrity sha512-cArEOQl3a8TU/uwr9+GJiPE7dWL482OmIM5rRqdGzJm8OxsZ63oKJNzAIvyHwLl6n4f299+5J+4czIcCK2+sBQ==
   dependencies:
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
