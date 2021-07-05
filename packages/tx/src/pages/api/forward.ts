@@ -27,13 +27,8 @@ const api: NextApiHandler = async (req, res) => {
       InternetCameraAddresses[1337].forwarder,
       wallet
     );
-    try {
-      const tx = await forwarder.execute(data.message, signature);
-      return res.json(tx);
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
+    const tx = await forwarder.execute(data.message, signature);
+    return res.json(tx);
   } else {
     res.send('');
   }
