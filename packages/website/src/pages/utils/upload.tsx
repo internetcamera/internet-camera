@@ -18,17 +18,28 @@ const Upload = () => {
   const [selectedFilmIndex, setSelectedFilmIndex] = useState<number>(0);
 
   const [file, setFile] = useState<File>();
+  const [meta, setMeta] = useState<{ width: number; height: number }>();
   const [previewURL, setPreviewURL] = useState<string>();
   const onDrop = useCallback((files: File[]) => {
     setFile(files[0]);
     setPreviewURL(URL.createObjectURL(files[0]));
+    const i = new Image();
+
+    i.onload = () => {
+      let reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onload = () => {
+        setMeta({ width: i.width, height: i.height });
+      };
+    };
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const gasless = useSettings(state => state.gasless);
 
   const submit = async () => {
-    if (!file || !provider || !filmHoldings?.length || !account) return;
+    if (!file || !provider || !filmHoldings?.length || !account || !meta)
+      return;
     const camera = new InternetCamera({
       provider,
       jsonRpcProvider: new providers.JsonRpcProvider(
@@ -43,12 +54,14 @@ const Upload = () => {
     if (!gasless) {
       tx = await camera.postPhoto(
         file,
-        filmHoldings[selectedFilmIndex].film.filmAddress
+        filmHoldings[selectedFilmIndex].film.filmAddress,
+        meta
       );
     } else {
       tx = await camera.postPhotoGasless(
         file,
         filmHoldings[selectedFilmIndex].film.filmAddress,
+        meta,
         account
       );
     }
