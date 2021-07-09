@@ -4,8 +4,9 @@ import { InternetCameraFilmFactory__factory } from '@internetcamera/contracts';
 import { ContractTransaction } from '@ethersproject/contracts';
 import InternetCameraAddresses from './utils/addresses';
 import {
-  getDeployClaimableFilmSignature,
-  getDeployPersonalFilmSignature
+  getDeployClaimableFilmTypedData,
+  getDeployPersonalFilmTypedData,
+  getSignatureForTypedData
 } from './utils/forwarder';
 
 export class InternetCameraFilmFactory {
@@ -91,7 +92,7 @@ export class InternetCameraFilmFactory {
       factoryModel: 'personal'
     };
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
-    const { signature, data } = await getDeployPersonalFilmSignature(
+    const typedData = await getDeployPersonalFilmTypedData(
       name,
       symbol,
       tokenURI,
@@ -100,8 +101,11 @@ export class InternetCameraFilmFactory {
       expires,
       account,
       this.chainID,
-      this.provider,
       this.jsonRpcProvider
+    );
+    const { signature, data } = await getSignatureForTypedData(
+      this.jsonRpcProvider,
+      typedData
     );
     const response = await fetch(this.forwarderURL + '/api/forward', {
       method: 'POST',
@@ -174,7 +178,7 @@ export class InternetCameraFilmFactory {
       factoryModel: 'claimable'
     };
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
-    const { signature, data } = await getDeployClaimableFilmSignature(
+    const typedData = await getDeployClaimableFilmTypedData(
       name,
       symbol,
       tokenURI,
@@ -185,8 +189,11 @@ export class InternetCameraFilmFactory {
       maxClaims,
       account,
       this.chainID,
-      this.provider,
       this.jsonRpcProvider
+    );
+    const { signature, data } = await getSignatureForTypedData(
+      this.jsonRpcProvider,
+      typedData
     );
     const response = await fetch(this.forwarderURL + '/api/forward', {
       method: 'POST',

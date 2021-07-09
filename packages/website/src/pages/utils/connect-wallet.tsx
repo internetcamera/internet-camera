@@ -18,6 +18,7 @@ const IndexPage = () => {
         qrcodeModalOptions: {
           mobileLinks: ['metamask', 'rainbow']
         }
+        // bridge: 'https://wc.internet.camera'
       });
       await walletConnectProvider.current.enable();
       const provider = new providers.Web3Provider(

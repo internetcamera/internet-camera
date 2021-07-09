@@ -9,7 +9,11 @@ const useWalletFilmForAddress = (
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));
 
-  const { data: filmHoldings, error } = useSWR<
+  const {
+    data: filmHoldings,
+    error,
+    mutate
+  } = useSWR<
     {
       amount: string;
       film: { filmAddress: string; name: string; symbol: string };
@@ -20,7 +24,7 @@ const useWalletFilmForAddress = (
     { revalidateOnMount: true, ...swrOptions }
   );
 
-  return { filmHoldings, error };
+  return { filmHoldings, error, refresh: mutate };
 };
 
 export default useWalletFilmForAddress;

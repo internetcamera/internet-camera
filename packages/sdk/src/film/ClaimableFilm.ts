@@ -1,7 +1,10 @@
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { ContractTransaction } from '@ethersproject/contracts';
 import { ClaimableFilm__factory } from '@internetcamera/contracts';
-import { getClaimFilmSignature } from '../utils/forwarder';
+import {
+  getClaimFilmTypedData,
+  getSignatureForTypedData
+} from '../utils/forwarder';
 
 export class ClaimableFilm {
   private forwarderURL: string = 'https://tx.internet.camera/api/forward';
@@ -43,12 +46,15 @@ export class ClaimableFilm {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.jsonRpcProvider) throw new Error('Missing jsonRpcProvider.');
     if (!this.forwarderURL) throw new Error('Missing forwarderURL.');
-    const { data, signature } = await getClaimFilmSignature(
+    const typedData = await getClaimFilmTypedData(
       this._filmAddress,
       account,
       this.chainID,
-      this.provider,
       this.jsonRpcProvider
+    );
+    const { data, signature } = await getSignatureForTypedData(
+      this.jsonRpcProvider,
+      typedData
     );
     const response = await fetch(this.forwarderURL + '/api/forward', {
       method: 'POST',

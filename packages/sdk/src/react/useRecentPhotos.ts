@@ -9,12 +9,16 @@ const useRecentPhotos = (
   swrOptions?: Partial<SWRConfiguration>
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));
-  const { data: photos, error } = useSWR<Photo[]>(
+  const {
+    data: photos,
+    error,
+    mutate
+  } = useSWR<Photo[]>(
     [limit, 'icdk-react-use-recent-photos'],
     limit => camera.current.getRecentPhotos(limit),
     { revalidateOnMount: true, ...swrOptions }
   );
-  return { photos, error };
+  return { photos, error, refresh: mutate };
 };
 
 export default useRecentPhotos;

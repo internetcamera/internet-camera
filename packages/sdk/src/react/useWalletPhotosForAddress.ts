@@ -10,7 +10,11 @@ const useWalletPhotosForAddress = (
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));
 
-  const { data: photos, error } = useSWR<{
+  const {
+    data: photos,
+    error,
+    mutate
+  } = useSWR<{
     photosCreated: Photo[];
     photosOwned: Photo[];
   }>(
@@ -19,7 +23,7 @@ const useWalletPhotosForAddress = (
     { revalidateOnMount: true, ...swrOptions }
   );
 
-  return { photos, error };
+  return { photos, error, refresh: mutate };
 };
 
 export default useWalletPhotosForAddress;

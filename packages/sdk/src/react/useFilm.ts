@@ -9,12 +9,16 @@ const useFilm = (
   swrOptions?: Partial<SWRConfiguration>
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));
-  const { data: film, error } = useSWR<Film>(
+  const {
+    data: film,
+    error,
+    mutate
+  } = useSWR<Film>(
     [filmAddress, 'icdk-react-use-film'],
     filmAddress => camera.current.getFilm(filmAddress),
     { revalidateOnMount: true, ...swrOptions }
   );
-  return { film, error };
+  return { film, error, refresh: mutate };
 };
 
 export default useFilm;

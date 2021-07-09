@@ -10,13 +10,17 @@ const useRecentPhotosFromFilm = (
   swrOptions?: Partial<SWRConfiguration>
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));
-  const { data: photos, error } = useSWR<Photo[]>(
+  const {
+    data: photos,
+    error,
+    mutate
+  } = useSWR<Photo[]>(
     [limit, filmAddress, 'icdk-react-use-recent-photos-from-film'],
     (limit, filmAddress) =>
       camera.current.getRecentPhotosFromFilm(limit, filmAddress),
     { revalidateOnMount: true, ...swrOptions }
   );
-  return { photos, error };
+  return { photos, error, refresh: mutate };
 };
 
 export default useRecentPhotosFromFilm;

@@ -8,12 +8,16 @@ const useRecentTransferEvents = (
   swrOptions?: Partial<SWRConfiguration>
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));
-  const { data: transferEvents, error } = useSWR<any[]>(
+  const {
+    data: transferEvents,
+    error,
+    mutate
+  } = useSWR<any[]>(
     [limit, 'icdk-react-use-recent-transfer-events'],
     limit => camera.current.getRecentTransferEvents(limit),
     { revalidateOnMount: true, ...swrOptions }
   );
-  return { transferEvents, error };
+  return { transferEvents, error, refresh: mutate };
 };
 
 export default useRecentTransferEvents;

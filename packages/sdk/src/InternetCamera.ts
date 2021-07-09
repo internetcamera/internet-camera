@@ -3,9 +3,11 @@ import { gql, request as gqlRequest } from 'graphql-request';
 import { InternetCamera__factory } from '@internetcamera/contracts';
 import { Film, Photo } from './types';
 import InternetCameraAddresses from './utils/addresses';
-import ExifReader from 'exifreader';
 import { ContractTransaction } from '@ethersproject/contracts';
-import { getPostPhotoSignature } from './utils/forwarder';
+import {
+  getPostPhotoTypedData,
+  getSignatureForTypedData
+} from './utils/forwarder';
 
 export class InternetCamera {
   private graphURL: string =
@@ -50,13 +52,14 @@ export class InternetCamera {
 
   public async postPhoto(
     file: File,
-    filmAddress: string
+    filmAddress: string,
+    meta: { width: number; height: number }
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
     if (!this.ipfsURL) throw new Error('Missing IPFS url');
 
-    const metadataHash = await this._postToIPFS(file, filmAddress);
+    const metadataHash = await this.postPhotoToIPFS(file, filmAddress, meta);
 
     return await this.getContract().postPhoto(filmAddress, metadataHash);
   }
@@ -64,19 +67,23 @@ export class InternetCamera {
   public async postPhotoGasless(
     file: File,
     filmAddress: string,
+    meta: { width: number; height: number },
     account: string
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.jsonRpcProvider) throw new Error('Missing jsonRpcProvider.');
     if (!this.forwarderURL) throw new Error('Missing forwarderURL.');
-    const metadataHash = await this._postToIPFS(file, filmAddress);
-    const { data, signature } = await getPostPhotoSignature(
+    const metadataHash = await this.postPhotoToIPFS(file, filmAddress, meta);
+    const typedData = await getPostPhotoTypedData(
       filmAddress,
       metadataHash,
       account,
       this.chainID,
-      this.provider,
       this.jsonRpcProvider
+    );
+    const { data, signature } = await getSignatureForTypedData(
+      this.jsonRpcProvider,
+      typedData
     );
     const response = await fetch(this.forwarderURL + '/api/forward', {
       method: 'POST',
@@ -93,9 +100,14 @@ export class InternetCamera {
     return await this.jsonRpcProvider.getTransaction(response.hash);
   }
 
-  private async _postToIPFS(file: File, filmAddress: string): Promise<string> {
+  public async postPhotoToIPFS(
+    file: File | { uri: string; type: string; name: string },
+    filmAddress: string,
+    meta: { width: number; height: number }
+  ): Promise<string> {
     // Upload file to IPFS
     const body = new FormData();
+    //@ts-ignore
     body.append('files', file);
     const { hash: imageHash }: { hash: string } = await fetch(
       `${this.ipfsURL}/upload`,
@@ -108,13 +120,11 @@ export class InternetCamera {
     // Build metadata and upload
     const film = await this.getFilm(filmAddress);
     const index = film.photos.length + 1;
-    const tags = await ExifReader.load(await file.arrayBuffer());
 
     const metadata = {
+      ...meta,
       name: `${film.symbol} #${index}`,
       description: ``,
-      width: tags['Image Width']?.value || 0,
-      height: tags['Image Height']?.value || 0,
       image: `ipfs://${imageHash}`
     };
 
