@@ -24,7 +24,6 @@ const Upload = () => {
     setFile(files[0]);
     setPreviewURL(URL.createObjectURL(files[0]));
     const i = new Image();
-
     i.onload = () => {
       let reader = new FileReader();
       reader.readAsDataURL(files[0]);
@@ -32,6 +31,7 @@ const Upload = () => {
         setMeta({ width: i.width, height: i.height });
       };
     };
+    i.src = URL.createObjectURL(files[0]);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
