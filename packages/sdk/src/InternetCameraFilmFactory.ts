@@ -104,7 +104,7 @@ export class InternetCameraFilmFactory {
       this.jsonRpcProvider
     );
     const { signature, data } = await getSignatureForTypedData(
-      this.jsonRpcProvider,
+      this.provider,
       typedData
     );
     const response = await fetch(this.forwarderURL + '/api/forward', {
@@ -142,6 +142,7 @@ export class InternetCameraFilmFactory {
       expires,
       factoryModel: 'claimable'
     };
+
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
     return this.getContract().deployClaimableFilm(
       name,
@@ -192,7 +193,7 @@ export class InternetCameraFilmFactory {
       this.jsonRpcProvider
     );
     const { signature, data } = await getSignatureForTypedData(
-      this.jsonRpcProvider,
+      this.provider,
       typedData
     );
     const response = await fetch(this.forwarderURL + '/api/forward', {

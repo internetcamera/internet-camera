@@ -53,7 +53,7 @@ export class ClaimableFilm {
       this.jsonRpcProvider
     );
     const { data, signature } = await getSignatureForTypedData(
-      this.jsonRpcProvider,
+      this.provider,
       typedData
     );
     const response = await fetch(this.forwarderURL + '/api/forward', {
