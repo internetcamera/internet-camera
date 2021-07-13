@@ -46,6 +46,7 @@ const PhotoExplorer = ({
         createdAt
       }
     `,
+    {},
     process.env.NEXT_PUBLIC_GRAPH_URL
   );
   let photos = data

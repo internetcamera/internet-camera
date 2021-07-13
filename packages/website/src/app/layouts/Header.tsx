@@ -1,4 +1,3 @@
-import Camera from '@app/components/graphics/Camera';
 import { useWallet } from '@gimmixfactory/use-wallet';
 import { useRouter } from 'next/dist/client/router';
 import WalletConnectProvider from '@walletconnect/web3-provider';

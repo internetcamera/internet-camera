@@ -56,6 +56,7 @@ const ActivityExplorer = ({
         createdAt
       }
     `,
+    {},
     process.env.NEXT_PUBLIC_GRAPH_URL
   );
   let activity = data ? [...data.from, ...data.to] : [];

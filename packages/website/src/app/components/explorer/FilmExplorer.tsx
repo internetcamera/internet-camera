@@ -35,6 +35,7 @@ const FilmExplorer = ({
         createdAt
       }
     `,
+    {},
     process.env.NEXT_PUBLIC_GRAPH_URL
   );
   if (error) return <div className="error">{error}</div>;
