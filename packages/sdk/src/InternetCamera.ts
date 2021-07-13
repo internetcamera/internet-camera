@@ -8,6 +8,7 @@ import {
   getPostPhotoTypedData,
   getSignatureForTypedData
 } from './utils/forwarder';
+import { Variables } from 'graphql-request/dist/types';
 
 export class InternetCamera {
   private graphURL: string =
@@ -122,10 +123,14 @@ export class InternetCamera {
     const index = film.photos.length + 1;
 
     const metadata = {
-      ...meta,
       name: `${film.symbol} #${index}`,
+      filmAddress,
+      filmIndex: index,
       description: ``,
-      image: `ipfs://${imageHash}`
+      image: `ipfs://${imageHash}`,
+      width: meta.width,
+      height: meta.height,
+      createdAt: Date.now()
     };
 
     const { hash: metadataHash }: { hash: string } = await fetch(
@@ -461,9 +466,9 @@ export class InternetCamera {
     return transferEvents;
   }
 
-  public graphRequest(gql: string): Promise<any> {
+  public graphRequest(gql: string, variables?: Variables): Promise<any> {
     if (!this.graphURL) throw new Error('Missing graphURL.');
-    return gqlRequest(this.graphURL, gql);
+    return gqlRequest(this.graphURL, gql, variables);
   }
 }
 

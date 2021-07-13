@@ -23,7 +23,6 @@ const IndexPage = () => {
       walletConnectProvider.current = new WalletConnectProvider({
         infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
         qrcode: false
-        // bridge: 'https://wc.internet.camera'
       });
       walletConnectProvider.current.connector.on(
         'display_uri',
@@ -69,7 +68,7 @@ const IndexPage = () => {
   return (
     <div className="index">
       <Head>
-        <title>Internet Camera</title>
+        <title>Cam</title>
         <link
           rel="shortcut icon"
           href="https://internet.camera/static/icon.png"

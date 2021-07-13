@@ -28,9 +28,7 @@ const Header = () => {
   return (
     <header>
       <Link href="/">
-        <a className="internet-camera link">
-          <Camera />
-        </a>
+        <a className="internet-camera link">✸</a>
       </Link>
 
       <div className="navigation">
@@ -109,8 +107,7 @@ const Header = () => {
           position: sticky;
           top: 0;
           z-index: 999;
-          backdrop-filter: blur(5px);
-          background-color: hsla(197, 10%, 14%, 95%);
+          backdrop-filter: blur(10px);
         }
         .navigation {
           display: flex;
@@ -125,8 +122,8 @@ const Header = () => {
           text-underline-offset: 10px;
         }
         .internet-camera {
-          width: 36px;
-          margin-right: 224px;
+          width: 260px;
+          font-size: 24px;
           text-decoration: none !important;
         }
         .settings {
@@ -139,7 +136,7 @@ const Header = () => {
           outline: none;
           border: none;
           cursor: pointer;
-          background-image: linear-gradient(to right, #0066ff, #6e00ff);
+          background: hsl(260, 100%, 50%);
           color: white;
           padding: 5px 15px;
           border-radius: 5px;

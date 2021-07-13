@@ -30,11 +30,14 @@ export class ClaimableFilm {
   }
 
   public getContract() {
-    if (!this.provider) throw new Error('Missing provider.');
+    if (!this.provider && !this.jsonRpcProvider)
+      throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
     return ClaimableFilm__factory.connect(
       this._filmAddress,
-      this.provider.getSigner()
+      this.provider
+        ? this.provider.getSigner()
+        : (this.jsonRpcProvider as JsonRpcProvider)
     );
   }
 

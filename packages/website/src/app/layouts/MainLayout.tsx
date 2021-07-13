@@ -19,8 +19,9 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       <div id="gradient2" />
       <div className="testnet">
         <FaExclamationCircle />
-        Internet Camera is in active development and currently running on test
-        networks only.
+        Internet Camera is currently running on test networks only. Photo
+        storage should not be considered permanent. Film and Photos should not
+        be traded for real money on the test networks.
       </div>
       <style jsx>{`
         .main-layout {
@@ -28,8 +29,6 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           flex-direction: column;
           justify-content: stretch;
           align-items: stretch;
-          min-height: 100vh;
-          height: 0;
         }
         main {
           flex: 1 1 auto;
@@ -76,14 +75,13 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           bottom: 0;
           left: 0;
           right: 0;
-          padding: 5px 30px;
-          background-color: hsl(264, 94%, 50%);
+          padding: 10px 30px;
+          background-color: hsl(260, 100%, 50%);
           color: white;
-          font-size: 14px;
+          font-size: 16px;
           display: flex;
           align-items: center;
           gap: 10px;
-          font-weight: bold;
         }
         .testnet :global(svg) {
           display: block;
@@ -113,7 +111,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         body {
           margin: 0;
           padding: 0;
-          background-color: rgb(33, 36, 41);
+          background-color: hsl(221, 11%, 10%);
           color: white;
         }
         @font-face {
