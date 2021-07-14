@@ -11,7 +11,7 @@ const useQuery = (
 ) => {
   const camera = useRef(new InternetCamera({ graphURL }));
   const { data, error, mutate } = useSWR(
-    [query, 'icdk-react-use-query'],
+    [query, JSON.stringify(variables), 'icdk-react-use-query'],
     query => camera.current.graphRequest(query, variables),
     { revalidateOnMount: true, ...swrOptions }
   );

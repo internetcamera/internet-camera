@@ -403,10 +403,10 @@
   resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.9.tgz#24942f7491df8c8d89f03689f55e9a16b7b746ae"
   integrity sha512-Bk5FDXS55MQiSpneezfal4V5A7pTl7amR0qyZprRLVVshNJ2ydNFYIFTnZbgnir2EFl2AY21d5i8za/C/pc61A==
 
-"@internetcamera/sdk@^0.0.30":
-  version "0.0.30"
-  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.30.tgz#19fd97cc58479a50a9ff52729565d47c05f73be7"
-  integrity sha512-G/nNxehT206uE9V6DluwjYhWLIalGvWlXxJNJ7/OZeGX7PGl8XITd30E4w7C/ROPa42xbLRW/GT+uBGViU+VgA==
+"@internetcamera/sdk@^0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.32.tgz#e58ec172954ed9a1ca3dd735b337f5f91aeb06e7"
+  integrity sha512-kU395yJKs9cyQUzORfBsZDNaG9BM9fVoYW3mQIkVo1GH7+skmGGVfloV9DbVAS9/c9k5SjkSaPXQIDHff7xlKA==
   dependencies:
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
@@ -469,10 +469,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.4.tgz#e1cf817d70a1e118e81922c4ff6683ce9d422e26"
   integrity sha512-zrNj1+yqYF4WskCMOHwN+w9iuD12+dGm0rQ35HLl9/Ouuq52cEtd0CH9qMgrdNmi5ejC1/V7vKEXYubB+65DkA==
 
-"@types/node@^16.3.1":
-  version "16.3.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.1.tgz#24691fa2b0c3ec8c0d34bfcfd495edac5593ebb4"
-  integrity sha512-N87VuQi7HEeRJkhzovao/JviiqKjDKMVKxKMfUvSKw+MbkbW8R0nA3fi/MQhhlxV2fQ+2ReM+/Nt4efdrJx3zA==
+"@types/node@^16.3.2":
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.2.tgz#655432817f83b51ac869c2d51dd8305fb8342e16"
+  integrity sha512-jJs9ErFLP403I+hMLGnqDRWT0RYKSvArxuBVh2veudHV7ifEC1WAmjJADacZ7mRbA2nWgHtn8xyECMAot0SkAw==
 
 "@types/pbkdf2@^3.0.0":
   version "3.1.0"

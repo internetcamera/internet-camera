@@ -742,10 +742,10 @@
   resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.9.tgz#24942f7491df8c8d89f03689f55e9a16b7b746ae"
   integrity sha512-Bk5FDXS55MQiSpneezfal4V5A7pTl7amR0qyZprRLVVshNJ2ydNFYIFTnZbgnir2EFl2AY21d5i8za/C/pc61A==
 
-"@internetcamera/sdk@^0.0.30":
-  version "0.0.30"
-  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.30.tgz#19fd97cc58479a50a9ff52729565d47c05f73be7"
-  integrity sha512-G/nNxehT206uE9V6DluwjYhWLIalGvWlXxJNJ7/OZeGX7PGl8XITd30E4w7C/ROPa42xbLRW/GT+uBGViU+VgA==
+"@internetcamera/sdk@^0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.32.tgz#e58ec172954ed9a1ca3dd735b337f5f91aeb06e7"
+  integrity sha512-kU395yJKs9cyQUzORfBsZDNaG9BM9fVoYW3mQIkVo1GH7+skmGGVfloV9DbVAS9/c9k5SjkSaPXQIDHff7xlKA==
   dependencies:
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
@@ -1081,10 +1081,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.15.tgz#10ee6a6a3f971966fddfa3f6e89ef7a73ec622df"
   integrity sha512-F6S4Chv4JicJmyrwlDkxUdGNSplsQdGwp1A0AJloEVDirWdZOAiRHhovDlsFkKUrquUXhz1imJhXHsf59auyAg==
 
-"@types/node@^16.3.1":
-  version "16.3.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.1.tgz#24691fa2b0c3ec8c0d34bfcfd495edac5593ebb4"
-  integrity sha512-N87VuQi7HEeRJkhzovao/JviiqKjDKMVKxKMfUvSKw+MbkbW8R0nA3fi/MQhhlxV2fQ+2ReM+/Nt4efdrJx3zA==
+"@types/node@^16.3.2":
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.2.tgz#655432817f83b51ac869c2d51dd8305fb8342e16"
+  integrity sha512-jJs9ErFLP403I+hMLGnqDRWT0RYKSvArxuBVh2veudHV7ifEC1WAmjJADacZ7mRbA2nWgHtn8xyECMAot0SkAw==
 
 "@types/pbkdf2@^3.0.0":
   version "3.1.0"
@@ -9459,7 +9459,7 @@ zustand@^3.5.5:
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.5.5.tgz#628458ad70621ddc2a17dbee49be963e5c0dccb5"
   integrity sha512-iTiJoxzYFtiD7DhscgwK2P4Kft1JcZEI2U7mG8IxiOFM4KpBAiJZfFop3r/3wbCuyltXI6ph1Fx90e4j/S43XA==
 
-zustand@^3.5.6:
-  version "3.5.6"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.5.6.tgz#c28cfbdfdd999d26d1a94ea105a6fd1da56ed38a"
-  integrity sha512-8XrpRO5scF8MSxeAlu7vFupmLG+5MTWhT+6+3QNsihs0QZfOjaArFyvenUgrk30WdZVGVHLHXBhbqC2/QzLeMA==
+zustand@^3.5.7:
+  version "3.5.7"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.5.7.tgz#add5e8d0ba031ce6e0ddf9cb76ef15306efb665f"
+  integrity sha512-DlVFXJavIHyXTOGz6dB+8QHZsPyJcGJSEBtlp2Ivmd5SwtlCnhPo3L8LB6YRfAOJC2PbqzgoD8NMjk+y+vIF0g==
