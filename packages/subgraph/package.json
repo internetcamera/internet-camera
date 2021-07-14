@@ -13,5 +13,6 @@
     "@graphprotocol/graph-cli": "0.20.1",
     "@graphprotocol/graph-ts": "0.20.0"
   },
-  "private": "true"
+  "private": "true",
+  "version": "0.0.50"
 }
