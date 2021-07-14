@@ -17,5 +17,6 @@
   "devDependencies": {
     "forever": "^4.0.1",
     "nodemon": "^2.0.7"
-  }
+  },
+  "private": "true"
 }

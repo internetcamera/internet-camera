@@ -1,6 +1,6 @@
 {
   "name": "@internetcamera/website",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -30,5 +30,6 @@
     "@types/node": "^16.3.2",
     "@types/react": "^17.0.14",
     "typescript": "^4.3.5"
-  }
+  },
+  "private": "true"
 }

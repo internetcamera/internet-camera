@@ -10,6 +10,9 @@
     "website": "cd packages/website && yarn dev",
     "sdk": "cd packages/sdk && yarn dev",
     "ipfs-node": "cd packages/ipfs-node && yarn dev",
-    "tx": "cd packages/tx && yarn dev"
+    "tx": "cd packages/tx-forwarder && yarn dev"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
   }
 }
