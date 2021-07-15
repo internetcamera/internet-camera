@@ -1,11 +1,8 @@
 {
   "name": "internet-camera",
-  "version": "0.1.0",
   "private": true,
-  "_workspaces": [
-    "packages/*"
-  ],
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "chain": "cd packages/contracts && yarn chain",
     "website": "cd packages/website && yarn dev",
     "sdk": "cd packages/sdk && yarn dev",
