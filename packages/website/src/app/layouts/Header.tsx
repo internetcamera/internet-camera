@@ -6,6 +6,7 @@ import React from 'react';
 import { useWalletFilmForAddress } from '@internetcamera/sdk/dist/react';
 import { BigNumber } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
+import Flash from '@app/components/graphics/Flash';
 
 const Header = () => {
   const { route } = useRouter();
@@ -27,7 +28,9 @@ const Header = () => {
   return (
     <header>
       <Link href="/">
-        <a className="internet-camera link">✸</a>
+        <a className="internet-camera link">
+          <Flash />
+        </a>
       </Link>
 
       <div className="navigation">
@@ -89,7 +92,9 @@ const Header = () => {
             <Link href="/settings">
               <a className="settings micro">Settings</a>
             </Link>
-            <div className="holdings micro">{totalHoldings} FILM</div>
+            <div className="holdings micro">
+              {totalHoldings.toLocaleString()} FILM
+            </div>
             <Link href={`/explorer/address/${account}`}>
               <a className="wallet">{account.slice(0, 8)}</a>
             </Link>
@@ -99,14 +104,14 @@ const Header = () => {
 
       <style jsx>{`
         header {
-          padding: 20px;
+          padding: 15px 15px;
           display: flex;
           align-items: center;
           justify-content: space-between;
           position: sticky;
           top: 0;
           z-index: 999;
-          backdrop-filter: blur(10px);
+          background-color: hsla(190, 16%, 7%, 95%);
         }
         .navigation {
           display: flex;
@@ -121,12 +126,14 @@ const Header = () => {
           text-underline-offset: 10px;
         }
         .internet-camera {
-          width: 260px;
-          font-size: 24px;
+          width: 300px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
           text-decoration: none !important;
         }
         .settings {
-          font-size: 10px;
+          font-size: 12px;
           padding: 5px 20px;
           color: #ccc;
         }
@@ -135,18 +142,16 @@ const Header = () => {
           outline: none;
           border: none;
           cursor: pointer;
-          background: hsl(260, 100%, 50%);
-          color: white;
-          padding: 5px 15px;
+          background-color: #111;
+          color: hsl(250, 100%, 100%);
+          padding: 8px 18px;
           border-radius: 5px;
           font-size: 14px;
           font-weight: bold;
           text-shadow: 0px 0px 1px rgba(0, 0, 0, 5%);
-          box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px,
-            rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
           text-overflow: ellipsis;
-          overflow: hidden;
           white-space: nowrap;
+          box-shadow: 0px 0px 4px 1px purple, 1px 1px 4px 0px blue !important;
         }
         .holdings {
           padding: 7.5px 10px;
@@ -158,9 +163,10 @@ const Header = () => {
           border: 1px solid rgba(0, 0, 0, 0.4);
           border-right: none;
           color: #ccc;
+          box-shadow: 0px 0px 4px 1px purple, 1px 1px 4px 0px blue !important;
         }
         .wallet {
-          padding: 5px 10px;
+          padding: 5px 15px;
           border: 1px solid rgba(0, 0, 0, 0.4);
           border-left: none;
           background-color: rgba(0, 0, 0, 0.4);
@@ -168,9 +174,10 @@ const Header = () => {
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
           font-size: 14px;
+          box-shadow: 0px 0px 4px 1px purple, 1px 1px 4px 0px blue !important;
         }
         .account {
-          width: 260px;
+          width: 300px;
           display: flex;
           justify-content: flex-end;
           align-items: center;
@@ -181,6 +188,13 @@ const Header = () => {
           text-decoration: none;
         }
         @media (max-width: 768px) {
+          .navigation {
+            display: none;
+          }
+          .account,
+          .internet-camera {
+            width: auto;
+          }
         }
       `}</style>
     </header>

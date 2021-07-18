@@ -86,7 +86,10 @@ const TransferPreview = ({
       <Spacer />
 
       <div className="transaction">
-        <a href={`https://mumbai.polygonscan.com/tx/${transferEvent.txHash}`}>
+        <a
+          href={`https://mumbai.polygonscan.com/tx/${transferEvent.txHash}`}
+          target="_blank"
+        >
           {dayjs.unix(transferEvent.createdAt).format('MMMM D, YYYY h:mm:ssa')}{' '}
           ↗
         </a>

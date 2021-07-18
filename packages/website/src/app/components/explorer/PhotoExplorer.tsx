@@ -13,17 +13,17 @@ const PhotoExplorer = ({
   const { data, error } = useQuery(
     gql`
       {
-        filmPhotos: photos(first: 25, orderBy: createdAt, orderDirection: ${orderDirection}${
+        filmPhotos: photos(first: 100, orderBy: createdAt, orderDirection: ${orderDirection}${
       address.length ? `, where: {film: "${address.toLowerCase()}"}` : ''
     }) {
           ...fields
         }
-        creatorPhotos: photos(first: 25, orderBy: createdAt, orderDirection: ${orderDirection}${
+        creatorPhotos: photos(first: 100, orderBy: createdAt, orderDirection: ${orderDirection}${
       address.length ? `, where: {creator: "${address.toLowerCase()}"}` : ''
     }) {
           ...fields
         }
-        ownerPhotos: photos(first: 25, orderBy: createdAt, orderDirection: ${orderDirection}${
+        ownerPhotos: photos(first: 100, orderBy: createdAt, orderDirection: ${orderDirection}${
       address.length ? `, where: {owner: "${address.toLowerCase()}"}` : ''
     }) {
           ...fields

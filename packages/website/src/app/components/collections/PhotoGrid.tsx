@@ -6,7 +6,11 @@ import PhotoPreview from '@app/components/previews/PhotoPreview';
 const PhotoGrid = ({ photos }: { photos: InternetCameraTypes.Photo[] }) => {
   return (
     <div className="photo-grid">
-      <Masonry breakpointCols={4} className="grid" columnClassName="column">
+      <Masonry
+        breakpointCols={{ default: 4, 1100: 3, 700: 2, 500: 1 }}
+        className="grid"
+        columnClassName="column"
+      >
         {photos.map(photo => (
           <PhotoPreview
             key={photo.id}

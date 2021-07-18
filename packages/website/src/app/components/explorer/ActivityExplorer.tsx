@@ -49,6 +49,7 @@ const ActivityExplorer = ({
           film {
             id
             name
+            symbol
             used
             totalSupply
           }

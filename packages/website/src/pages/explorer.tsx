@@ -17,7 +17,7 @@ const Explorer = () => {
             <div className="sidebar-header micro">Search for</div>
             <input
               type="text"
-              placeholder="Wallet / Film address or ENS..."
+              placeholder="Wallet or film address..."
               value={address}
               onChange={e => setAddress(e.target.value)}
             />
@@ -68,15 +68,12 @@ const Explorer = () => {
               Oldest → Newest
             </div>
           </div>
-          <div className="section">
-            <div className="sidebar-header micro">Filter by</div>
-          </div>
         </div>
-        {seeOption == 'films' && (
-          <FilmExplorer address={address} orderDirection={orderDirection} />
-        )}
         {seeOption == 'photos' && (
           <PhotoExplorer address={address} orderDirection={orderDirection} />
+        )}
+        {seeOption == 'films' && (
+          <FilmExplorer address={address} orderDirection={orderDirection} />
         )}
         {seeOption == 'activity' && (
           <ActivityExplorer address={address} orderDirection={orderDirection} />
@@ -99,14 +96,14 @@ const Explorer = () => {
         }
         .sidebar {
           position: sticky;
-          top: 80px;
+          top: 85px;
           background-color: rgba(0, 0, 0, 0.4);
           box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px,
             rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
           border-radius: 3px;
           padding: 20px;
           min-width: 300px;
-          min-height: 500px;
+          min-height: 200px;
         }
         .sidebar-header {
           text-transform: uppercase;
@@ -148,6 +145,9 @@ const Explorer = () => {
         }
         .section {
           margin-bottom: 20px;
+        }
+        .section:last-of-type {
+          margin-bottom: 0;
         }
       `}</style>
     </div>

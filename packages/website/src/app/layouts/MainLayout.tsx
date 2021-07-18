@@ -8,10 +8,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
     <div className="main-layout">
       <Head>
         <title>Internet Camera</title>
-        <link
-          rel="shortcut icon"
-          href="https://internet.camera/static/icon.png"
-        />
+        <link rel="shortcut icon" href="/static/icon.png" />
       </Head>
       <Header />
       <main>{children}</main>
@@ -32,7 +29,8 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         }
         main {
           flex: 1 1 auto;
-          padding: 20px 20px;
+          padding: 15px;
+          padding-bottom: 100px;
         }
         #gradient1 {
           position: fixed;
@@ -75,9 +73,9 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           bottom: 0;
           left: 0;
           right: 0;
-          padding: 10px 30px;
-          background-color: hsl(260, 100%, 50%);
-          color: white;
+          padding: 10px 20px;
+          background-color: hsl(260, 100%, 15%);
+          color: #ccc;
           font-size: 16px;
           display: flex;
           align-items: center;
@@ -85,6 +83,16 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         }
         .testnet :global(svg) {
           display: block;
+        }
+        @media (max-width: 768px) {
+          .testnet {
+            font-size: 11px;
+            font-family: 'Helvetica Now Micro';
+            padding: 15px;
+          }
+          .testnet :global(svg) {
+            display: none;
+          }
         }
       `}</style>
       <style jsx global>{`
@@ -111,7 +119,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         body {
           margin: 0;
           padding: 0;
-          background-color: hsl(221, 11%, 10%);
+          background-color: hsl(221, 11%, 8%);
           color: white;
         }
         @font-face {

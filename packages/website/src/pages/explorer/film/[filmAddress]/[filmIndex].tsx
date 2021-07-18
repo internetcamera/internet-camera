@@ -1,10 +1,8 @@
 import { GetServerSideProps } from 'next';
-import { usePhoto, useFilm } from '@internetcamera/sdk/dist/react';
+import { usePhoto } from '@internetcamera/sdk/dist/react';
 import { InternetCameraAddresses } from '@internetcamera/sdk';
 import dayjs from 'dayjs';
-import Spacer from '@app/components/Spacer';
 import Link from 'next/link';
-import FilmStrip from '@app/components/collections/FilmStrip';
 import AddressAvatar from '@app/components/AddressAvatar';
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
@@ -14,6 +12,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   }: { filmAddress?: string; filmIndex?: string; tokenId?: string } = ctx.query;
   return { props: { filmAddress, tokenId } };
 };
+
 const Photo = ({
   filmAddress,
   tokenId
@@ -26,24 +25,22 @@ const Photo = ({
     tokenId,
     process.env.NEXT_PUBLIC_GRAPH_URL as string
   );
-  const { film } = useFilm(
-    photo?.film.id || '0x0000000000000000000000000000000000000000',
-    process.env.NEXT_PUBLIC_GRAPH_URL as string
-  );
   if (!photo) return null;
   return (
     <div className="photo">
       <div className="frame">
-        {photo.image && (
-          <img
-            src={photo.image.replace(
-              'ipfs://',
-              process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
-            )}
-            width="386"
-            height="579"
-          />
-        )}
+        <div className="image">
+          {photo.image && (
+            <img
+              src={photo.image.replace(
+                'ipfs://',
+                process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
+              )}
+              width="386"
+              height="579"
+            />
+          )}
+        </div>
         <div className="meta">
           <div className="name">{photo.name}</div>
           <div className="date">
@@ -70,7 +67,7 @@ const Photo = ({
               </Link>
             </div>
           </div>
-          <Spacer />
+
           <div className="links">
             <a
               href={photo.tokenURI.replace(
@@ -101,11 +98,6 @@ const Photo = ({
               OpenSea ↗
             </a>
           </div>
-          {film && (
-            <div className="filmstrip">
-              <FilmStrip film={film} filterOut={photo.tokenId} />
-            </div>
-          )}
         </div>
       </div>
       <style jsx>{`
@@ -117,23 +109,27 @@ const Photo = ({
           padding-bottom: 75px;
         }
         .frame {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          max-width: 1200px;
+          padding-top: 40px;
+          max-width: 500px;
           margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
         }
         .image {
+          width: 100%;
         }
+
         img {
           width: 100%;
-          height: 100%;
-          max-height: 80vh;
+          max-height: 70vh;
+          height: auto;
           display: block;
           object-fit: contain;
-          object-position: center right;
+          object-position: center center;
+          border-radius: 5px;
         }
         .meta {
-          padding: 20px;
           display: flex;
           flex-direction: column;
           align-items: stretch;
@@ -160,6 +156,7 @@ const Photo = ({
             rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
           color: white;
           border-radius: 5px;
+          font-size: 14px;
         }
         .addresses {
           display: flex;
@@ -176,9 +173,6 @@ const Photo = ({
           display: flex;
           align-items: center;
           gap: 5px;
-        }
-        .filmstrip {
-          margin-top: 10px;
         }
       `}</style>
     </div>

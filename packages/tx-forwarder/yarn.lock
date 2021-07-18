@@ -398,15 +398,20 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.1.tgz#9daf5745156fd84b8e9889a2dc721f0c58e894aa"
   integrity sha512-CAEbWH7OIur6jEOzaai83jq3FmKmv4PmX1JYfs9IrYcGEVI/lyL1EXJGCj7eFVJ0bg5QR8LMxBlEtA+xKiLpFw==
 
+"@internetcamera/contracts@^0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.50.tgz#542b6bcc1b9eb7e18fce7f6bd3894ce5b764e5ea"
+  integrity sha512-FeAYkI/VyQM9XviDx2mzs3B9JffHPkvhpXjC5fJFBHIiDSjLslDSmOpOb1Ki+sx/vlnJKA6dyi7E1np5ij6NvQ==
+
 "@internetcamera/contracts@^0.0.9":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@internetcamera/contracts/-/contracts-0.0.9.tgz#24942f7491df8c8d89f03689f55e9a16b7b746ae"
   integrity sha512-Bk5FDXS55MQiSpneezfal4V5A7pTl7amR0qyZprRLVVshNJ2ydNFYIFTnZbgnir2EFl2AY21d5i8za/C/pc61A==
 
-"@internetcamera/sdk@^0.0.32":
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.32.tgz#e58ec172954ed9a1ca3dd735b337f5f91aeb06e7"
-  integrity sha512-kU395yJKs9cyQUzORfBsZDNaG9BM9fVoYW3mQIkVo1GH7+skmGGVfloV9DbVAS9/c9k5SjkSaPXQIDHff7xlKA==
+"@internetcamera/sdk@^0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@internetcamera/sdk/-/sdk-0.0.50.tgz#119840c803f45f3685f1c1fab7770fb1d4a47d6e"
+  integrity sha512-vHsuruMN+YumP5EcY7X8kQ/KWBqq4FZxQzXjgZDdFIuDFqRJFWHfkYkB4cBZtnm0SOuUXDNBTLcWX4V922cDCw==
   dependencies:
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
@@ -469,10 +474,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.4.tgz#e1cf817d70a1e118e81922c4ff6683ce9d422e26"
   integrity sha512-zrNj1+yqYF4WskCMOHwN+w9iuD12+dGm0rQ35HLl9/Ouuq52cEtd0CH9qMgrdNmi5ejC1/V7vKEXYubB+65DkA==
 
-"@types/node@^16.3.2":
-  version "16.3.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.2.tgz#655432817f83b51ac869c2d51dd8305fb8342e16"
-  integrity sha512-jJs9ErFLP403I+hMLGnqDRWT0RYKSvArxuBVh2veudHV7ifEC1WAmjJADacZ7mRbA2nWgHtn8xyECMAot0SkAw==
+"@types/node@^16.3.3":
+  version "16.3.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.3.tgz#0c30adff37bbbc7a50eb9b58fae2a504d0d88038"
+  integrity sha512-8h7k1YgQKxKXWckzFCMfsIwn0Y61UK6tlD6y2lOb3hTOIMlK3t9/QwHOhc81TwU+RMf0As5fj7NPjroERCnejQ==
 
 "@types/pbkdf2@^3.0.0":
   version "3.1.0"

@@ -123,6 +123,17 @@ const Film = ({ filmAddress }: { filmAddress: string }) => {
         .grid {
           margin-bottom: 40px;
         }
+        @media (max-width: 768px) {
+          .header {
+            padding: 20px 10px;
+          }
+          .name {
+            font-size: 18px;
+          }
+          .subtitle {
+            font-size: 16px;
+          }
+        }
       `}</style>
     </div>
   );

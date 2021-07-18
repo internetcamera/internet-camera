@@ -7,15 +7,15 @@
     "start": "next"
   },
   "dependencies": {
-    "@internetcamera/contracts": "^0.0.9",
-    "@internetcamera/sdk": "^0.0.32",
+    "@internetcamera/contracts": "^0.0.50",
+    "@internetcamera/sdk": "^0.0.50",
     "ethers": "^5.4.1",
     "next": "^11.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@types/node": "^16.3.2",
+    "@types/node": "^16.3.3",
     "@types/react": "^17.0.14",
     "typescript": "^4.3.5"
   },
