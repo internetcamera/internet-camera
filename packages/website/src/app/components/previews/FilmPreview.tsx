@@ -27,11 +27,12 @@ const FilmPreview = ({
               <div className="col">
                 <img
                   src={
-                    film.photos[0]?.image?.replace(
-                      'ipfs://',
-                      process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
-                    ) ||
-                    'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+                    film.photos[0]?.image
+                      ? `${film.photos[0]?.image?.replace(
+                          'ipfs://',
+                          process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
+                        )}.jpg`
+                      : 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
                   }
                   width={film.photos[0]?.width}
                   height={film.photos[0]?.height}
@@ -40,11 +41,12 @@ const FilmPreview = ({
               <div className="col col-split">
                 <img
                   src={
-                    film.photos[1]?.image?.replace(
-                      'ipfs://',
-                      process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
-                    ) ||
-                    'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+                    film.photos[1]?.image
+                      ? `${film.photos[1]?.image?.replace(
+                          'ipfs://',
+                          process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
+                        )}.jpg`
+                      : 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
                   }
                   width={film.photos[1]?.width}
                   height={film.photos[1]?.height}
@@ -52,11 +54,12 @@ const FilmPreview = ({
 
                 <img
                   src={
-                    film.photos[2]?.image?.replace(
-                      'ipfs://',
-                      process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
-                    ) ||
-                    'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+                    film.photos[2]?.image
+                      ? `${film.photos[2]?.image?.replace(
+                          'ipfs://',
+                          process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
+                        )}.jpg`
+                      : 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
                   }
                   width={film.photos[2]?.width}
                   height={film.photos[2]?.height}

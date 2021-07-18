@@ -29,10 +29,10 @@ const PhotoPreview = ({
     >
       <a className="photo">
         <img
-          src={photo?.image?.replace(
+          src={`${photo?.image?.replace(
             'ipfs://',
             process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
-          )}
+          )}.jpg`}
           width={photo?.width}
           height={photo?.height}
           style={{ opacity: 0, transition: 'opacity 200ms' }}

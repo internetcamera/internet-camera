@@ -48,14 +48,8 @@ polka()
   })
   .get('/ipfs/:hash', async (req, res) => {
     const content = [];
-    for await (const chunk of node.cat(req.params.hash)) {
-      content.push(chunk);
-    }
-    return res.end(uint8Concat(content));
-  })
-  .get('/ipfs/:hash.:format', async (req, res) => {
-    const content = [];
-    for await (const chunk of node.cat(req.params.hash)) {
+    const hash = req.params.hash.split('.')[0];
+    for await (const chunk of node.cat(hash)) {
       content.push(chunk);
     }
     return res.end(uint8Concat(content));

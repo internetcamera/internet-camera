@@ -32,10 +32,10 @@ const Photo = ({
         <div className="image">
           {photo.image && (
             <img
-              src={photo.image.replace(
+              src={`${photo.image.replace(
                 'ipfs://',
                 process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
-              )}
+              )}.jpg`}
               width="386"
               height="579"
             />
