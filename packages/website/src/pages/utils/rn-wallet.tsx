@@ -70,11 +70,7 @@ const IndexPage = () => {
     <div className="index">
       <Head>
         <title>Cam</title>
-        <link
-          key="icon"
-          rel="shortcut icon"
-          href="https://stage.internet.camera/static/cam-icon.png"
-        />
+        <link key="icon" rel="shortcut icon" href="/static/cam-icon.png" />
       </Head>
       {account && (
         <>
