@@ -53,4 +53,11 @@ polka()
     }
     return res.end(uint8Concat(content));
   })
+  .get('/ipfs/:hash.:format', async (req, res) => {
+    const content = [];
+    for await (const chunk of node.cat(req.params.hash)) {
+      content.push(chunk);
+    }
+    return res.end(uint8Concat(content));
+  })
   .listen(process.env.PORT || 3000);
