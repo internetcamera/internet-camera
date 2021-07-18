@@ -8,7 +8,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
     <div className="main-layout">
       <Head>
         <title>Internet Camera</title>
-        <link rel="shortcut icon" href="/static/icon.png" />
+        <link key="icon" rel="shortcut icon" href="/static/icon.png" />
       </Head>
       <Header />
       <main>{children}</main>

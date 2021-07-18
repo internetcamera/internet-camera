@@ -71,6 +71,7 @@ const IndexPage = () => {
       <Head>
         <title>Cam</title>
         <link
+          key="icon"
           rel="shortcut icon"
           href="https://stage.internet.camera/static/cam-icon.png"
         />
