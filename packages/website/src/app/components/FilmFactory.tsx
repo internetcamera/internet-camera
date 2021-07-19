@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useWallet } from '@gimmixfactory/use-wallet';
 import dayjs from 'dayjs';
 import Dialog from '@app/components/Dialog';
