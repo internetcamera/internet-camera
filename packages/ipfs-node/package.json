@@ -1,6 +1,6 @@
 {
   "name": "@internetcamera/ipfs-node",
-  "version": "0.0.51",
+  "version": "0.0.52",
   "scripts": {
     "dev": "PORT=3001 nodemon index.js",
     "start": "forever start index.js",
