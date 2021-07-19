@@ -1,6 +1,6 @@
 {
   "name": "@internetcamera/sdk",
-  "version": "0.0.52",
+  "version": "0.0.53",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,7 +21,7 @@
     "@ethersproject/strings": "^5.4.0",
     "@ethersproject/transactions": "^5.4.0",
     "@ethersproject/units": "^5.4.0",
-    "@internetcamera/contracts": "^0.0.9",
+    "@internetcamera/contracts": "^0.0.53",
     "eth-sig-util": "^3.0.1",
     "graphql": "^15.5.1",
     "graphql-request": "^3.4.0",
@@ -31,8 +31,8 @@
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-typescript": "^7.14.5",
-    "@types/jest": "^26.0.23",
-    "@types/react": "^17.0.13",
+    "@types/jest": "^26.0.24",
+    "@types/react": "^17.0.14",
     "babel-jest": "^27.0.5",
     "jest": "^27.0.5",
     "react": "^17.0.2",
