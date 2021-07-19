@@ -3,6 +3,7 @@ import { TrustedForwarder__factory } from '@internetcamera/contracts';
 import { InternetCameraAddresses } from '@internetcamera/sdk';
 import { Wallet } from 'ethers';
 import { JsonRpcProvider } from '@ethersproject/providers';
+import { verifyMessage, verifyTypedData } from 'ethers/lib/utils';
 
 const api: NextApiHandler = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,6 +28,7 @@ const api: NextApiHandler = async (req, res) => {
       InternetCameraAddresses[80001].forwarder,
       wallet
     );
+
     const tx = await forwarder.execute(data.message, signature, {
       gasLimit: Math.floor(data.message.gas * 2.5)
     });
