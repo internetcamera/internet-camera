@@ -1,6 +1,6 @@
 {
   "name": "@internetcamera/contracts",
-  "version": "0.0.57",
+  "version": "0.0.58",
   "main": "dist/typechain/index.js",
   "types": "dist/typechain/index.d.ts",
   "files": [
@@ -17,8 +17,7 @@
     "typechain": "rm -rf ./typechain && typechain --show-stack-traces --target ethers-v5 --out-dir ./typechain 'artifacts/!(build-info)/**/!(*.dbg*)*.json'",
     "build:contracts": "yarn compile && yarn typechain",
     "build:package": "rm -rf ./dist && tsc && cp typechain/*.d.ts dist/typechain && cp -R addresses dist && cp -R artifacts/contracts dist/artifacts && cp -R contracts dist",
-    "chain": "ganache-cli -h 0.0.0.0 --networkId 1337 --accounts 20 -e 10000000000 -l 10000000 -m 'nominee arrange pistol aim book head mind anxiety lobster system forest dose void marine eyebrow'",
-    "postinstall": "patch-package"
+    "chain": "ganache-cli -h 0.0.0.0 --networkId 1337 --accounts 20 -e 10000000000 -l 10000000 -m 'nominee arrange pistol aim book head mind anxiety lobster system forest dose void marine eyebrow'"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.1.7",
