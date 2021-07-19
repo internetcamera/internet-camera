@@ -3,7 +3,6 @@ import { TrustedForwarder__factory } from '@internetcamera/contracts';
 import { InternetCameraAddresses } from '@internetcamera/sdk';
 import { Wallet } from 'ethers';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { verifyMessage, verifyTypedData } from 'ethers/lib/utils';
 
 const api: NextApiHandler = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
