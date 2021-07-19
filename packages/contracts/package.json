@@ -10,6 +10,7 @@
   "scripts": {
     "deploy-local": "ts-node scripts/deploy.ts --chainId 1337 && cp -R addresses dist",
     "deploy-mumbai": "ts-node scripts/deploy.ts --chainId 80001 && cp -R addresses dist",
+    "prebuild": "patch-package",
     "build": "yarn build:contracts && yarn build:package",
     "prepublishOnly": "yarn build",
     "test": "hardhat test",
