@@ -1,6 +1,6 @@
 {
   "name": "@internetcamera/contracts",
-  "version": "0.0.54",
+  "version": "0.0.55",
   "main": "dist/typechain/index.js",
   "types": "dist/typechain/index.d.ts",
   "files": [
@@ -46,5 +46,6 @@
     "ts-node": "^9.1.1",
     "typechain": "^5.1.1",
     "typescript": "^4.2.4"
-  }
+  },
+  "gitHead": "38c3d4abd4a012c555362c20dacb367bd7c44ffc"
 }
