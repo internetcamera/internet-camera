@@ -1,14 +1,14 @@
 {
   "name": "tx",
-  "version": "0.0.55",
+  "version": "0.0.56",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next"
   },
   "dependencies": {
-    "@internetcamera/contracts": "^0.0.55",
-    "@internetcamera/sdk": "^0.0.55",
+    "@internetcamera/contracts": "^0.0.56",
+    "@internetcamera/sdk": "^0.0.56",
     "ethers": "^5.4.1",
     "next": "^11.0.0",
     "react": "^17.0.1",
