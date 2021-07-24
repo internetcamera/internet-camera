@@ -89,7 +89,7 @@ const FilmFactory = () => {
     setTimeout(() => Router.push(`/explorer/film/${filmAddress}`), 1500);
   };
 
-  const disabled = !name || !symbol || totalSupply < 1 || totalSupply > 1000;
+  // const disabled = !name || !symbol || totalSupply < 1 || totalSupply > 1000;
 
   return (
     <div className="film-factory">

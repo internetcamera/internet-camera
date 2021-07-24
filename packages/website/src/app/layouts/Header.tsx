@@ -6,7 +6,6 @@ import React from 'react';
 import { useWalletFilmForAddress } from '@internetcamera/sdk/dist/react';
 import { BigNumber } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
-import Flash from '@app/components/graphics/Flash';
 
 const Header = () => {
   const { route } = useRouter();
