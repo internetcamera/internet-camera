@@ -28,9 +28,7 @@ const Header = () => {
   return (
     <header>
       <Link href="/">
-        <a className="internet-camera link">
-          <Flash />
-        </a>
+        <a className="internet-camera link">Internet Camera</a>
       </Link>
 
       <div className="navigation">
@@ -104,9 +102,9 @@ const Header = () => {
 
       <style jsx>{`
         header {
-          padding: 15px 15px;
+          padding: 20px;
           display: flex;
-          align-items: center;
+          align-items: baseline;
           justify-content: space-between;
           position: sticky;
           top: 0;
@@ -130,6 +128,8 @@ const Header = () => {
           display: flex;
           flex-direction: column;
           justify-content: center;
+          font-weight: bold;
+          font-size: 22px;
           text-decoration: none !important;
         }
         .settings {

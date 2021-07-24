@@ -18,7 +18,11 @@ const FilmFactory = () => {
   const [symbol, setSymbol] = useState('');
   const [totalSupply, setTotalSupply] = useState(100);
   const [starts, _setStarts] = useState(new Date());
-  const [expires, _setExpires] = useState(dayjs().add(1000, 'years').toDate());
+  const [expires, _setExpires] = useState(
+    dayjs()
+      .add(1000, 'years')
+      .toDate()
+  );
   const [amountClaimablePerUser, setAmountClaimablePerUser] = useState(1);
   const [maxClaimsPerUser, setMaxClaimsPerUser] = useState(1);
   const { account, provider, connect } = useWallet();
@@ -91,7 +95,7 @@ const FilmFactory = () => {
     <div className="film-factory">
       <Dialog
         title="Create your own film"
-        subtitle="You can design and launch your own film to the Internet Camera test network in under a minute. Film is currently free to create on the test network."
+        subtitle="You can design and launch your own film to the Internet Camera test network in under a minute. Film costs no money to create on the test network, but temporarily requires $FILMFACTORY tokens to create while beta testing. Film creation will be very affordable on the mainnet release."
       >
         <div className="form-item">
           <label>Film Model</label>
@@ -246,7 +250,8 @@ const FilmFactory = () => {
                   or any apps using our SDK. Note: All photos can still be found
                   in open catalogs like OpenSea.
                 </div>
-                <input type="radio" /> Public <input type="radio" /> Unlisted
+                <input type="radio" name="publicunlisted" checked /> Public{' '}
+                <input type="radio" name="publicunlisted" /> Unlisted
               </div>
               <div className="form-item">
                 <label>Aspect Ratio</label>
@@ -266,8 +271,8 @@ const FilmFactory = () => {
             </button>
           ) : (
             <>
-              <button onClick={deploy} disabled={disabled}>
-                Deploy
+              <button onClick={deploy} disabled={true}>
+                You need {totalSupply} $FILMFACTORY to deploy
               </button>
             </>
           )}

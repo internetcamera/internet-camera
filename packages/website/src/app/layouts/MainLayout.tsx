@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React, { ReactNode } from 'react';
 import Header from './Header';
-import { FaExclamationCircle } from 'react-icons/fa';
+import { FaExclamationCircle, FaGithub, FaTwitter } from 'react-icons/fa';
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -12,6 +12,14 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       </Head>
       <Header />
       <main>{children}</main>
+      <footer>
+        <a href="https://github.com/internetcamera" target="_blank">
+          <FaGithub />
+        </a>
+        <a href="https://twitter.com/internetcamera" target="_blank">
+          <FaTwitter />
+        </a>
+      </footer>
       <div id="gradient1" />
       <div id="gradient2" />
       <div className="testnet">
@@ -26,11 +34,12 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           flex-direction: column;
           justify-content: stretch;
           align-items: stretch;
+          height: 100%;
         }
         main {
           flex: 1 1 auto;
           padding: 15px;
-          padding-bottom: 100px;
+          padding-bottom: 150px;
         }
         #gradient1 {
           position: fixed;
@@ -67,6 +76,15 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           );
           transform: translate(-50vw, -50vh);
           z-index: 0;
+        }
+        footer {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 40px;
+          font-size: 24px;
+          padding-bottom: 100px;
+          color: #ccc;
         }
         .testnet {
           position: fixed;

@@ -1,53 +1,137 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
 const Docs: FunctionComponent = () => {
+  const [tab, setTab] = useState('overview');
   return (
-    <div className="docs-page">
-      <div className="header">
-        <div className="title">
-          Build your own camera products for the new internet.
+    <div className="page">
+      <div className="sidebar">
+        <div className="section">
+          <div
+            className={`sidebar-header ${tab == 'overview' ? 'active' : ''}`}
+            onClick={() => setTab('overview')}
+          >
+            Overview
+          </div>
         </div>
-        <div className="subtitle">
-          Typescript SDK for Browsers & Node.js & React Native, React Hooks for
-          React & React Native, GraphQL, Tutorial (webcam photo booth), Tutorial
-          (share page)
+        <div className="section">
+          <div
+            className={`sidebar-header ${
+              tab == 'smart-contracts' ? 'active' : ''
+            }`}
+            onClick={() => setTab('smart-contracts')}
+          >
+            Smart Contracts
+          </div>
+        </div>
+        <div className="section">
+          <div
+            className={`sidebar-header ${tab == 'graphql-api' ? 'active' : ''}`}
+            onClick={() => setTab('graphql-api')}
+          >
+            GraphQL API
+          </div>
+        </div>
+        <div className="section">
+          <div
+            className={`sidebar-header ${
+              tab == 'typescript-sdk' ? 'active' : ''
+            }`}
+            onClick={() => setTab('typescript-sdk')}
+          >
+            TypeScript SDK
+          </div>
+        </div>
+        <div className="section">
+          <div
+            className={`sidebar-header ${tab == 'react-hooks' ? 'active' : ''}`}
+            onClick={() => setTab('react-hooks')}
+          >
+            React Hooks
+          </div>
+        </div>
+        <div className="section">
+          <div
+            className={`sidebar-header ${
+              tab == 'other-languages' ? 'active' : ''
+            }`}
+            onClick={() => setTab('other-languages')}
+          >
+            Other Languages
+          </div>
+        </div>
+        <div className="section">
+          <div
+            className={`sidebar-header ${
+              tab == 'booth-tutorial' ? 'active' : ''
+            }`}
+            onClick={() => setTab('booth-tutorial')}
+          >
+            Booth Tutorial
+          </div>
+        </div>
+        <div className="section">
+          <div
+            className={`sidebar-header ${
+              tab == 'gallery-tutorial' ? 'active' : ''
+            }`}
+            onClick={() => setTab('gallery-tutorial')}
+          >
+            Gallery Tutorial
+          </div>
         </div>
       </div>
-      <div className="docs">
-        <div className="sidebar">
-          <div className="section">
-            <div className="sidebar-header micro">General</div>
-          </div>
-          <div className="section">
-            <div className="sidebar-header micro">Smart Contracts</div>
-          </div>
-          <div className="section">
-            <div className="sidebar-header micro">GraphQL API</div>
-          </div>
-          <div className="section">
-            <div className="sidebar-header micro">TypeScript SDK</div>
-          </div>
-          <div className="section">
-            <div className="sidebar-header micro">React Hooks</div>
-          </div>
-        </div>
-        <div className="main">
-          <h1>Overview</h1>
-        </div>
+      <div className="main">
+        {tab == 'overview' ? (
+          <>
+            <div className="title">How the Internet Camera Protocol Works</div>
+            <div className="text">
+              Internet Camera is a decentralized protocol that allows people to
+              shoot and store media on the blockchain.
+              <br />
+              <br />
+              Film makes it easy to shoot photos and make social rolls. Film is
+              a customizable token standard that can be exchanged for permanent
+              storage of a digital photo in NFT form.
+              <br />
+              <br />
+              Film can be created by anyone and configured in a number of ways,
+              including offering exclusive access to Filters, limiting the
+              number of photos that can be taken, or fine-tuning permissions
+              around things like editing or deleting photos.
+              <br />
+              <br />
+              Film can be sold or transferred like any token on the Ethereum
+              blockchain. This lets creators of Film make money for their work
+              directly from their users in many different ways where they have
+              complete and independent control.
+            </div>
+          </>
+        ) : (
+          <div className="text">Coming soon.</div>
+        )}
       </div>
       <style jsx>{`
-        .header {
-          text-align: center;
-          padding: 75px;
+        .page {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 300px 2fr;
+          gap: 40px;
+          padding-top: 75px;
+        }
+        .main {
         }
         .title {
           font-weight: bold;
-          font-size: 42px;
-          margin-bottom: 40px;
+          font-size: 36px;
+          margin-bottom: 30px;
         }
-        .subtitle {
+        .text {
           font-size: 24px;
+          line-height: 1.5em;
+          text-align: left;
         }
+
         .docs {
           max-width: 1200px;
           margin: 0 auto;
@@ -62,23 +146,21 @@ const Docs: FunctionComponent = () => {
         .sidebar {
           position: sticky;
           top: 80px;
-          background-color: rgba(0, 0, 0, 0.4);
-          box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px,
-            rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
-          border-radius: 3px;
-          padding: 20px;
-          min-width: 350px;
-          min-height: 500px;
+          border-right: 1px solid #444;
         }
         .section {
           margin-bottom: 20px;
         }
 
         .sidebar-header {
-          text-transform: uppercase;
-          font-size: 12px;
+          font-size: 18px;
+          font-weight: bold;
           color: #888;
           margin-bottom: 10px;
+          cursor: pointer;
+        }
+        .sidebar-header.active {
+          color: white;
         }
         .sidebar-button {
           background: #000;
@@ -90,6 +172,7 @@ const Docs: FunctionComponent = () => {
           font-size: 11px;
           font-weight: bold;
           color: #888;
+
           transition: box-shadow 250ms;
         }
         .sidebar-button:hover {
