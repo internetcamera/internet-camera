@@ -48,6 +48,8 @@ const About: FunctionComponent = () => {
           font-size: 24px;
           line-height: 1.5em;
           text-align: left;
+          max-width: 740px;
+          margin: 0 auto;
         }
         .button {
           text-align: center;

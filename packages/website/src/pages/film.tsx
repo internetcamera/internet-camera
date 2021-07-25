@@ -48,6 +48,8 @@ const Film: FunctionComponent = () => {
           font-size: 24px;
           line-height: 1.5em;
           text-align: left;
+          max-width: 740px;
+          margin: 0 auto;
         }
         .film-canister {
           width: 300px;
