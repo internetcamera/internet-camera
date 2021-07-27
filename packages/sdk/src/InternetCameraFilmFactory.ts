@@ -1,6 +1,9 @@
 import { BigNumberish } from '@ethersproject/bignumber';
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
-import { InternetCameraFilmFactory__factory } from '@internetcamera/contracts';
+import {
+  FilmFactoryToken__factory,
+  InternetCameraFilmFactory__factory
+} from '@internetcamera/contracts';
 import { ContractTransaction } from '@ethersproject/contracts';
 import InternetCameraAddresses from './utils/addresses';
 import {
@@ -39,6 +42,19 @@ export class InternetCameraFilmFactory {
       InternetCameraAddresses[this.chainID].filmFactory,
       this.provider.getSigner()
     );
+  }
+
+  // InternetCameraFilmFactory Read APIs
+  public async getFilmFactoryTokenBalanceOf(
+    address: string
+  ): Promise<BigNumberish> {
+    if (!this.jsonRpcProvider) throw new Error('Missing jsonRpcProvider.');
+    if (!this.chainID) throw new Error('Missing chain ID.');
+    const token = FilmFactoryToken__factory.connect(
+      InternetCameraAddresses[this.chainID].filmFactoryToken,
+      this.jsonRpcProvider
+    );
+    return await token.balanceOf(address);
   }
 
   // InternetCameraFilmFactory Write APIs

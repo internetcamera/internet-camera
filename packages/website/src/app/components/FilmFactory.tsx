@@ -7,6 +7,7 @@ import { parseUnits } from 'ethers/lib/utils';
 import Router from 'next/router';
 import { ContractTransaction, providers } from 'ethers';
 import useSettings from '@app/features/useSettings';
+import useFilmFactoryTokenBalance from '@app/features/useFilmFactoryTokenBalance';
 
 const FilmFactory = () => {
   const gasless = useSettings(state => state.gasless);
@@ -17,6 +18,8 @@ const FilmFactory = () => {
   const [name, setName] = useState('');
   const [symbol, setSymbol] = useState('');
   const [totalSupply, setTotalSupply] = useState(100);
+  const [description, setDescription] = useState('');
+  const [rules, setRules] = useState('');
   const [starts, _setStarts] = useState(new Date());
   const [expires, _setExpires] = useState(
     dayjs()
@@ -27,6 +30,7 @@ const FilmFactory = () => {
   const [maxClaimsPerUser, setMaxClaimsPerUser] = useState(1);
   const { account, provider, connect } = useWallet();
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
+  const { filmFactoryTokenBalance } = useFilmFactoryTokenBalance();
 
   const deploy = async () => {
     if (!provider || !account) return;
@@ -85,11 +89,16 @@ const FilmFactory = () => {
     }
     if (!tx) throw new Error('Unhandled case.');
     const receipt = await tx.wait(1);
-    const filmAddress = receipt.logs[0].address;
+    const filmAddress = receipt.logs[2].address;
     setTimeout(() => Router.push(`/explorer/film/${filmAddress}`), 1500);
   };
 
-  // const disabled = !name || !symbol || totalSupply < 1 || totalSupply > 1000;
+  const disabled =
+    !name ||
+    !symbol ||
+    totalSupply < 1 ||
+    totalSupply > 1000 ||
+    filmFactoryTokenBalance < totalSupply;
 
   return (
     <div className="film-factory">
@@ -220,14 +229,20 @@ const FilmFactory = () => {
                 <div className="sublabel">
                   Write an optional description for your film roll.
                 </div>
-                <textarea />
+                <textarea
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                />
               </div>
               <div className="form-item">
                 <label>Rules / Terms of Use</label>
                 <div className="sublabel">
                   Set guidelines for anyone posting photos to this roll.
                 </div>
-                <textarea />
+                <textarea
+                  value={rules}
+                  onChange={e => setRules(e.target.value)}
+                />
               </div>
               <div className="form-item">
                 <label>Start Time</label>
@@ -251,16 +266,16 @@ const FilmFactory = () => {
                   in open catalogs like OpenSea.
                 </div>
                 <input type="radio" name="publicunlisted" checked /> Public{' '}
-                <input type="radio" name="publicunlisted" /> Unlisted
+                <input type="radio" name="publicunlisted" disabled /> Unlisted
               </div>
-              <div className="form-item">
+              {/* <div className="form-item">
                 <label>Aspect Ratio</label>
                 <div className="sublabel">
                   Optionally restrict photos to a specific aspect ratio. Format
                   examples: 4:3 or 16:9.
                 </div>
-                <input type="text" placeholder="" />
-              </div>
+                <input type="text" placeholder="" disabled />
+              </div> */}
             </>
           )}
         </div>
@@ -271,9 +286,20 @@ const FilmFactory = () => {
             </button>
           ) : (
             <>
-              <button onClick={deploy} disabled={true}>
-                You need {totalSupply} $FILMFACTORY to deploy
+              <button onClick={deploy} disabled={disabled}>
+                {filmFactoryTokenBalance < totalSupply ? (
+                  <>You need {totalSupply} $FILMFACTORY to deploy</>
+                ) : (
+                  <>Deploy using {totalSupply} $FILMFACTORY</>
+                )}
               </button>
+              <div className="balance">
+                {filmFactoryTokenBalance > 0 ? (
+                  <>You have {filmFactoryTokenBalance} $FILMFACTORY.</>
+                ) : (
+                  <>Get $FILMFACTORY in the Internet Camera Discord.</>
+                )}
+              </div>
             </>
           )}
         </div>
@@ -365,6 +391,12 @@ const FilmFactory = () => {
           border-top: 1px dotted #333;
           padding-top: 20px;
           margin-top: 20px;
+        }
+        .balance {
+          margin-top: 15px;
+          font-size: 14px;
+          color: #aaa;
+          text-align: center;
         }
       `}</style>
     </div>

@@ -5,6 +5,7 @@ interface Addresses {
   [key: string]: {
     camera: string;
     filmFactory: string;
+    filmFactoryToken: string;
     forwarder: string;
   };
 }

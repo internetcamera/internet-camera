@@ -3,5 +3,6 @@
   "camera": "0xbb3939AF715630dEf14451789a77052B925f2fe8",
   "filmModelPersonal": "0x041bB12cFee27d2eAe0d2df760756487a84B7b77",
   "filmModelClaimable": "0xA18dEa5cc35660b6Ec20dB1f9E38174214D0b02f",
-  "filmFactory": "0x0e7de779E45bA79aBa849F4F32bF4472ABab70c0"
+  "filmFactoryToken": "0xFc1481f105248BF2da085cB656174d1b577C02E1",
+  "filmFactory": "0x39F0b74C77865c8b8170F52c39c7D43284685557"
 }
