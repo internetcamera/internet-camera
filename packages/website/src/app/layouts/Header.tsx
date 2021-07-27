@@ -75,7 +75,8 @@ const Header = () => {
                   walletconnect: {
                     package: WalletConnectProvider,
                     options: {
-                      infuraId: process.env.NEXT_PUBLIC_INFURA_ID as string
+                      infuraId: process.env.NEXT_PUBLIC_INFURA_ID as string,
+                      bridge: 'https://staging.walletconnect.org'
                     }
                   }
                 }
