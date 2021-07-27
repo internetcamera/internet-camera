@@ -23,7 +23,7 @@ const IndexPage = () => {
       walletConnectProvider.current = new WalletConnectProvider({
         infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
         qrcode: false,
-        bridge: 'https://b.bridge.walletconnect.org'
+        bridge: 'https://bridge.walletconnect.org'
       });
       walletConnectProvider.current.connector.on(
         'display_uri',
