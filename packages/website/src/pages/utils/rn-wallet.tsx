@@ -28,6 +28,7 @@ const IndexPage = () => {
         'display_uri',
         (_err, payload) => {
           const uri = payload.params[0];
+          console.log(uri);
           postMessage('uri', uri);
         }
       );
