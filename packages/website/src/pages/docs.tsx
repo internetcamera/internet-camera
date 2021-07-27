@@ -183,6 +183,15 @@ const Docs: FunctionComponent = () => {
           color: #ccc;
           box-shadow: 0px 0px 4px 1px purple, 1px 1px 4px 0px blue !important;
         }
+        @media (max-width: 768px) {
+          .page {
+            display: block;
+          }
+          .sidebar {
+            display: none;
+            position: relative;
+          }
+        }
       `}</style>
     </div>
   );

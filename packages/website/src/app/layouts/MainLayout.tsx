@@ -25,8 +25,8 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       <div className="testnet">
         <FaExclamationCircle />
         Internet Camera is currently running on test networks only. Photo
-        storage should not be considered permanent. Film and Photos should not
-        be traded for real money on the test networks.
+        storage should not yet be considered permanent. Film and Photos should
+        not be traded for real money on test networks.
       </div>
       <style jsx>{`
         .main-layout {
@@ -92,10 +92,12 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           left: 0;
           right: 0;
           padding: 10px 20px;
-          background-color: hsl(260, 100%, 15%);
+          background-color: hsl(260, 100%, 0%);
           color: #ccc;
           font-size: 16px;
           display: flex;
+          font-weight: bold;
+          letter-spacing: 0.2px;
           align-items: center;
           gap: 10px;
         }
@@ -107,8 +109,16 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
             font-size: 11px;
             font-family: 'Helvetica Now Micro';
             padding: 15px;
+            position: relative;
           }
           .testnet :global(svg) {
+            display: none;
+          }
+          footer {
+            padding-bottom: 40px;
+          }
+          #gradient1,
+          #gradient2 {
             display: none;
           }
         }

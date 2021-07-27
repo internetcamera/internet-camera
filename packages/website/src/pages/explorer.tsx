@@ -149,6 +149,19 @@ const Explorer = () => {
         .section:last-of-type {
           margin-bottom: 0;
         }
+        @media (max-width: 768px) {
+          .explorer {
+            display: block;
+          }
+          .main {
+            display: block;
+          }
+          .sidebar {
+            position: relative;
+            top: 0;
+            margin-bottom: 20px;
+          }
+        }
       `}</style>
     </div>
   );

@@ -8,6 +8,7 @@ import Router from 'next/router';
 import { ContractTransaction, providers } from 'ethers';
 import useSettings from '@app/features/useSettings';
 import useFilmFactoryTokenBalance from '@app/features/useFilmFactoryTokenBalance';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 
 const FilmFactory = () => {
   const gasless = useSettings(state => state.gasless);
@@ -17,7 +18,7 @@ const FilmFactory = () => {
   );
   const [name, setName] = useState('');
   const [symbol, setSymbol] = useState('');
-  const [totalSupply, setTotalSupply] = useState(100);
+  const [totalSupply, setTotalSupply] = useState(5);
   const [description, setDescription] = useState('');
   const [rules, setRules] = useState('');
   const [starts, _setStarts] = useState(new Date());
@@ -281,7 +282,21 @@ const FilmFactory = () => {
         </div>
         <div className="buttons">
           {!account ? (
-            <button onClick={() => connect({})}>
+            <button
+              onClick={() =>
+                connect({
+                  cacheProvider: true,
+                  providerOptions: {
+                    walletconnect: {
+                      package: WalletConnectProvider,
+                      options: {
+                        infuraId: process.env.NEXT_PUBLIC_INFURA_ID as string
+                      }
+                    }
+                  }
+                })
+              }
+            >
               Connect wallet to deploy
             </button>
           ) : (

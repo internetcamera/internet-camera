@@ -63,6 +63,10 @@ const Index: FunctionComponent = () => {
           }
           .subtitle {
             font-size: 18px;
+            margin-bottom: 60px;
+          }
+          .button {
+            font-size: 16px;
           }
         }
       `}</style>

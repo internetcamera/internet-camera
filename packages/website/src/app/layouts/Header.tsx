@@ -2,10 +2,11 @@ import { useWallet } from '@gimmixfactory/use-wallet';
 import { useRouter } from 'next/dist/client/router';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { useWalletFilmForAddress } from '@internetcamera/sdk/dist/react';
 import { BigNumber } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
+import { FaBars } from 'react-icons/fa';
 
 const Header = () => {
   const { route } = useRouter();
@@ -24,13 +25,18 @@ const Header = () => {
         ) || 0
     )
   );
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <header>
       <Link href="/">
         <a className="internet-camera link">Internet Camera</a>
       </Link>
 
-      <div className="navigation">
+      <div className="navigation" onClick={() => setMobileMenuOpen(false)}>
+        <Link href="/">
+          <a className="mobile home">Home</a>
+        </Link>
+
         <Link href="/explorer">
           <a
             className={`link ${route.startsWith('/explorer') ? 'active' : ''}`}
@@ -52,7 +58,11 @@ const Header = () => {
         </Link>
 
         <Link href="/docs">
-          <a className={`link ${route.startsWith('/docs') ? 'active' : ''}`}>
+          <a
+            className={`link desktop-only ${
+              route.startsWith('/docs') ? 'active' : ''
+            }`}
+          >
             Docs
           </a>
         </Link>
@@ -98,7 +108,9 @@ const Header = () => {
           </>
         )}
       </div>
-
+      <div className="mobile-nav" onClick={() => setMobileMenuOpen(true)}>
+        <FaBars />
+      </div>
       <style jsx>{`
         header {
           padding: 20px;
@@ -186,13 +198,54 @@ const Header = () => {
         .join:hover {
           text-decoration: none;
         }
+        .mobile-nav {
+          display: none;
+        }
         @media (max-width: 768px) {
-          .navigation {
+          .connect {
             display: none;
+          }
+          .navigation {
+            pointer-events: ${!mobileMenuOpen ? 'none' : 'default'};
+            opacity: ${!mobileMenuOpen ? 0 : 1};
+            transition: opacity 250ms;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.97);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+          }
+          .link {
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+          }
+          header {
+            padding: 10px 15px;
+            align-items: center;
+          }
+          .internet-camera {
+            font-size: 18px;
           }
           .account,
           .internet-camera {
             width: auto;
+          }
+          .mobile-nav {
+            font-size: 18px;
+            padding: 3px;
+            display: block;
+          }
+          .mobile-nav :global(svg) {
+            display: block;
+          }
+          .desktop-only {
+            display: none;
           }
         }
       `}</style>
