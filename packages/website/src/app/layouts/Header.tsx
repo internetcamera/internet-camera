@@ -119,7 +119,8 @@ const Header = () => {
           justify-content: space-between;
           position: sticky;
           top: 0;
-          background-color: hsla(201, 16%, 8%, 95%);
+          background-color: hsla(171, 18%, 8%, 10%);
+          backdrop-filter: blur(10px);
           z-index: 999;
         }
         .navigation {
