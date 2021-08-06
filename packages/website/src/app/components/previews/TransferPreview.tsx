@@ -1,85 +1,104 @@
-import React from 'react';
+import React from "react";
 import {
   InternetCameraTypes,
-  InternetCameraAddresses
-} from '@internetcamera/sdk';
-import { formatEther } from 'ethers/lib/utils';
-import dayjs from 'dayjs';
+  InternetCameraAddresses,
+} from "@internetcamera/sdk";
+import { formatEther } from "ethers/lib/utils";
+import dayjs from "dayjs";
 
-import Spacer from '../Spacer';
+import Spacer from "../Spacer";
+import ENSNameOrAddress from "../ENSNameOrAddress";
 
 const CHAIN_ID = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
 
 const TransferPreview = ({
-  transferEvent
+  transferEvent,
 }: {
   transferEvent: InternetCameraTypes.TransferEvent;
 }) => {
   return (
     <div className="transfer-preview">
       <div className="message">
-        {transferEvent.type == 'PHOTO' &&
+        {transferEvent.type == "PHOTO" &&
           transferEvent.from.address ==
-            '0x0000000000000000000000000000000000000000' && (
+            "0x0000000000000000000000000000000000000000" && (
             <>
               <div className="tag micro">NEW PHOTO</div>
-              {transferEvent.to.address.slice(0, 6)} posted photo #
-              {parseInt(`${transferEvent.photo?.filmIndex}`) + 1} of{' '}
+              <ENSNameOrAddress
+                address={transferEvent.to.address}
+              ></ENSNameOrAddress>{" "}
+              posted photo #{parseInt(`${transferEvent.photo?.filmIndex}`) + 1}{" "}
+              of{" "}
               {parseFloat(
                 formatEther(transferEvent.photo?.film.totalSupply as string)
-              ).toLocaleString()}{' '}
+              ).toLocaleString()}{" "}
               to {transferEvent.photo?.film.symbol}.
             </>
           )}
 
-        {transferEvent.type == 'PHOTO' &&
+        {transferEvent.type == "PHOTO" &&
           transferEvent.to.address ==
-            '0x0000000000000000000000000000000000000000' && (
+            "0x0000000000000000000000000000000000000000" && (
             <>
               <div className="tag micro">DELETE PHOTO</div>
-              {transferEvent.to.address.slice(0, 6)} deleted a photo.
+              <ENSNameOrAddress
+                address={transferEvent.to.address}
+              ></ENSNameOrAddress>{" "}
+              deleted a photo.
             </>
           )}
 
-        {transferEvent.type == 'FILM' &&
+        {transferEvent.type == "FILM" &&
           transferEvent.from.address ==
-            '0x0000000000000000000000000000000000000000' && (
+            "0x0000000000000000000000000000000000000000" && (
             <>
               <div className="tag micro">NEW FILM</div>
-              {transferEvent.to.address.slice(0, 6)} created{' '}
+              <ENSNameOrAddress
+                address={transferEvent.to.address}
+              ></ENSNameOrAddress>{" "}
+              created{" "}
               {parseFloat(
                 formatEther(transferEvent.film?.totalSupply as string)
-              ).toLocaleString()}{' '}
+              ).toLocaleString()}{" "}
               {transferEvent.film?.symbol}.
             </>
           )}
 
-        {transferEvent.type == 'FILM' &&
+        {transferEvent.type == "FILM" &&
           transferEvent.to.address ==
             InternetCameraAddresses[CHAIN_ID].camera.toLowerCase() && (
             <>
               <div className="tag micro">DEPOSIT</div>
-              {transferEvent.from.address.slice(0, 6)} deposited{' '}
+              <ENSNameOrAddress
+                address={transferEvent.from.address}
+              ></ENSNameOrAddress>{" "}
+              deposited{" "}
               {parseFloat(
                 formatEther(transferEvent.amount as string)
-              ).toLocaleString()}{' '}
+              ).toLocaleString()}{" "}
               {transferEvent.film?.symbol} into the Internet Camera.
             </>
           )}
 
-        {transferEvent.type == 'FILM' &&
+        {transferEvent.type == "FILM" &&
           transferEvent.from.address !=
-            '0x0000000000000000000000000000000000000000' &&
+            "0x0000000000000000000000000000000000000000" &&
           transferEvent.to.address !=
             InternetCameraAddresses[CHAIN_ID].camera.toLowerCase() && (
             <>
               <div className="tag micro">TRANSFER</div>
-              {transferEvent.from.address.slice(0, 6)} sent{' '}
+              <ENSNameOrAddress
+                address={transferEvent.from.address}
+              ></ENSNameOrAddress>{" "}
+              sent{" "}
               {parseFloat(
                 formatEther(transferEvent.amount as string)
-              ).toLocaleString()}{' '}
-              {transferEvent.film?.symbol} to{' '}
-              {transferEvent.to.address.slice(0, 6)}.
+              ).toLocaleString()}{" "}
+              {transferEvent.film?.symbol} to{" "}
+              <ENSNameOrAddress
+                address={transferEvent.to.address}
+              ></ENSNameOrAddress>
+              .
             </>
           )}
       </div>
@@ -90,7 +109,7 @@ const TransferPreview = ({
           href={`https://mumbai.polygonscan.com/tx/${transferEvent.txHash}`}
           target="_blank"
         >
-          {dayjs.unix(transferEvent.createdAt).format('MMMM D, YYYY h:mm:ssa')}{' '}
+          {dayjs.unix(transferEvent.createdAt).format("MMMM D, YYYY h:mm:ssa")}{" "}
           ↗
         </a>
       </div>

@@ -1,17 +1,18 @@
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps } from "next";
 import {
   useWalletFilmForAddress,
-  useWalletPhotosForAddress
-} from '@internetcamera/sdk/dist/react';
+  useWalletPhotosForAddress,
+} from "@internetcamera/sdk/dist/react";
 
-import AddressAvatar from '@app/components/AddressAvatar';
-import PhotoGrid from '@app/components/collections/PhotoGrid';
-import FilmGrid from '@app/components/collections/FilmGrid';
+import AddressAvatar from "@app/components/AddressAvatar";
+import PhotoGrid from "@app/components/collections/PhotoGrid";
+import FilmGrid from "@app/components/collections/FilmGrid";
+import ENSNameOrAddress from "@app/components/ENSNameOrAddress";
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { address }: { address?: string } = ctx.query;
   return {
-    props: { address }
+    props: { address },
   };
 };
 
@@ -30,12 +31,16 @@ const Wallet = ({ address }: { address: string }) => {
         <div className="title">
           <AddressAvatar address={address} size={100} />
         </div>
-        <div className="subtitle">{address.slice(0, 6)}</div>
+        <div className="subtitle">
+          <ENSNameOrAddress address={address}></ENSNameOrAddress>
+        </div>
       </div>
       {filmHoldings && (
         <>
           <h1>Film owned</h1>
-          <FilmGrid films={filmHoldings.map(holding => holding.film as any)} />
+          <FilmGrid
+            films={filmHoldings.map((holding) => holding.film as any)}
+          />
         </>
       )}
       {photos && (
