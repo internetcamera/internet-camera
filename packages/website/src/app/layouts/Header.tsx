@@ -1,24 +1,25 @@
-import { useWallet } from '@gimmixfactory/use-wallet';
-import { useRouter } from 'next/dist/client/router';
-import WalletConnectProvider from '@walletconnect/web3-provider';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import { useWalletFilmForAddress } from '@internetcamera/sdk/dist/react';
-import { BigNumber } from 'ethers';
-import { formatEther } from 'ethers/lib/utils';
-import { FaBars } from 'react-icons/fa';
+import { useWallet } from "@gimmixfactory/use-wallet";
+import { useRouter } from "next/dist/client/router";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import Link from "next/link";
+import React, { useState } from "react";
+import { useWalletFilmForAddress } from "@internetcamera/sdk/dist/react";
+import { BigNumber } from "ethers";
+import { formatEther } from "ethers/lib/utils";
+import { FaBars } from "react-icons/fa";
+import ENSNameOrAddress from "@app/components/ENSNameOrAddress";
 
 const Header = () => {
   const { route } = useRouter();
   const { account, connect } = useWallet();
   const { filmHoldings } = useWalletFilmForAddress(
-    account || '0x0000000000000000000000000000000000000000',
+    account || "0x0000000000000000000000000000000000000000",
     process.env.NEXT_PUBLIC_GRAPH_URL
   );
   const totalHoldings = parseFloat(
     formatEther(
       filmHoldings
-        ?.map(h => h.amount)
+        ?.map((h) => h.amount)
         .reduce(
           (a, b) => BigNumber.from(a).add(BigNumber.from(b)),
           BigNumber.from(0)
@@ -39,20 +40,20 @@ const Header = () => {
 
         <Link href="/explorer">
           <a
-            className={`link ${route.startsWith('/explorer') ? 'active' : ''}`}
+            className={`link ${route.startsWith("/explorer") ? "active" : ""}`}
           >
             Explorer
           </a>
         </Link>
 
         <Link href="/film">
-          <a className={`link ${route.startsWith('/film') ? 'active' : ''}`}>
+          <a className={`link ${route.startsWith("/film") ? "active" : ""}`}>
             Film
           </a>
         </Link>
 
         <Link href="/apps">
-          <a className={`link ${route.startsWith('/apps') ? 'active' : ''}`}>
+          <a className={`link ${route.startsWith("/apps") ? "active" : ""}`}>
             Apps
           </a>
         </Link>
@@ -60,7 +61,7 @@ const Header = () => {
         <Link href="/docs">
           <a
             className={`link desktop-only ${
-              route.startsWith('/docs') ? 'active' : ''
+              route.startsWith("/docs") ? "active" : ""
             }`}
           >
             Docs
@@ -68,7 +69,7 @@ const Header = () => {
         </Link>
 
         <Link href="/about">
-          <a className={`link ${route.startsWith('/about') ? 'active' : ''}`}>
+          <a className={`link ${route.startsWith("/about") ? "active" : ""}`}>
             About
           </a>
         </Link>
@@ -85,10 +86,10 @@ const Header = () => {
                   walletconnect: {
                     package: WalletConnectProvider,
                     options: {
-                      infuraId: process.env.NEXT_PUBLIC_INFURA_ID as string
-                    }
-                  }
-                }
+                      infuraId: process.env.NEXT_PUBLIC_INFURA_ID as string,
+                    },
+                  },
+                },
               })
             }
           >
@@ -103,7 +104,9 @@ const Header = () => {
               {totalHoldings.toLocaleString()} FILM
             </div>
             <Link href={`/explorer/address/${account}`}>
-              <a className="wallet">{account.slice(0, 8)}</a>
+              <a className="wallet">
+                <ENSNameOrAddress address={account}></ENSNameOrAddress>
+              </a>
             </Link>
           </>
         )}
@@ -207,7 +210,7 @@ const Header = () => {
             display: none;
           }
           .navigation {
-            pointer-events: ${!mobileMenuOpen ? 'none' : 'default'};
+            pointer-events: ${!mobileMenuOpen ? "none" : "default"};
             opacity: ${!mobileMenuOpen ? 0 : 1};
             transition: opacity 250ms;
             position: fixed;

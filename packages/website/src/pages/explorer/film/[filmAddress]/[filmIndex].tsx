@@ -1,21 +1,22 @@
-import { GetServerSideProps } from 'next';
-import { usePhoto } from '@internetcamera/sdk/dist/react';
-import { InternetCameraAddresses } from '@internetcamera/sdk';
-import dayjs from 'dayjs';
-import Link from 'next/link';
-import AddressAvatar from '@app/components/AddressAvatar';
+import { GetServerSideProps } from "next";
+import { usePhoto } from "@internetcamera/sdk/dist/react";
+import { InternetCameraAddresses } from "@internetcamera/sdk";
+import dayjs from "dayjs";
+import Link from "next/link";
+import AddressAvatar from "@app/components/AddressAvatar";
+import ENSNameOrAddress from "@app/components/ENSNameOrAddress";
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const {
     filmAddress,
-    tokenId
+    tokenId,
   }: { filmAddress?: string; filmIndex?: string; tokenId?: string } = ctx.query;
   return { props: { filmAddress, tokenId } };
 };
 
 const Photo = ({
   filmAddress,
-  tokenId
+  tokenId,
 }: {
   filmAddress: string;
   filmIndex: string;
@@ -33,7 +34,7 @@ const Photo = ({
           {photo.image && (
             <img
               src={`${photo.image.replace(
-                'ipfs://',
+                "ipfs://",
                 process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
               )}.jpg`}
               width="386"
@@ -44,25 +45,27 @@ const Photo = ({
         <div className="meta">
           <div className="name">{photo.name}</div>
           <div className="date">
-            Posted {dayjs.unix(photo.createdAt).format('MMMM D, YYYY h:mm:ssa')}
+            Posted {dayjs.unix(photo.createdAt).format("MMMM D, YYYY h:mm:ssa")}
           </div>
           <div className="addresses">
             <div className="address">
-              Posted by{' '}
-              <AddressAvatar address={photo.creator.address} size={20} />{' '}
+              Posted by{" "}
+              <AddressAvatar address={photo.creator.address} size={20} />{" "}
               <Link href={`/explorer/address/${photo.creator.address}`}>
                 <a>
-                  {photo.creator.address.slice(0, 6)}...
-                  {photo.creator.address.slice(-4)}
+                  <ENSNameOrAddress
+                    address={photo.owner.address}
+                  ></ENSNameOrAddress>
                 </a>
               </Link>
             </div>
             <div className="address">
-              Held by <AddressAvatar address={photo.owner.address} size={20} />{' '}
+              Held by <AddressAvatar address={photo.owner.address} size={20} />{" "}
               <Link href={`/explorer/address/${photo.owner.address}`}>
                 <a>
-                  {photo.owner.address.slice(0, 6)}...
-                  {photo.owner.address.slice(-4)}
+                  <ENSNameOrAddress
+                    address={photo.owner.address}
+                  ></ENSNameOrAddress>
                 </a>
               </Link>
             </div>
@@ -71,7 +74,7 @@ const Photo = ({
           <div className="links">
             <a
               href={photo.tokenURI.replace(
-                'ipfs://',
+                "ipfs://",
                 process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
               )}
               target="_blank"
@@ -80,7 +83,7 @@ const Photo = ({
             </a>
             <a
               href={photo.image.replace(
-                'ipfs://',
+                "ipfs://",
                 process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
               )}
               target="_blank"

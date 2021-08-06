@@ -1,14 +1,15 @@
-import React from 'react';
-import { InternetCameraTypes } from '@internetcamera/sdk';
-import { usePhoto } from '@internetcamera/sdk/dist/react';
-import Link from 'next/link';
-import dayjs from 'dayjs';
+import React from "react";
+import { InternetCameraTypes } from "@internetcamera/sdk";
+import { usePhoto } from "@internetcamera/sdk/dist/react";
+import Link from "next/link";
+import dayjs from "dayjs";
 
-import AddressAvatar from '../AddressAvatar';
+import AddressAvatar from "../AddressAvatar";
+import ENSNameOrAddress from "../ENSNameOrAddress";
 
 const PhotoPreview = ({
   tokenId,
-  initialData
+  initialData,
 }: {
   tokenId: string;
   initialData?: InternetCameraTypes.Photo;
@@ -24,29 +25,29 @@ const PhotoPreview = ({
       href={
         photo?.film
           ? `/explorer/film/${photo.film.filmAddress}/${photo.filmIndex}?tokenId=${photo.tokenId}`
-          : '#'
+          : "#"
       }
     >
       <a className="photo">
         <img
           src={`${photo?.image?.replace(
-            'ipfs://',
+            "ipfs://",
             process.env.NEXT_PUBLIC_IPFS_GATEWAY as string
-          )}.jpg`}
+          )}`}
           width={photo?.width}
           height={photo?.height}
-          style={{ opacity: 0, transition: 'opacity 200ms' }}
-          onLoad={e => (e.currentTarget.style.opacity = '1')}
+          style={{ opacity: 0, transition: "opacity 200ms" }}
+          onLoad={(e) => (e.currentTarget.style.opacity = "1")}
         />
         {photo && (
           <div className="overlay">
             <div className="name">{photo.name}</div>
             <div className="date">
-              {dayjs.unix(photo.createdAt).format('MMMM D, YYYY h:mm:ssa')}
+              {dayjs.unix(photo.createdAt).format("MMMM D, YYYY h:mm:ssa")}
             </div>
             <div className="creator micro">
               <AddressAvatar address={photo.creator.address} size={20} />
-              {photo.creator.address.slice(0, 6)}
+              <ENSNameOrAddress address={photo.creator.address} />
             </div>
           </div>
         )}
