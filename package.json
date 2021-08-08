@@ -2,7 +2,7 @@
   "name": "internet-camera",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --hoist -- --legacy-peer-deps",
     "chain": "cd packages/contracts && yarn chain",
     "website": "cd packages/website && yarn dev",
     "sdk": "cd packages/sdk && yarn dev",
