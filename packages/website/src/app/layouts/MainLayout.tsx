@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React, { ReactNode } from 'react';
 import Header from './Header';
-import { FaExclamationCircle, FaGithub, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaTwitter } from 'react-icons/fa';
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
