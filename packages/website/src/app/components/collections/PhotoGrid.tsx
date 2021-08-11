@@ -26,7 +26,7 @@ const PhotoGrid = ({ photos }: { photos: InternetCameraTypes.Photo[] }) => {
           width: auto;
         }
         .photo-grid :global(.column) {
-          padding-left: 20px;
+          padding-left: 10px;
           background-clip: padding-box;
         }
       `}</style>

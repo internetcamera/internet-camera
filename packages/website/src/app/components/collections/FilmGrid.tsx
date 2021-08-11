@@ -4,10 +4,11 @@ import { InternetCameraTypes } from '@internetcamera/sdk';
 import FilmPreview from '@app/components/previews/FilmPreview';
 
 const FilmGrid = ({ films }: { films: InternetCameraTypes.Film[] }) => {
+  const filmsFiltered = films.filter(film => film.photos.length > 0);
   return (
     <div className="film-grid">
       <Masonry breakpointCols={3} className="grid" columnClassName="column">
-        {films.map(film => (
+        {filmsFiltered.map(film => (
           <FilmPreview
             key={film.id}
             filmAddress={film.filmAddress}

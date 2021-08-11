@@ -135,7 +135,7 @@ const FilmPreview = ({
           }
           .photos .col-split img {
             height: 50%;
-            background-color: #111;
+            background-color: #2a2a2a;
           }
         `}</style>
       </a>

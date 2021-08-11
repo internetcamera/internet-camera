@@ -17,17 +17,16 @@ const About: FunctionComponent = () => {
           protocol to a publicly governed organization will be available soon.
           <br />
           <br />
-          We are currently looking for help with design (UI + Identity) for our
-          protocol and first-party apps, and input from photographers, filter
+          We are looking for more input and feedback from photographers, filter
           creators, and others working in the existing social camera ecosystem.
           <br />
           <br />
-          Internet Camera was started in Los Angeles, CA.
           <br />
-          <br />
-          <a href="mailto:hello@internet.camera" className="button">
-            Say Hello
-          </a>
+          <div className="buttons">
+            <a href="mailto:hello@internet.camera" className="button">
+              Say Hello
+            </a>
+          </div>
         </div>
       </div>
       <style jsx>{`
@@ -50,6 +49,9 @@ const About: FunctionComponent = () => {
           text-align: left;
           max-width: 740px;
           margin: 0 auto;
+        }
+        .buttons {
+          text-align: center;
         }
         .button {
           text-align: center;

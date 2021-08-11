@@ -20,10 +20,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           <FaTwitter />
         </a>
       </footer>
-      <div id="gradient1" />
-      <div id="gradient2" />
       <div className="testnet">
-        <FaExclamationCircle />
         Internet Camera is currently running on test networks only. Photo
         storage should not yet be considered permanent. Film and Photos should
         not be traded for real money on test networks.
@@ -41,42 +38,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           padding: 15px;
           padding-bottom: 150px;
         }
-        #gradient1 {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          pointer-events: none;
-          width: 200vw;
-          height: 200vh;
-          mix-blend-mode: color;
-          background: radial-gradient(
-            50% 50% at 60% 60%,
-            #03018810 0,
-            rgba(255, 255, 255, 0) 100%
-          );
-          transform: translate(-40vw, -40vh);
-          z-index: 0;
-        }
-        #gradient2 {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          pointer-events: none;
-          width: 200vw;
-          height: 200vh;
-          mix-blend-mode: color;
-          background: radial-gradient(
-            50% 50% at 50% 25%,
-            #01882310 0,
-            rgba(255, 255, 255, 0) 100%
-          );
-          transform: translate(-50vw, -50vh);
-          z-index: 0;
-        }
+
         footer {
           display: flex;
           justify-content: center;
@@ -98,7 +60,6 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
           display: flex;
           font-weight: bold;
           letter-spacing: 0.2px;
-          align-items: center;
           gap: 10px;
         }
         .testnet :global(svg) {
@@ -147,7 +108,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         body {
           margin: 0;
           padding: 0;
-          background-color: hsl(221, 11%, 8%);
+          background-color: hsl(260, 10%, 8%);
           color: white;
         }
         @font-face {

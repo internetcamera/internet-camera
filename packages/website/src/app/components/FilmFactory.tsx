@@ -160,8 +160,11 @@ const FilmFactory = () => {
           />
         </div>
         <div className="form-item">
-          <label># of photos</label>
-          <div className="sublabel">Limited to 1 - 1000.</div>
+          <label>Size of Roll</label>
+          <div className="sublabel">
+            1 or more. This determines the total number of photos that can be
+            posted in this roll.
+          </div>
           <input
             type="number"
             value={totalSupply}

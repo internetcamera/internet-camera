@@ -58,9 +58,7 @@ const PhotoPreview = ({
             transition: 200ms transform;
             display: block;
             background-color: #111;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
           }
           .photo:hover {
             transform: scale(0.99);
@@ -68,8 +66,6 @@ const PhotoPreview = ({
           img {
             width: 100%;
             height: auto;
-            border-radius: 3px;
-            overflow: hidden;
             background: black;
             display: block;
           }

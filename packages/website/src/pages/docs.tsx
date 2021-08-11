@@ -28,7 +28,7 @@ const Docs: FunctionComponent = () => {
             className={`sidebar-header ${tab == 'graphql-api' ? 'active' : ''}`}
             onClick={() => setTab('graphql-api')}
           >
-            GraphQL API
+            Public APIs
           </div>
         </div>
         <div className="section">
@@ -38,15 +38,7 @@ const Docs: FunctionComponent = () => {
             }`}
             onClick={() => setTab('typescript-sdk')}
           >
-            TypeScript SDK
-          </div>
-        </div>
-        <div className="section">
-          <div
-            className={`sidebar-header ${tab == 'react-hooks' ? 'active' : ''}`}
-            onClick={() => setTab('react-hooks')}
-          >
-            React Hooks
+            Javascript / TypeScript SDK
           </div>
         </div>
         <div className="section">
@@ -56,7 +48,7 @@ const Docs: FunctionComponent = () => {
             }`}
             onClick={() => setTab('other-languages')}
           >
-            Other Languages
+            More Languages
           </div>
         </div>
         <div className="section">
@@ -66,7 +58,7 @@ const Docs: FunctionComponent = () => {
             }`}
             onClick={() => setTab('booth-tutorial')}
           >
-            Booth Tutorial
+            Tutorial: Booth
           </div>
         </div>
         <div className="section">
@@ -76,7 +68,7 @@ const Docs: FunctionComponent = () => {
             }`}
             onClick={() => setTab('gallery-tutorial')}
           >
-            Gallery Tutorial
+            Tutorial: Portfolio
           </div>
         </div>
       </div>
@@ -104,6 +96,9 @@ const Docs: FunctionComponent = () => {
               blockchain. This lets creators of Film make money for their work
               directly from their users in many different ways where they have
               complete and independent control.
+              <br />
+              <br />
+              More coming soon.
             </div>
           </>
         ) : (
