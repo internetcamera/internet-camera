@@ -5,7 +5,7 @@ import PlausibleProvider from 'next-plausible';
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <PlausibleProvider domain="internet.camera">
+    <PlausibleProvider domain="internet.camera" exclude="/utils/rn-wallet">
       <MainLayout>
         <Component {...pageProps} />
       </MainLayout>
