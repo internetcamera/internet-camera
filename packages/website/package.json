@@ -9,7 +9,8 @@
   "dependencies": {
     "@gimmixfactory/use-wallet": "^0.0.24",
     "@internetcamera/sdk": "^0.0.65",
-    "@walletconnect/web3-provider": "^1.5.0",
+    "@internetcamera/react-hooks": "^0.0.65",
+    "@walletconnect/web3-provider": "^1.6.0",
     "dayjs": "^1.10.6",
     "ethers": "^5.4.4",
     "graphql": "^15.5.1",

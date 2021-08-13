@@ -9,6 +9,9 @@ type Film @entity {
   startTime: BigInt!
   expireTime: BigInt!
   factoryModel: String
+  description: String
+  terms: String
+  unlisted: Boolean!
   photos: [Photo!]! @derivedFrom(field: "film")
   wallets: [WalletFilm!]! @derivedFrom(field: "film")
   tokenURI: String!
@@ -28,6 +31,7 @@ type Photo @entity {
   height: BigInt!
   filmIndex: BigInt!
   tokenURI: String!
+  deleted: Boolean!
   createdAt: BigInt!
 }
 

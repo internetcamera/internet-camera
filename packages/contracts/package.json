@@ -10,7 +10,6 @@
   "scripts": {
     "deploy-local": "ts-node scripts/deploy.ts --chainId 1337 && cp -R addresses dist",
     "deploy-mumbai": "ts-node scripts/deploy.ts --chainId 80001 && cp -R addresses dist",
-    "prebuild": "patch-package",
     "build": "yarn build:contracts && yarn build:package",
     "prepublishOnly": "yarn build",
     "test": "hardhat test",
@@ -43,10 +42,9 @@
     "hardhat-deploy": "^0.7.5",
     "hardhat-typechain": "^0.3.5",
     "minimist": "^1.2.5",
-    "patch-package": "^6.4.7",
     "ts-node": "^9.1.1",
     "typechain": "^5.1.1",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.5"
   },
   "gitHead": "a919b4370d7d692155ca8fafe902c79d5a162be5"
 }

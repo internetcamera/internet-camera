@@ -47,10 +47,16 @@ export function handleFilmRegistered(event: FilmRegistered): void {
     if (metadata != null) {
       let value = json.fromBytes(metadata as Bytes);
       if (!value.isNull()) {
-        film.factoryModel = value
-          .toObject()
-          .get('factoryModel')
-          .toString();
+        let valueObject = value.toObject();
+        if (valueObject.get('factoryModel'))
+          film.factoryModel = value.toObject().get('factoryModel').toString();
+        if (valueObject.get('description'))
+          film.description = value.toObject().get('description').toString();
+        if (valueObject.get('terms'))
+          film.terms = value.toObject().get('terms').toString();
+        if (valueObject.get('unlisted'))
+          film.unlisted = value.toObject().get('unlisted').toBool();
+        else film.unlisted = false;
       }
     }
   }
@@ -77,32 +83,18 @@ export function handlePhotoPosted(event: PhotoPosted): void {
   photo.owner = creatorWallet.id;
   photo.filmIndex = event.params.filmIndex;
   photo.tokenURI = photoContract.tokenURI(photo.tokenId);
+  photo.deleted = false;
 
   log.info('handlePhotoPosted: tokenURI {}', [photo.tokenURI.toString()]);
   let metadata = ipfs.cat(photo.tokenURI.toString().slice(7));
   if (metadata != null) {
     let value = json.fromBytes(metadata as Bytes);
     if (!value.isNull()) {
-      photo.name = value
-        .toObject()
-        .get('name')
-        .toString();
-      photo.description = value
-        .toObject()
-        .get('description')
-        .toString();
-      photo.image = value
-        .toObject()
-        .get('image')
-        .toString();
-      photo.width = value
-        .toObject()
-        .get('width')
-        .toBigInt();
-      photo.height = value
-        .toObject()
-        .get('height')
-        .toBigInt();
+      photo.name = value.toObject().get('name').toString();
+      photo.description = value.toObject().get('description').toString();
+      photo.image = value.toObject().get('image').toString();
+      photo.width = value.toObject().get('width').toBigInt();
+      photo.height = value.toObject().get('height').toBigInt();
     }
   }
 
@@ -142,6 +134,9 @@ export function handlePhotoTransfer(event: Transfer): void {
   let photo = Photo.load(tokenId.toString());
   if (photo != null) {
     photo.owner = toWallet.id;
+    if (isZeroAddress(toAddress.toHex())) {
+      photo.deleted = true;
+    }
     photo.save();
   }
 
@@ -155,4 +150,8 @@ export function handlePhotoTransfer(event: Transfer): void {
   transferEvent.txHash = event.transaction.hash;
   transferEvent.createdAt = event.block.timestamp;
   transferEvent.save();
+}
+
+function isZeroAddress(string: string): boolean {
+  return string == '0x0000000000000000000000000000000000000000';
 }

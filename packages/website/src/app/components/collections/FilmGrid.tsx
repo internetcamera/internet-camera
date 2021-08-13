@@ -17,6 +17,9 @@ const FilmGrid = ({ films }: { films: InternetCameraTypes.Film[] }) => {
         ))}
       </Masonry>
       <style jsx>{`
+        .film-grid {
+          flex: 1 1 auto;
+        }
         .film-grid :global(.grid) {
           display: flex;
           margin-left: -20px;
