@@ -5,6 +5,7 @@ import { Film, Photo } from './types';
 import InternetCameraAddresses from './utils/addresses';
 import { ContractTransaction } from '@ethersproject/contracts';
 import {
+  getBurnPhotoTypedData,
   getPostPhotoTypedData,
   getSignatureForTypedData
 } from './utils/forwarder';
@@ -469,6 +470,45 @@ export class InternetCamera {
   public graphRequest(gql: string, variables?: Variables): Promise<any> {
     if (!this.graphURL) throw new Error('Missing graphURL.');
     return gqlRequest(this.graphURL, gql, variables);
+  }
+
+  public async burnPhoto(tokenId: string): Promise<ContractTransaction> {
+    if (!this.provider) throw new Error('Missing provider.');
+    if (!this.chainID) throw new Error('Missing chain ID.');
+    if (!this.ipfsURL) throw new Error('Missing IPFS url');
+    return await this.getContract().burn(tokenId);
+  }
+
+  public async burnPhotoGasless(
+    tokenId: string,
+    account: string
+  ): Promise<ContractTransaction> {
+    if (!this.provider) throw new Error('Missing provider.');
+    if (!this.jsonRpcProvider) throw new Error('Missing jsonRpcProvider.');
+    if (!this.forwarderURL) throw new Error('Missing forwarderURL.');
+    const typedData = await getBurnPhotoTypedData(
+      tokenId,
+      account,
+      this.chainID,
+      this.jsonRpcProvider
+    );
+    const { data, signature } = await getSignatureForTypedData(
+      this.provider,
+      typedData
+    );
+    const response = await fetch(this.forwarderURL + '/api/forward', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        data,
+        signature
+      })
+    })
+      .then(res => res.json())
+      .catch(err => console.log(err));
+    return await this.jsonRpcProvider.getTransaction(response.hash);
   }
 }
 

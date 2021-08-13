@@ -20,7 +20,8 @@ const FilmFactory = () => {
   const [symbol, setSymbol] = useState('');
   const [totalSupply, setTotalSupply] = useState(5);
   const [description, setDescription] = useState('');
-  const [rules, setRules] = useState('');
+  const [terms, setTerms] = useState('');
+  const [listed, setListed] = useState(true);
   const [starts, _setStarts] = useState(new Date());
   const [expires, _setExpires] = useState(
     dayjs()
@@ -52,7 +53,10 @@ const FilmFactory = () => {
           symbol,
           parseUnits(`${totalSupply}`, 18),
           Math.floor(starts.getTime() / 1000),
-          Math.floor(expires.getTime() / 1000)
+          Math.floor(expires.getTime() / 1000),
+          description,
+          terms,
+          listed
         );
       } else {
         tx = await factory.deployPersonalFilmGasless(
@@ -61,7 +65,10 @@ const FilmFactory = () => {
           parseUnits(`${totalSupply}`, 18),
           Math.floor(starts.getTime() / 1000),
           Math.floor(expires.getTime() / 1000),
-          account
+          account,
+          description,
+          terms,
+          listed
         );
       }
     } else if (factoryModel == 'claimable') {
@@ -73,7 +80,10 @@ const FilmFactory = () => {
           Math.floor(starts.getTime() / 1000),
           Math.floor(expires.getTime() / 1000),
           parseUnits(`${amountClaimablePerUser}`, 18),
-          maxClaimsPerUser
+          maxClaimsPerUser,
+          description,
+          terms,
+          listed
         );
       } else {
         tx = await factory.deployClaimableFilmGasless(
@@ -84,7 +94,10 @@ const FilmFactory = () => {
           Math.floor(expires.getTime() / 1000),
           parseUnits(`${amountClaimablePerUser}`, 18),
           maxClaimsPerUser,
-          account
+          account,
+          description,
+          terms,
+          listed
         );
       }
     }
@@ -100,7 +113,6 @@ const FilmFactory = () => {
     totalSupply < 1 ||
     totalSupply > 1000 ||
     filmFactoryTokenBalance < totalSupply;
-
   return (
     <div className="film-factory">
       <Dialog
@@ -244,8 +256,8 @@ const FilmFactory = () => {
                   Set guidelines for anyone posting photos to this roll.
                 </div>
                 <textarea
-                  value={rules}
-                  onChange={e => setRules(e.target.value)}
+                  value={terms}
+                  onChange={e => setTerms(e.target.value)}
                 />
               </div>
               <div className="form-item">
@@ -269,8 +281,24 @@ const FilmFactory = () => {
                   or any apps using our SDK. Note: All photos can still be found
                   in open catalogs like OpenSea.
                 </div>
-                <input type="radio" name="publicunlisted" checked /> Public{' '}
-                <input type="radio" name="publicunlisted" disabled /> Unlisted
+                <div onClick={() => setListed(true)} className="radio-option">
+                  <input
+                    type="radio"
+                    name="publicunlisted"
+                    checked={listed}
+                    onChange={e => setListed(e.target.checked)}
+                  />{' '}
+                  Public
+                </div>{' '}
+                <div onClick={() => setListed(false)} className="radio-option">
+                  <input
+                    type="radio"
+                    name="publicunlisted"
+                    checked={!listed}
+                    onChange={e => setListed(!e.target.checked)}
+                  />{' '}
+                  Unlisted
+                </div>
               </div>
               {/* <div className="form-item">
                 <label>Aspect Ratio</label>
@@ -415,6 +443,9 @@ const FilmFactory = () => {
           font-size: 14px;
           color: #aaa;
           text-align: center;
+        }
+        .radio-option {
+          cursor: pointer;
         }
       `}</style>
     </div>

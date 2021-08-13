@@ -11,6 +11,7 @@ import {
   getDeployPersonalFilmTypedData,
   getSignatureForTypedData
 } from './utils/forwarder';
+import { formatEther } from '@ethersproject/units';
 
 export class InternetCameraFilmFactory {
   private ipfsURL: string = 'https://ipfs.internet.camera';
@@ -63,7 +64,10 @@ export class InternetCameraFilmFactory {
     symbol: string,
     totalSupply: BigNumberish,
     starts: BigNumberish,
-    expires: BigNumberish
+    expires: BigNumberish,
+    description: string,
+    terms: string,
+    listed: boolean
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
@@ -71,10 +75,13 @@ export class InternetCameraFilmFactory {
     const metadata = {
       name,
       symbol,
-      totalSupply,
+      totalSupply: parseFloat(formatEther(totalSupply)),
       starts,
       expires,
-      factoryModel: 'personal'
+      factoryModel: 'personal',
+      description,
+      terms,
+      listed
     };
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
     return this.getContract().deployPersonalFilm(
@@ -93,7 +100,10 @@ export class InternetCameraFilmFactory {
     totalSupply: BigNumberish,
     starts: BigNumberish,
     expires: BigNumberish,
-    account: string
+    account: string,
+    description: string,
+    terms: string,
+    listed: boolean
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
@@ -102,10 +112,13 @@ export class InternetCameraFilmFactory {
     const metadata = {
       name,
       symbol,
-      totalSupply,
+      totalSupply: parseFloat(formatEther(totalSupply)),
       starts,
       expires,
-      factoryModel: 'personal'
+      factoryModel: 'personal',
+      description,
+      terms,
+      listed
     };
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
     const typedData = await getDeployPersonalFilmTypedData(
@@ -145,7 +158,10 @@ export class InternetCameraFilmFactory {
     starts: BigNumberish,
     expires: BigNumberish,
     amountClaimablePerUser: BigNumberish,
-    maxClaims: BigNumberish
+    maxClaims: BigNumberish,
+    description: string,
+    terms: string,
+    listed: boolean
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
@@ -153,10 +169,13 @@ export class InternetCameraFilmFactory {
     const metadata = {
       name,
       symbol,
-      totalSupply,
+      totalSupply: parseFloat(formatEther(totalSupply)),
       starts,
       expires,
-      factoryModel: 'claimable'
+      factoryModel: 'claimable',
+      description,
+      terms,
+      listed
     };
 
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
@@ -180,7 +199,10 @@ export class InternetCameraFilmFactory {
     expires: BigNumberish,
     amountClaimablePerUser: BigNumberish,
     maxClaims: BigNumberish,
-    account: string
+    account: string,
+    description: string,
+    terms: string,
+    listed: boolean
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
@@ -189,10 +211,13 @@ export class InternetCameraFilmFactory {
     const metadata = {
       name,
       symbol,
-      totalSupply,
+      totalSupply: parseFloat(formatEther(totalSupply)),
       starts,
       expires,
-      factoryModel: 'claimable'
+      factoryModel: 'claimable',
+      description,
+      terms,
+      listed
     };
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
     const typedData = await getDeployClaimableFilmTypedData(

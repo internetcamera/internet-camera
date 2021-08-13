@@ -4,6 +4,7 @@ import {
   TrustedForwarder__factory,
   InternetCamera__factory,
   InternetCameraFilmFactory__factory,
+  BasicFilm__factory,
   ClaimableFilm__factory
 } from '@internetcamera/contracts';
 import InternetCameraAddresses from './addresses';
@@ -188,6 +189,71 @@ export const getClaimFilmTypedData = async (
   const gasLimit = await film.estimateGas['claimFilm'](account, {
     from: account
   });
+  const gasLimitNum = Number(gasLimit.toNumber().toString());
+  const forwarder = TrustedForwarder__factory.connect(
+    InternetCameraAddresses[chainID].forwarder,
+    jsonRpcProvider
+  );
+  const nonce = await forwarder.getNonce(account);
+  const request = {
+    from: account,
+    to: filmAddress,
+    value: 0,
+    gas: gasLimitNum,
+    nonce: nonce.toNumber(),
+    data
+  };
+  const dataToSign = await getDataToSignForEIP712(request, chainID);
+  return dataToSign;
+};
+
+export const getBurnPhotoTypedData = async (
+  tokenId: string,
+  account: string,
+  chainID: number,
+  jsonRpcProvider: JsonRpcProvider
+) => {
+  const camera = InternetCamera__factory.connect(
+    InternetCameraAddresses[chainID].camera,
+    jsonRpcProvider
+  );
+  const { data } = await camera.populateTransaction['burn'](tokenId);
+  const gasLimit = await camera.estimateGas['burn'](tokenId, { from: account });
+  const gasLimitNum = Number(gasLimit.toNumber().toString());
+  const forwarder = TrustedForwarder__factory.connect(
+    InternetCameraAddresses[chainID].forwarder,
+    jsonRpcProvider
+  );
+  const nonce = await forwarder.getNonce(account);
+  const request = {
+    from: account,
+    to: InternetCameraAddresses[chainID].camera,
+    value: 0,
+    gas: gasLimitNum,
+    nonce: nonce.toNumber(),
+    data
+  };
+  const dataToSign = await getDataToSignForEIP712(request, chainID);
+  return dataToSign;
+};
+
+export const getBurnFilmTypedData = async (
+  filmAddress: string,
+  amount: BigNumberish,
+  account: string,
+  chainID: number,
+  jsonRpcProvider: JsonRpcProvider
+) => {
+  const film = BasicFilm__factory.connect(filmAddress, jsonRpcProvider);
+  const { data } = await film.populateTransaction['transfer'](
+    InternetCameraAddresses[chainID].camera,
+    amount
+  );
+  const gasLimit = await film.estimateGas['transfer'](
+    InternetCameraAddresses[chainID].camera,
+    amount,
+    { from: account }
+  );
   const gasLimitNum = Number(gasLimit.toNumber().toString());
   const forwarder = TrustedForwarder__factory.connect(
     InternetCameraAddresses[chainID].forwarder,
