@@ -1,6 +1,6 @@
 {
   "name": "@internetcamera/sdk",
-  "version": "0.0.64",
+  "version": "0.0.65",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,7 +21,7 @@
     "@ethersproject/strings": "^5.4.0",
     "@ethersproject/transactions": "^5.4.0",
     "@ethersproject/units": "^5.4.0",
-    "@internetcamera/contracts": "^0.0.64",
+    "@internetcamera/contracts": "^0.0.65",
     "eth-sig-util": "^3.0.1",
     "graphql": "^15.5.1",
     "graphql-request": "^3.4.0",
