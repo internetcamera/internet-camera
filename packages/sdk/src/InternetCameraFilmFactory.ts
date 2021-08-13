@@ -67,7 +67,7 @@ export class InternetCameraFilmFactory {
     expires: BigNumberish,
     description: string,
     terms: string,
-    listed: boolean
+    unlisted: boolean
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
@@ -81,7 +81,7 @@ export class InternetCameraFilmFactory {
       factoryModel: 'personal',
       description,
       terms,
-      listed
+      unlisted
     };
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
     return this.getContract().deployPersonalFilm(
@@ -103,7 +103,7 @@ export class InternetCameraFilmFactory {
     account: string,
     description: string,
     terms: string,
-    listed: boolean
+    unlisted: boolean
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
@@ -118,7 +118,7 @@ export class InternetCameraFilmFactory {
       factoryModel: 'personal',
       description,
       terms,
-      listed
+      unlisted
     };
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
     const typedData = await getDeployPersonalFilmTypedData(
@@ -161,7 +161,7 @@ export class InternetCameraFilmFactory {
     maxClaims: BigNumberish,
     description: string,
     terms: string,
-    listed: boolean
+    unlisted: boolean
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
@@ -175,7 +175,7 @@ export class InternetCameraFilmFactory {
       factoryModel: 'claimable',
       description,
       terms,
-      listed
+      unlisted
     };
 
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
@@ -202,7 +202,7 @@ export class InternetCameraFilmFactory {
     account: string,
     description: string,
     terms: string,
-    listed: boolean
+    unlisted: boolean
   ): Promise<ContractTransaction> {
     if (!this.provider) throw new Error('Missing provider.');
     if (!this.chainID) throw new Error('Missing chain ID.');
@@ -217,7 +217,7 @@ export class InternetCameraFilmFactory {
       factoryModel: 'claimable',
       description,
       terms,
-      listed
+      unlisted
     };
     const tokenURI = await this._uploadMetadataToIPFS(metadata);
     const typedData = await getDeployClaimableFilmTypedData(

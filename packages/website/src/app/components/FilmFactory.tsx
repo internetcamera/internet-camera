@@ -21,13 +21,9 @@ const FilmFactory = () => {
   const [totalSupply, setTotalSupply] = useState(5);
   const [description, setDescription] = useState('');
   const [terms, setTerms] = useState('');
-  const [listed, setListed] = useState(true);
+  const [unlisted, setUnlisted] = useState(false);
   const [starts, _setStarts] = useState(new Date());
-  const [expires, _setExpires] = useState(
-    dayjs()
-      .add(1000, 'years')
-      .toDate()
-  );
+  const [expires, _setExpires] = useState(dayjs().add(1000, 'years').toDate());
   const [amountClaimablePerUser, setAmountClaimablePerUser] = useState(1);
   const [maxClaimsPerUser, setMaxClaimsPerUser] = useState(1);
   const { account, provider, connect } = useWallet();
@@ -56,7 +52,7 @@ const FilmFactory = () => {
           Math.floor(expires.getTime() / 1000),
           description,
           terms,
-          listed
+          unlisted
         );
       } else {
         tx = await factory.deployPersonalFilmGasless(
@@ -68,7 +64,7 @@ const FilmFactory = () => {
           account,
           description,
           terms,
-          listed
+          unlisted
         );
       }
     } else if (factoryModel == 'claimable') {
@@ -83,7 +79,7 @@ const FilmFactory = () => {
           maxClaimsPerUser,
           description,
           terms,
-          listed
+          unlisted
         );
       } else {
         tx = await factory.deployClaimableFilmGasless(
@@ -97,7 +93,7 @@ const FilmFactory = () => {
           account,
           description,
           terms,
-          listed
+          unlisted
         );
       }
     }
@@ -281,21 +277,24 @@ const FilmFactory = () => {
                   or any apps using our SDK. Note: All photos can still be found
                   in open catalogs like OpenSea.
                 </div>
-                <div onClick={() => setListed(true)} className="radio-option">
+                <div
+                  onClick={() => setUnlisted(false)}
+                  className="radio-option"
+                >
                   <input
                     type="radio"
                     name="publicunlisted"
-                    checked={listed}
-                    onChange={e => setListed(e.target.checked)}
+                    checked={!unlisted}
+                    onChange={e => setUnlisted(false)}
                   />{' '}
                   Public
                 </div>{' '}
-                <div onClick={() => setListed(false)} className="radio-option">
+                <div onClick={() => setUnlisted(true)} className="radio-option">
                   <input
                     type="radio"
                     name="publicunlisted"
-                    checked={!listed}
-                    onChange={e => setListed(!e.target.checked)}
+                    checked={unlisted}
+                    onChange={e => setUnlisted(true)}
                   />{' '}
                   Unlisted
                 </div>
