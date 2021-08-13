@@ -237,40 +237,40 @@ export const getBurnPhotoTypedData = async (
   return dataToSign;
 };
 
-export const getBurnFilmTypedData = async (
-  filmAddress: string,
-  amount: BigNumberish,
-  account: string,
-  chainID: number,
-  jsonRpcProvider: JsonRpcProvider
-) => {
-  const film = BasicFilm__factory.connect(filmAddress, jsonRpcProvider);
-  const { data } = await film.populateTransaction['transfer'](
-    InternetCameraAddresses[chainID].camera,
-    amount
-  );
-  const gasLimit = await film.estimateGas['transfer'](
-    InternetCameraAddresses[chainID].camera,
-    amount,
-    { from: account }
-  );
-  const gasLimitNum = Number(gasLimit.toNumber().toString());
-  const forwarder = TrustedForwarder__factory.connect(
-    InternetCameraAddresses[chainID].forwarder,
-    jsonRpcProvider
-  );
-  const nonce = await forwarder.getNonce(account);
-  const request = {
-    from: account,
-    to: filmAddress,
-    value: 0,
-    gas: gasLimitNum,
-    nonce: nonce.toNumber(),
-    data
-  };
-  const dataToSign = await getDataToSignForEIP712(request, chainID);
-  return dataToSign;
-};
+// export const getBurnFilmTypedData = async (
+//   filmAddress: string,
+//   amount: BigNumberish,
+//   account: string,
+//   chainID: number,
+//   jsonRpcProvider: JsonRpcProvider
+// ) => {
+//   const film = BasicFilm__factory.connect(filmAddress, jsonRpcProvider);
+//   const { data } = await film.populateTransaction['transfer'](
+//     InternetCameraAddresses[chainID].camera,
+//     amount
+//   );
+//   const gasLimit = await film.estimateGas['transfer'](
+//     InternetCameraAddresses[chainID].camera,
+//     amount,
+//     { from: account }
+//   );
+//   const gasLimitNum = Number(gasLimit.toNumber().toString());
+//   const forwarder = TrustedForwarder__factory.connect(
+//     InternetCameraAddresses[chainID].forwarder,
+//     jsonRpcProvider
+//   );
+//   const nonce = await forwarder.getNonce(account);
+//   const request = {
+//     from: account,
+//     to: filmAddress,
+//     value: 0,
+//     gas: gasLimitNum,
+//     nonce: nonce.toNumber(),
+//     data
+//   };
+//   const dataToSign = await getDataToSignForEIP712(request, chainID);
+//   return dataToSign;
+// };
 
 export const getSignatureForTypedData = async (
   provider: JsonRpcProvider,
