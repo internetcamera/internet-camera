@@ -4,7 +4,6 @@ import {
   TrustedForwarder__factory,
   InternetCamera__factory,
   InternetCameraFilmFactory__factory,
-  BasicFilm__factory,
   ClaimableFilm__factory
 } from '@internetcamera/contracts';
 import InternetCameraAddresses from './addresses';
