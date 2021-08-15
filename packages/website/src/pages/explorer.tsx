@@ -9,15 +9,15 @@ const Explorer = () => {
   const [seeOption, setSeeOption] = useState<'photos' | 'films' | 'activity'>(
     'photos'
   );
+  // const [viewAs, setViewAs] = useState<'list' | 'grid'>('grid');
   return (
     <div className="explorer">
       <div className="main">
         <div className="sidebar">
           <div className="section">
-            <div className="sidebar-header micro">Search for</div>
             <input
               type="text"
-              placeholder="Wallet or film address..."
+              placeholder="Search for photos, film, or wallets..."
               value={address}
               onChange={e => setAddress(e.target.value)}
             />
@@ -68,6 +68,25 @@ const Explorer = () => {
               Oldest → Newest
             </div>
           </div>
+          {/* <div className="section">
+            <div className="sidebar-header micro">View as</div>
+            <div
+              onClick={() => setViewAs('grid')}
+              className={`sidebar-button micro ${
+                viewAs == 'grid' ? 'sidebar-button-selected' : ''
+              }`}
+            >
+              Grid
+            </div>
+            <div
+              onClick={() => setViewAs('list')}
+              className={`sidebar-button micro ${
+                viewAs == 'list' ? 'sidebar-button-selected' : ''
+              }`}
+            >
+              List
+            </div>
+          </div> */}
         </div>
         {seeOption == 'photos' && (
           <PhotoExplorer address={address} orderDirection={orderDirection} />
@@ -91,17 +110,12 @@ const Explorer = () => {
           display: flex;
           justify-content: stretch;
           align-items: flex-start;
-          gap: 20px;
+          gap: 40px;
           padding-bottom: 80px;
         }
         .sidebar {
           position: sticky;
-          top: 85px;
-          background-color: rgba(0, 0, 0, 0.4);
-          box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px,
-            rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
-          border-radius: 3px;
-          padding: 20px;
+          top: 90px;
           min-width: 300px;
           min-height: 200px;
         }

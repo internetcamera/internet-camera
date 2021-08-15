@@ -4,7 +4,6 @@ import InternetCamera from '../InternetCamera';
 import { Photo } from '../types';
 
 const useRecentPhotosFromFilm = (
-  limit: number,
   filmAddress: string,
   graphURL?: string,
   swrOptions?: Partial<SWRConfiguration>
@@ -15,9 +14,8 @@ const useRecentPhotosFromFilm = (
     error,
     mutate
   } = useSWR<Photo[]>(
-    [limit, filmAddress, 'icdk-react-use-recent-photos-from-film'],
-    (limit, filmAddress) =>
-      camera.current.getRecentPhotosFromFilm(limit, filmAddress),
+    [filmAddress, 'icdk-react-use-recent-photos-from-film'],
+    filmAddress => camera.current.getRecentPhotosFromFilm(filmAddress),
     { revalidateOnMount: true, ...swrOptions }
   );
   return { photos, error, refresh: mutate };

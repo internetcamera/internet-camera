@@ -181,7 +181,7 @@ export class InternetCamera {
     return photo;
   }
 
-  public async getRecentPhotos(limit: number = 10): Promise<Photo[]> {
+  public async getRecentPhotos(limit: number = 1000): Promise<Photo[]> {
     const { photos } = await this.graphRequest(gql`
       {
         photos(first: ${limit}, orderBy: createdAt, orderDirection: desc) {
@@ -215,13 +215,10 @@ export class InternetCamera {
     return photos;
   }
 
-  public async getRecentPhotosFromFilm(
-    limit: number,
-    filmAddress: string
-  ): Promise<Photo[]> {
+  public async getRecentPhotosFromFilm(filmAddress: string): Promise<Photo[]> {
     const { photos } = await this.graphRequest(gql`
       {
-        photos(first: ${limit}, where: {film: "${filmAddress.toLowerCase()}"}, orderBy: createdAt, orderDirection: desc) {
+        photos(where: {film: "${filmAddress.toLowerCase()}"}, orderBy: createdAt, orderDirection: desc) {
           id
           tokenId
           creator {
@@ -299,7 +296,7 @@ export class InternetCamera {
     return film;
   }
 
-  public async getRecentFilms(limit: number = 10): Promise<Film[]> {
+  public async getRecentFilms(limit: number = 1000): Promise<Film[]> {
     const { films } = await this.graphRequest(gql`
       {
         films(first: ${limit}, orderBy: createdAt, orderDirection: desc) {
@@ -424,7 +421,7 @@ export class InternetCamera {
     return wallet;
   }
 
-  public async getRecentTransferEvents(limit: number = 10): Promise<any> {
+  public async getRecentTransferEvents(limit: number = 1000): Promise<any> {
     const { transferEvents } = await this.graphRequest(gql`
       {
         transferEvents(first: ${limit}, orderBy: createdAt, orderDirection: desc) {

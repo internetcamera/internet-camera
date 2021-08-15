@@ -1,3 +1,13 @@
+type _Schema_
+  @fulltext(
+    name: "photoSearch"
+    language: en
+    algorithm: rank
+    include: [
+      { entity: "Photo", fields: [{ name: "name" }, { name: "description" }] }
+    ]
+  )
+
 type Film @entity {
   id: ID!
   filmAddress: Bytes!
