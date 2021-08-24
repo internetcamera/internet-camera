@@ -3,6 +3,7 @@ export type Film = {
   filmAddress: string;
   creator: Wallet;
   name: string;
+  description: string;
   symbol: string;
   used: string;
   totalSupply: string;
