@@ -15,7 +15,7 @@ import { formatEther } from '@ethersproject/units';
 
 export class InternetCameraFilmFactory {
   private ipfsURL: string = 'https://ipfs.internet.camera';
-  private forwarderURL: string = 'https://tx.internet.camera/api/forward';
+  private forwarderURL: string = 'https://tx.internet.camera';
   private chainID: number = 80001;
   private provider?: Web3Provider;
   private jsonRpcProvider?: JsonRpcProvider;

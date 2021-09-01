@@ -7,7 +7,7 @@ import {
 } from '../utils/forwarder';
 
 export class ClaimableFilm {
-  private forwarderURL: string = 'https://tx.internet.camera/api/forward';
+  private forwarderURL: string = 'https://tx.internet.camera';
   private chainID: number = 80001;
   private provider?: Web3Provider;
   private jsonRpcProvider?: JsonRpcProvider;

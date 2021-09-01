@@ -15,7 +15,7 @@ export class InternetCamera {
   private graphURL: string =
     'https://api.thegraph.com/subgraphs/name/shahruz/ic-mumbai-one';
   private ipfsURL: string = 'https://ipfs.internet.camera';
-  private forwarderURL: string = 'https://tx.internet.camera/api/forward';
+  private forwarderURL: string = 'https://tx.internet.camera';
   private chainID: number = 80001;
   private provider?: Web3Provider;
   private jsonRpcProvider?: JsonRpcProvider;
