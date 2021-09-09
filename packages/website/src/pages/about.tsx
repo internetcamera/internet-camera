@@ -8,7 +8,7 @@ const About: FunctionComponent = () => {
           Public infrastructure for the next era of camera products.
         </div>
         <div className="subtitle">
-          The Internet Camera protocol is currently in running in a private
+          The Internet Camera protocol is currently running in a private
           beta, and documentation is coming soon.
           <br />
           <br />
