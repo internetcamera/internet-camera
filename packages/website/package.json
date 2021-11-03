@@ -7,7 +7,7 @@
     "start": "next"
   },
   "dependencies": {
-    "@gimmixorg/use-wallet": "^0.0.28",
+    "@gimmixorg/use-wallet": "^0.0.30",
     "@internetcamera/sdk": "^0.0.70",
     "@walletconnect/web3-provider": "^1.6.0",
     "dayjs": "^1.10.6",
