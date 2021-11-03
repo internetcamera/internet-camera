@@ -1,6 +1,6 @@
 import Dialog from '@app/components/Dialog';
 import getMumbaiMatic, { getFaucetValue } from '@app/features/getMumbaiMatic';
-import { useWallet } from '@gimmixfactory/use-wallet';
+import { useWallet } from '@gimmixorg/use-wallet';
 import React from 'react';
 import useSWR from 'swr';
 

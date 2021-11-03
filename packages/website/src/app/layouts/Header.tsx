@@ -1,4 +1,4 @@
-import { useWallet } from '@gimmixfactory/use-wallet';
+import { useWallet } from '@gimmixorg/use-wallet';
 import { useRouter } from 'next/dist/client/router';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Link from 'next/link';

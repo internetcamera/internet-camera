@@ -1,4 +1,4 @@
-import { useWallet } from '@gimmixfactory/use-wallet';
+import { useWallet } from '@gimmixorg/use-wallet';
 import useSWR from 'swr';
 import { InternetCameraFilmFactory } from '@internetcamera/sdk';
 import { providers } from 'ethers';

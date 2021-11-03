@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useWallet } from '@gimmixfactory/use-wallet';
+import { useWallet } from '@gimmixorg/use-wallet';
 import dayjs from 'dayjs';
 import Dialog from '@app/components/Dialog';
 import { InternetCameraFilmFactory } from '@internetcamera/sdk';

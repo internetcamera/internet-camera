@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useFilm } from '@internetcamera/sdk/dist/react';
 import { formatEther } from 'ethers/lib/utils';
 import PhotoGrid from '@app/components/collections/PhotoGrid';
-import { useWallet } from '@gimmixfactory/use-wallet';
+import { useWallet } from '@gimmixorg/use-wallet';
 import { useState } from 'react';
 import useSettings from '@app/features/useSettings';
 import { ContractTransaction, providers } from 'ethers';
