@@ -1,38 +1,38 @@
-import React, { useEffect, useRef } from "react";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import Head from "next/head";
-import { providers } from "ethers";
-import create from "zustand";
+import React, { useEffect, useRef } from 'react';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+import Head from 'next/head';
+import { providers } from 'ethers';
+import create from 'zustand';
 
 type StoreState = {
   provider?: providers.Web3Provider;
   account?: string;
 };
 
-const useStore = create<StoreState>((set) => ({
+const useStore = create<StoreState>(set => ({
   provider: undefined,
-  account: undefined,
+  account: undefined
 }));
 
 const IndexPage = () => {
   const walletConnectProvider = useRef<WalletConnectProvider>();
-  const account = useStore((state) => state.account);
+  const account = useStore(state => state.account);
 
   useEffect(() => {
     (async () => {
       walletConnectProvider.current = new WalletConnectProvider({
         infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
-        qrcode: false,
+        qrcode: false
       });
       walletConnectProvider.current.connector.on(
-        "display_uri",
+        'display_uri',
         (_err, payload) => {
           const uri = payload.params[0];
           console.log(uri);
-          postMessage("uri", uri);
+          postMessage('uri', uri);
         }
       );
-      walletConnectProvider.current.connector.on("connect", () => refresh());
+      walletConnectProvider.current.connector.on('connect', () => refresh());
       await walletConnectProvider.current.enable();
     })();
   }, []);
@@ -46,13 +46,13 @@ const IndexPage = () => {
     }
     const account = (await provider.listAccounts())[0];
     useStore.setState({ account });
-    postMessage("account", account);
+    postMessage('account', account);
   };
 
   const disconnect = async () => {
     await walletConnectProvider.current?.disconnect();
     await useStore.setState({ provider: undefined, account: undefined });
-    postMessage("account", null);
+    postMessage('account', null);
     setTimeout(() => location.reload(), 500);
   };
 
@@ -70,7 +70,7 @@ const IndexPage = () => {
     <div className="index">
       <Head>
         <title>gm cam</title>
-        <link key="icon" rel="shortcut icon" href="/static/cam-icon.png" />
+        <link key="icon" rel="shortcut icon" href="/static/gm-cam-icon.png" />
       </Head>
       {account && (
         <>
@@ -89,7 +89,7 @@ const IndexPage = () => {
           bottom: 0;
           background-color: black;
           color: white;
-          font-family: ui-rounded, "SF Pro Rounded", system-ui, san-serif;
+          font-family: ui-rounded, 'SF Pro Rounded', system-ui, san-serif;
           z-index: 100000000;
           overflow-y: auto;
           display: flex;
@@ -121,7 +121,7 @@ const signTypedData = async (message: string) => {
   const signature = await provider
     .getSigner()
     ._signTypedData(data.domain, data.types, data.message);
-  postMessage("signature", signature);
+  postMessage('signature', signature);
 };
 
 export default IndexPage;
