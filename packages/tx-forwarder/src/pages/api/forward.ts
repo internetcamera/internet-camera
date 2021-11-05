@@ -2,7 +2,7 @@ import { NextApiHandler } from 'next';
 import { TrustedForwarder__factory } from '@internetcamera/contracts';
 import { InternetCameraAddresses } from '@internetcamera/sdk';
 import { Wallet } from 'ethers';
-import { JsonRpcProvider } from '@ethersproject/providers';
+import { providers } from 'ethers';
 
 const api: NextApiHandler = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,17 +14,19 @@ const api: NextApiHandler = async (req, res) => {
   if (req.method == 'POST') {
     const {
       data,
-      signature
+      signature,
+      forwarderAddress
     }: {
       data: any;
       signature: string;
+      forwarderAddress?: string;
     } = req.body;
     const wallet = new Wallet(
       process.env.PRIVATE_KEY as string,
-      new JsonRpcProvider(process.env.RPC_URL)
+      new providers.JsonRpcProvider(process.env.RPC_URL as string)
     );
     const forwarder = TrustedForwarder__factory.connect(
-      InternetCameraAddresses[80001].forwarder,
+      forwarderAddress || InternetCameraAddresses[80001].forwarder,
       wallet
     );
 
