@@ -15,15 +15,17 @@ const api: NextApiHandler = async (req, res) => {
     const {
       data,
       signature,
-      forwarderAddress
+      forwarderAddress,
+      rpcUrl
     }: {
       data: any;
       signature: string;
       forwarderAddress?: string;
+      rpcUrl?: string;
     } = req.body;
     const wallet = new Wallet(
       process.env.PRIVATE_KEY as string,
-      new providers.JsonRpcProvider(process.env.RPC_URL as string)
+      new providers.JsonRpcProvider(rpcUrl || (process.env.RPC_URL as string))
     );
     const forwarder = TrustedForwarder__factory.connect(
       forwarderAddress || InternetCameraAddresses[80001].forwarder,
