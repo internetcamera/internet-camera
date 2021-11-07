@@ -35,8 +35,6 @@ const api: NextApiHandler = async (req, res) => {
     console.log({ forwarderAddress, rpcUrl });
     const tx = await forwarder.execute(data.message, signature);
     console.log(tx);
-    await tx.wait();
-    console.log(tx);
     return res.json(tx);
   } else {
     res.send('');
