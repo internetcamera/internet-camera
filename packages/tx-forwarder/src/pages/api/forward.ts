@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next';
 import { TrustedForwarder__factory } from '@internetcamera/contracts';
 import { InternetCameraAddresses } from '@internetcamera/sdk';
-import { Wallet } from 'ethers';
+import { utils, Wallet } from 'ethers';
 import { providers } from 'ethers';
 
 const api: NextApiHandler = async (req, res) => {
@@ -34,7 +34,7 @@ const api: NextApiHandler = async (req, res) => {
 
     const tx = await forwarder.execute(data.message, signature, {
       gasLimit: Math.floor(data.message.gas * 2.5),
-      gasPrice: 40
+      gasPrice: utils.parseUnits('40', 'gwei')
     });
     return res.json(tx);
   } else {
