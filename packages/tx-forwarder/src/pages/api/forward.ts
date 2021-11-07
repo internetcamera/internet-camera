@@ -23,6 +23,8 @@ const api: NextApiHandler = async (req, res) => {
       forwarderAddress?: string;
       rpcUrl?: string;
     } = req.body;
+    console.log({ forwarderAddress, rpcUrl });
+
     const wallet = new Wallet(
       process.env.PRIVATE_KEY as string,
       new providers.JsonRpcProvider(rpcUrl || (process.env.RPC_URL as string))
