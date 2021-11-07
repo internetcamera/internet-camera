@@ -33,10 +33,9 @@ const api: NextApiHandler = async (req, res) => {
       wallet
     );
     console.log({ forwarderAddress, rpcUrl });
-    const tx = await forwarder.execute(data.message, signature, {
-      gasLimit: Math.floor(data.message.gas * 2.5),
-      gasPrice: utils.parseUnits('40', 'gwei')
-    });
+    const tx = await forwarder.execute(data.message, signature);
+    console.log(tx);
+    await tx.wait();
     console.log(tx);
     return res.json(tx);
   } else {
