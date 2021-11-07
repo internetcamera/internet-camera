@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next';
 import { TrustedForwarder__factory } from '@internetcamera/contracts';
 import { InternetCameraAddresses } from '@internetcamera/sdk';
-import { utils, Wallet } from 'ethers';
+import { Wallet } from 'ethers';
 import { providers } from 'ethers';
 
 const api: NextApiHandler = async (req, res) => {
