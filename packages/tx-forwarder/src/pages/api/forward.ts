@@ -33,7 +33,8 @@ const api: NextApiHandler = async (req, res) => {
     );
 
     const tx = await forwarder.execute(data.message, signature, {
-      gasLimit: Math.floor(data.message.gas * 2.5)
+      gasLimit: Math.floor(data.message.gas * 2.5),
+      gasPrice: 40
     });
     return res.json(tx);
   } else {
