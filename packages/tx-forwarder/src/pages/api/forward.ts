@@ -23,7 +23,6 @@ const api: NextApiHandler = async (req, res) => {
       forwarderAddress?: string;
       rpcUrl?: string;
     } = req.body;
-    console.log({ forwarderAddress, rpcUrl });
 
     const wallet = new Wallet(
       process.env.PRIVATE_KEY as string,
@@ -33,6 +32,7 @@ const api: NextApiHandler = async (req, res) => {
       forwarderAddress || InternetCameraAddresses[80001].forwarder,
       wallet
     );
+    console.log({ forwarderAddress, rpcUrl });
     const tx = await forwarder.execute(data.message, signature, {
       gasLimit: Math.floor(data.message.gas * 2.5),
       gasPrice: utils.parseUnits('40', 'gwei')
