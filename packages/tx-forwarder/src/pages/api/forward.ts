@@ -31,7 +31,9 @@ const api: NextApiHandler = async (req, res) => {
       forwarderAddress || InternetCameraAddresses[80001].forwarder,
       wallet
     );
-    const tx = await forwarder.execute(data.message, signature);
+    const tx = await forwarder.execute(data.message, signature, {
+      gasLimit: Math.floor(data.message.gas * 2.5)
+    });
     return res.json(tx);
   } else {
     res.send('');
